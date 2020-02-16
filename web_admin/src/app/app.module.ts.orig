@@ -1,0 +1,54 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import {LocationStrategy, HashLocationStrategy,PathLocationStrategy} from '@angular/common';
+import { HttpConfigInterceptor } from './interceptors/httpConfig.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS,HttpClient } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home.component';
+import { DashboardComponent } from './components/home/dashboard/dashboard.component';
+import {RegisterModule} from './components/register/register.module'
+import {AuthGuard} from './common/auth.guard'
+import { FormsModule, ReactiveFormsModule }         from '@angular/forms';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {UserModule} from './components/user/user.module'
+import {CustomerModule} from './components/customer/customer.module'
+import {ServiceModule} from './services/service.module'
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {LazyLoadScriptService} from './common/lazyLoadScript';
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+   DashboardComponent
+  ],
+  imports: [
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    RegisterModule,
+    ReactiveFormsModule ,
+    FormsModule,
+      UserModule,
+    CustomerModule,
+    ServiceModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
+  ],
+  providers: [
+    
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    AuthGuard,
+    LazyLoadScriptService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}

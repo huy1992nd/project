@@ -1,0 +1,22 @@
+<div class="role-select">
+  <button class="update-permission" mat-stroked-button mat-button color="primary" (click)="updateRole()">Cập nhật</button>
+</div>
+<ul class="permission_block">
+  <li class="permission_block_list" *ngFor="let module of listPermissionShow">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{module.name}}</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <section class="example-section" *ngFor="let permission of module.data">
+          <mat-checkbox 
+          [(ngModel)]="permission.status"
+          class="example-margin" >{{permission.display_name}}</mat-checkbox>
+        </section>
+      </mat-card-content>
+      <mat-card-actions>
+      </mat-card-actions>
+    </mat-card>
+  </li>
+</ul>

@@ -1,0 +1,9 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+.idea/*
+node_modules/*
+logs/*
+log/*
+.vs/*
+client/node_modules/*
+server/node_modules/*
+.history/*

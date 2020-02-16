@@ -1,0 +1,21 @@
+<figure class="background"> <img src="../../../../assets/img/login_bg.jpg" alt="Adminux- sign in "> </figure>
+<div class="signup-component">
+  <div class="animated fadeIn">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <mat-card *ngIf="!isLoading">
+      <mat-card-title>
+        <h4>Đăng ký</h4>
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()" class="signup-component__form">
+          <mat-form-field>
+            <input formControlName="codeVerify" matInput placeholder="Nhập mã xác nhận">
+          </mat-form-field>
+          <div>
+            <p>Bạn không nhận được mã xác nhận từ mail? <a (click)="resendVerifyCode()">Gửi lại</a></p>
+          </div> 
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

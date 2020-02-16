@@ -1,0 +1,103 @@
+<figure class="background"> <img src="../../../../assets/img/login_bg.jpg" alt="Adminux- sign in "> </figure>
+<div class="login-component" (mousemove)="onMouseMove($event)" [style]="radicalValue">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div class="animated fadeIn" *ngIf="!isLoading">
+    <mat-card>
+      <mat-card-title>
+        <h4>{{ 'loginScreen.titleLoginForm' | translate }}</h4>
+      </mat-card-title>
+      <mat-card-content>
+
+        <form [formGroup]="form" (ngSubmit)="submit()" class="login-component__form">
+
+          <mat-form-field>
+            <input formControlName="account_id" matInput placeholder="{{'loginScreen.placeholderAccount' | translate}}">
+            <mat-error *ngFor="let validation of account_validation_messages.account_id">
+              <mat-error class="error-message"
+                *ngIf="form.get('account_id').hasError(validation.type) && (form.get('account_id').dirty || form.get('account_id').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input formControlName="password" matInput placeholder="{{'loginScreen.placeholderPassword' | translate}}"
+              [type]="!showPassword ? 'password' : 'text'" ngDefaultControl>
+            <mat-icon matSuffix (click)="showPassword = !showPassword"
+              [svgIcon]="!showPassword? 'visibility-off': 'visibility'"></mat-icon>
+            <mat-error *ngFor="let validation of account_validation_messages.password">
+              <mat-error class="error-message"
+                *ngIf="form.get('password').hasError(validation.type) && (form.get('password').dirty || form.get('password').touched)">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <div class="checkbox">
+            <!-- <mat-checkbox formControlName="rememberAccount">Lưu tài khoản</mat-checkbox> -->
+            <span class="pull-right">
+              <a [routerLink]="['/quen-mat-khau']">{{'loginScreen.buttonForgotPass' | translate}}</a>
+            </span>
+          </div>
+
+          <div>
+            <button type="submit" mat-flat-button color="primary">{{'loginScreen.buttonLoginText' | translate}}</button>
+          </div>
+        </form>
+        <div class="login-component__signup-navigator">
+          <p>{{'loginScreen.textRegister' | translate}} <a
+              [routerLink]="['/register']">{{'loginScreen.buttonRegister' | translate}}</a></p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<!-- 
+<figure class="background"> <img src="../../../../assets/img/login_bg.jpg" alt="Adminux- sign in "> </figure>
+
+<div  *ngIf="isLoading" class="loader_wrapper inner align-items-center text-center">
+  <div class="load7 load-wrapper">
+    <div class="loading_img"></div>
+    <div class="loader"> Loading... </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+
+<header class="navbar-fixed">
+    <nav class="navbar navbar-toggleable-md sign-in-header">
+      <div class="sidebar-left">  <a class="navbar-brand imglogo" href="index.html"></a> </div>
+      <div class="col"></div>
+      <div class="sidebar-right pull-right" >
+        <ul class="navbar-nav  justify-content-end">
+          <li><a href="index.html" class="btn btn-primary " >Đăng kí</a></li>
+        </ul>
+      </div>
+    </nav>
+</header>
+<div class="wrapper-content-sign-in " *ngIf="!isLoading">
+  <div class="container text-center">
+    <form class="form-signin1 smallbox" [formGroup]="form"   >
+      <h2 class="tex-black mb-4">Đăng nhập</h2>
+      <label  class="sr-only">Tài khoản:</label>
+      <input type="text" formControlName="account_id" class="form-control" placeholder="Nhập tài khoản" >
+      <br>
+      <label class="sr-only">Mật khẩu</label>
+      <input type="password"  formControlName="password" class="form-control" placeholder="Nhập mật khẩu" >
+      <br>
+      <div class="checkbox">
+        <label class="form-check-label active text-white">
+          <input type="checkbox" formControlName= "remember_account" class="form-check-input">
+          <i class="fa fa-check"></i></label>
+        Lưu tài khoản </div>
+      <a  (click)= "login()" class="btn btn-lg btn-primary btn-round">Đăng nhập</a><br>
+      <a href="" class="btn btn-link mt-2 text-white">Quên mật khẩu ?</a>
+    </form>
+    <p class="mt-3"> Bạn chưa có tài khoản ? <a  [routerLink]="['/register']" class="text-white">Đăng kí</a>!</p>
+  </div>
+ 
+</div>
+ 
+
+
+ -->

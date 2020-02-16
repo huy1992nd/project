@@ -1,0 +1,74 @@
+<div class="gc-add-group-dialog">
+  <h1 mat-dialog-title>{{ 'user_add.add_new_user' | translate }}</h1>
+  <form [formGroup]="createUser" (ngSubmit)="submit()">
+    <div mat-dialog-content>
+
+      <!-- <input formControlName="create_account" matInput type="text"> -->
+
+      <mat-form-field>
+        <input formControlName="user_name" matInput placeholder="{{ 'user_add.input_name' | translate }}">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="account_id" matInput placeholder="{{ 'user_add.input_account_id' | translate }}">
+
+        <mat-error *ngFor="let validation of account_validation_messages.account_id">
+          <mat-error class="error-message"
+            *ngIf="createUser.get('account_id').hasError(validation.type) && (createUser.get('account_id').dirty || createUser.get('account_id').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="password" matInput placeholder="{{ 'user_add.input_pasword' | translate }}"
+          [type]="!showPassword ? 'password' : 'text'" ngDefaultControl>
+        <mat-icon matSuffix (click)="showPassword = !showPassword"
+          [svgIcon]="!showPassword? 'visibility-off': 'visibility'"></mat-icon>
+
+        <mat-error *ngFor="let validation of account_validation_messages.password">
+          <mat-error class="error-message"
+            *ngIf="createUser.get('password').hasError(validation.type) && (createUser.get('password').dirty || createUser.get('password').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="confirm_password" matInput placeholder="{{ 'user_add.input_confirm_pasword' | translate }}"
+          [type]="!showConfirmPassword ? 'password' : 'text'" ngDefaultControl
+          [errorStateMatcher]="confirmPasswordValidator">
+        <mat-icon matSuffix (click)="showConfirmPassword = !showConfirmPassword"
+          [svgIcon]="!showConfirmPassword? 'visibility-off': 'visibility'"></mat-icon>
+        <mat-error *ngFor="let validation of account_validation_messages.confirm_password">
+          <mat-error class="error-message"
+            *ngIf="createUser.get('password').hasError(validation.type) && (createUser.get('password').dirty || createUser.get('password').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="mail" matInput placeholder="{{ 'user_add.input_email' | translate }}">
+        <mat-error *ngFor="let validation of account_validation_messages.email">
+          <mat-error class="error-message"
+            *ngIf="createUser.get('mail').hasError(validation.type) && (createUser.get('mail').dirty || createUser.get('mail').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="phone_number" type="number" matInput placeholder="{{ 'user_add.input_phone_number' | translate }}">
+        <mat-error *ngFor="let validation of account_validation_messages.phone_number">
+          <mat-error class="error-message"
+            *ngIf="createUser.get('phone_number').hasError(validation.type) && (createUser.get('phone_number').dirty || createUser.get('phone_number').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+      <div class="gc-add-group-dialog__button-group">
+        <button mat-stroked-button color="primary"  cdkFocusInitial>{{ 'user_add.add_user_btn' | translate }}</button>
+      </div>
+    </div>
+  </form>
+</div>

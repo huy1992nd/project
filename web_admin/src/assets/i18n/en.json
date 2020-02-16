@@ -1,0 +1,45 @@
+{
+	"create-permission": {
+		"AddButton": "Create",
+		"Language": "Language",
+		"PlaceholderDisplayname": "Display name",
+		"PlaceholderName": "Name",
+		"Title": "Add new permission",
+		"PlaceholderModule":"Module",
+		"PlaceholderDescription":"Description"
+	},
+	"update-permission": {
+		"AddButton": "Update",
+		"Language": "Language",
+		"PlaceholderDisplayname": "Display name",
+		"PlaceholderName": "Name",
+		"Title": "Add new permission",
+		"PlaceholderModule":"Module",
+		"PlaceholderDescription":"Description"
+	},
+	"homeScreen": {
+		"dashboard": "Dashboard"
+	},
+	"list-permission": {
+		"Action": "Action",
+		"CreateDate": "Create date",
+		"DeleteAction": "Delete",
+		"DisplayName": "Display name",
+		"Language": "Language",
+		"Name": "Name",
+		"NoData": "Has no data to display",
+		"SearchPlaceholder": "Find by name",
+		"TextCreatePermission": "Add permission",
+		"Title": "List permission",
+		"UpdateAction": "Update "
+	},
+	"loginScreen": {
+		"buttonForgotPass": "Forgotten password ?",
+		"buttonLoginText": "Login",
+		"buttonRegister": "Register here",
+		"placeholderAccount": "Account",
+		"placeholderPassword": "Password",
+		"textRegister": "Create new account ?",
+		"titleLoginForm": "Login"
+	}
+}

@@ -1,0 +1,143 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.table-no-data-row>td>div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 3rem;
+    font-weight: 500;
+    color: rgb(150, 150, 150);
+    overflow: hidden;
+}
+.table-no-data-row.has-data,
+.table-no-data-row.has-data div {
+    height: 0px;
+}
+
+table {
+    width: 100%;
+    border-spacing: 10px !important;
+}
+thead tr {
+    text-align: center;
+}
+
+th.table-waiting-header-row {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 20px;
+    color: #fdfdfd;
+    line-height: 30px;
+    padding: 10px;
+}
+
+/* 
+**   Custom Style
+*/
+
+.card-wrapper {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.card-title {
+    margin: 20px 0px 20px;
+}
+
+
+.pushNotifycation {
+    background: #FFFFA2;
+}
+
+mat-icon {
+    vertical-align: sub;
+}
+
+svg {
+    vertical-align: initial;
+}
+
+mat-icon[svgIcon='search'] {
+    color: gray;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-select.ng-dirty:not(.mat-select-empty) .mat-select-arrow-wrapper{
+    visibility: hidden;
+}
+
+.no-service-provided {
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(234, 234, 234);
+    padding: 10px;
+}
+
+/* 
+** expansion panel styling
+*/
+
+.expansion-panel-header__content-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.expansion-panel-header__content-wrapper>div {
+    width: 45%;
+    display: flex;
+    align-items: center;
+}
+
+* 
+** notification styling
+*/
+
+[class~='ui-pnotify'] {
+    color: #fff;
+    /* box-shadow: 0px 6px 28px 0px rgba(0, 0, 0, 0.1); */
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+    border-radius: 5px;
+}
+
+.notify-success {
+    background-color:#5CB811;
+    color: #fff;
+}
+
+.notify-error {
+    background-color: #f44336;
+}
+
+/* 
+** custom button styling
+*/
+
+/* 
+** ANIMATION
+*/
+
+@keyframes spinner-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

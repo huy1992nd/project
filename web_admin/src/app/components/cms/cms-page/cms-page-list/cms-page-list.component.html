@@ -1,0 +1,68 @@
+<div class="row  align-items-center justify-content-between">
+    <div class="col-11 col-sm-12 page-title">
+        <h3><i class="fa fa-sitemap "></i> Trang tĩnh</h3>
+        <p>Danh sách trang tĩnh</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-16">
+        <table mat-table [dataSource]="listPost" class="mat-elevation-z8">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef width="100">#ID. </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="post_title">
+                <th mat-header-cell *matHeaderCellDef> Tiêu đề </th>
+                <td mat-cell *matCellDef="let element"> {{element.post_title}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="thumbnail">
+                <th mat-header-cell *matHeaderCellDef> Ảnh đại diện </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element.thumbnail !== null; then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock>
+                        <img src="{{element.thumbnail}}" class="img-responsive" width="120">
+                    </ng-template>
+                    <ng-template #elseBlock>
+                        <img src="./assets/img/no-image.jpg" class="img-responsive" width="120">
+                    </ng-template>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="post_author">
+                <th mat-header-cell *matHeaderCellDef> Chuyên mục </th>
+                <td mat-cell *matCellDef="let element"> {{element.post_author}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="post_status">
+                <th mat-header-cell *matHeaderCellDef> Trạng thái </th>
+                <td mat-cell *matCellDef="let element"> {{element.post_status}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="create_date">
+                <th mat-header-cell *matHeaderCellDef> Ngày khởi tạo </th>
+                <td mat-cell *matCellDef="let element"> {{element.create_date}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="thaotac">
+                <th mat-header-cell *matHeaderCellDef width="150"> </th>
+                <td mat-cell *matCellDef="let element">
+                    <a [routerLink]="['/cms/page/edit', element.id]" class=" btn btn-link btn-sm "><i class="fa fa-edit"></i></a>
+                    <a (click)="deletePost(element.id)" class="btn btn-link btn-sm" data-toggle="confirmation" data-url="">
+                        <i class="fa fa-trash-o "></i>
+                    </a>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator 
+            [length]="100"
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+    </div>
+</div>

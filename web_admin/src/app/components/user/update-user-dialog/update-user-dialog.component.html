@@ -1,0 +1,46 @@
+<div class="gc-add-group-dialog">
+  <h1 mat-dialog-title>{{ 'user_update.change_infor_user' | translate }}</h1>
+  <form [formGroup]="updateUser" (ngSubmit)="submit()">
+    <div mat-dialog-content>
+
+      <mat-form-field>
+        <input formControlName="user_name" matInput placeholder="{{ 'user_update.input_name' | translate }}">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="mail" matInput placeholder="{{ 'user_update.input_email' | translate }}">
+        <mat-error *ngFor="let validation of account_validation_messages.email">
+          <mat-error class="error-message"
+            *ngIf="updateUser.get('mail').hasError(validation.type) && (updateUser.get('mail').dirty || updateUser.get('mail').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="address" matInput placeholder="{{ 'user_update.input_address' | translate }}">
+        <mat-error *ngFor="let validation of account_validation_messages.email">
+          <mat-error class="error-message"
+            *ngIf="updateUser.get('address').hasError(validation.type) && (updateUser.get('address').dirty || updateUser.get('address').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="phone_number" type="number" matInput placeholder="{{ 'user_update.input_phone_number' | translate }}">
+        <mat-error *ngFor="let validation of account_validation_messages.phone_number">
+          <mat-error class="error-message"
+            *ngIf="updateUser.get('phone_number').hasError(validation.type) && (updateUser.get('phone_number').dirty || updateUser.get('phone_number').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div mat-dialog-actions>
+      <div class="gc-add-group-dialog__button-group">
+        <!-- <button mat-button (click)="onNoClick(false)">Quay lại</button> -->
+        <button type="submit" mat-stroked-button color="primary"  cdkFocusInitial>Cập nhật</button>
+      </div>
+    </div>
+  </form>
+</div>
