@@ -1,0 +1,15 @@
+<div class="gc-delete-group-dialog">
+        <h1 mat-dialog-title>Xác nhận xóa Role</h1>
+        <div mat-dialog-content>
+          <p>Bạn chắc chắn muốn xóa role này: <strong>{{role.name}}</strong></p>
+      </div>
+          
+          
+          <div class="gc-add-group-dialog__button-group">
+            <button  (click)="confirmRemoveRole()" mat-flat-button color="primary" cdkFocusInitial>Delete</button>
+            <button mat-button (click)="onNoClick(false)">Back</button>
+          </div>
+      </div>
+    
+    
+      

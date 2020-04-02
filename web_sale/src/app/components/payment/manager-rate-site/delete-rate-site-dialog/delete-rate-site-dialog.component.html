@@ -1,0 +1,11 @@
+<div class="delete-item-confirm-dialog">
+    <h1 mat-dialog-title>Bạn có thực sự muốn xóa không</h1>
+    <div mat-dialog-content>
+      <p>Xóa thông tin rate</p>
+  
+      <div class="delete-item-confirm-dialog__button-group">
+        <button (click)="submit()" mat-stroked-button color="warn">{{ 'user.confirm' | translate }}</button>
+        <button (click)="onNoClick(false)" mat-stroked-button>{{ 'user.not_confirm' | translate }}</button>
+      </div>
+    </div>
+  </div>

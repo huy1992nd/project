@@ -1,0 +1,91 @@
+<header class="navbar-fixed">
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-faded">
+      <div class="sidebar-left"> <a class="navbar-brand imglogo" href="index.html"></a>
+        <button class="btn btn-link icon-header mr-sm-2 pull-right menu-collapse" ><span class="fa fa-bars"></span></button>
+      </div>
+      <form class="form-inline mr-sm-2  pull-left search-header hidden-md-down">
+        <input class="form-control " type="text" placeholder="Search" id="search_header">
+        <button class="btn btn-link icon-header " type="submit"><span class="fa fa-search"></span></button>
+      </form>
+      <div class="d-flex mr-auto"> &nbsp;</div>
+      <ul class="navbar-nav content-right">
+      
+        <li class="nav-item hidden-xs-down">
+          <button class="btn btn-link icon-header " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-th"></span> </button>
+          <div class="dropdown-menu message-container box-links">
+            <div class="list-unstyled"> <a href="?#" class="media"> <span class="quick-block "><span class="fa fa-bullhorn"></span></span> </a> <a href="?#" class="media"> <span class="quick-block "><span class="fa fa-bell-o"></span></span> </a> <a href="?#" class="media"> <span class="quick-block "><span class="fa fa-calendar"></span></span> </a> <a href="?#" class="media"> <span class="quick-block "><span class="fa fa-id-card"></span></span> </a> <a href="?#" class="media"> <span class="quick-block "><span class="fa fa-handshake-o"></span></span> </a> <a href="?#" class="media"> <span class="quick-block "><span class="fa fa-camera-retro"></span></span> </a> <a href="?#" class="media"> <span class="quick-block "><span class="fa fa-flask"></span></span> </a> <a href="?#" class="media"> <span class="quick-block "><span class="fa fa-plane"></span></span> </a> <a href="?#" class="media"> <span class="quick-block "><span class="fa fa-pie-chart"></span></span> </a> </div>
+          </div>
+        </li>
+        <li class="v-devider"></li>
+        <li class="nav-item "> <a class="btn btn-link icon-header menu-collapse-right" href="#"><span class="fa fa-podcast"></span> </a> </li>
+        <li class="nav-item">
+            <select #langSelect (change)="translate.use(langSelect.value)">
+                <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+              </select>
+        </li>
+      </ul>
+      <div class="sidebar-right pull-right " >
+        <ul class="navbar-nav  justify-content-end">
+          <li class="nav-item">
+            <button class="btn-link btn userprofile"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="userpic"><img src="./assets/img/user-header.png" alt="user pic"></span> <span class="text">Maxartkiller</span></button>
+            <div class="dropdown-menu"> <a class="dropdown-item" href="customerprofile.html">Profile</a> <a class="dropdown-item" href="#">Analytics Report</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Setting</a> </div>
+          </li>
+          <li><a href="sign-in2.html" class="btn btn-link icon-header" ><span class="fa fa-sign-out"></span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <div class="sidebar-left" >
+ 
+
+    <ul class="nav flex-column in" id="side-menu">
+      <li class="title-nav">MENU</li>
+      <li class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">{{ 'homeScreen.dashboard' | translate }}<i class="fa fa-angle-down "></i></a>
+   
+        <!-- /.nav-second-level --> 
+      </li>     
+      <li class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">Quản lý người chơi<i class="fa fa-angle-down "></i></a>
+        <ul class="nav flex-column nav-second-level  in" >
+          <li class="nav-item active"><a [routerLink]="['/customer']" class="nav-link  active"><i class="fa fa-globe"></i> Danh sách người chơi</a></li>
+        </ul>
+     
+      </li>    
+      <li class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">Forex<i class="fa fa-angle-down "></i></a>
+
+      <li class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">Quản lý websites<i class="fa fa-angle-down "></i></a>
+      </li>    
+      <li class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">Quản lý phân quyền <i class="fa fa-angle-down "></i></a>
+        <li class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">Quản lý thanh toán <i class="fa fa-angle-down "></i></a>
+      </li>    
+      <li class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">Quản lý logs<i class="fa fa-angle-down "></i></a>
+      </li>    
+      <li class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">Quản lý mails<i class="fa fa-angle-down "></i></a>
+      </li>    
+    </ul>
+    <br>
+    <br>
+  </div>
+  <div class="wrapper-content">
+        <div class="container">
+    <router-outlet></router-outlet>
+</div>
+    <footer class="footer-content ">
+      <div class="container ">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-md-16 col-lg-8 col-xl-8">This template is designed by <a href="http://www.maxartkiller.in" target="_blank" class="">www.maxartkiller.in</a></div>
+          <div class="col-md-16 col-lg-8 col-xl-8 text-right"><a href="#" target="_blank" class="">Privacy Policy</a> | <a href="#" target="_blank" class="">Terms of use</a> </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <div class="search-block">
+  </div>
+  <div class="sidebar-right">
+
+  </div>
+  <!-- themepicker modal starts -->
+  <div class="modal fade" id="themepicker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  
+  </div>

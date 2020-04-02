@@ -1,0 +1,13 @@
+.delete-item-confirm-dialog__product-name {
+  font-weight: 500;
+}
+
+.delete-item-confirm-dialog__button-group {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.delete-item-confirm-dialog__button-group button {
+  margin-right: 10px;
+}

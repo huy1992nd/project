@@ -1,0 +1,52 @@
+<div class="gc-add-group-dialog">
+  <h1 mat-dialog-title>{{ 'bank_add.add_new_bank' | translate }}</h1>
+  <form [formGroup]="createBank" (ngSubmit)="submit()">
+    <div mat-dialog-content>
+      <mat-form-field>
+        <input formControlName="country_code" matInput placeholder="Mã đất nước">
+        <mat-error *ngFor="let validation of account_validation_messages.country_code">
+          <mat-error class="error-message"
+            *ngIf="createBank.get('country_code').hasError(validation.type) && (createBank.get('country_code').dirty || createBank.get('country_code').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+          <label><strong>Ngân hàng</strong></label>
+        <mat-select formControlName="bank_code">
+          <mat-option *ngFor="let bank of listBank" [value]="bank.code">{{bank.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="account_number" matInput placeholder="Số tài khoản">
+        <mat-error *ngFor="let validation of account_validation_messages.account_number">
+          <mat-error class="error-message"
+            *ngIf="createBank.get('account_number').hasError(validation.type) && (createBank.get('account_number').dirty || createBank.get('account_number').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="account_user_name" matInput placeholder="Tên tài khoản">
+        <mat-error *ngFor="let validation of account_validation_messages.account_user_name">
+          <mat-error class="error-message"
+            *ngIf="createBank.get('account_user_name').hasError(validation.type) && (createBank.get('account_user_name').dirty || createBank.get('account_user_name').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="branch" matInput placeholder="Tên chi nhánh">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input formControlName="deposit" matInput placeholder="Deposit">
+      </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+      <div class="gc-add-group-dialog__button-group">
+        <button mat-stroked-button color="primary"  cdkFocusInitial>{{ 'bank_add.add_bank_btn' | translate }}</button>
+      </div>
+    </div>
+  </form>
+</div>

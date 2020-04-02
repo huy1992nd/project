@@ -1,0 +1,48 @@
+.login-component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
+h1, h2, h3, h4, h5, h6 {
+    color: darkslategrey;
+}
+
+.login-component__form {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    min-width: 350px;
+}
+
+.login-component__form>* {
+    width: 100%;
+}
+
+.login-component__form button {
+    width: 100%;
+}
+
+mat-icon {
+    cursor: pointer;
+}
+
+.login-component__signup-navigator {
+    margin-top: 10px;
+}
+
+.login-component__signup-navigator p {
+    font-size: 12px;
+    text-align: right;
+    margin-bottom: 0px;
+}
+
+.login-component__signup-navigator a {
+    font-style: italic;
+    font-weight: 600;
+}
+
+h4 {
+    font-weight: 500;
+}

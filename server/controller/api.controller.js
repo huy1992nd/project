@@ -23,7 +23,7 @@ var mysqlController = require('./mysql/mysql.controller');
 const config = require('config'); 
 let socketServer = require('./socket/socket.server')
 let { log,logHacker } = require('./../lib/log');
-let redisController = require('./redis.controlller');
+// let redisController = require('./redis.controlller');
 let rolesConfig = require('./routes/roles.config')
 
 class ApiController {
@@ -92,8 +92,9 @@ class ApiController {
       }
     });
     this.app.use( (req, res, next) =>{
-      if(!req.headers.domain)
+      if(!req.headers.domain){
         return res.json({  resultCode: global.define.ResultCode.INCORRECT_DATA });
+      }
 
       next();
     });
@@ -131,7 +132,8 @@ class ApiController {
   }
 
   IntWeb() {
-    // this.app.use(express.static(path.join(__dirname, './../../web/dist/web')));
+    console.log('path', path.join(__dirname, './../../web'));
+    // this.app.use(express.static(path.join(__dirname, './../../web')));
     // this.app.use(express.static(path.join(__dirname, './../../../html')));
     this.app.use(express.static(path.join(__dirname, './../uploads')));
   }
@@ -150,14 +152,15 @@ class ApiController {
   }
   
   async VerifyPermission(account_id,url){
-    if(!rolesConfig.API_PERMISSION[url])
-          return true;
-    if(!account_id)
-      return false;
-    let permissions = await redisController.GetUserPermission(account_id);
-    if(!permissions || !permissions[rolesConfig.API_PERMISSION[url]])
-        return false;
-    else return true;
+    return true;
+    // if(!rolesConfig.API_PERMISSION[url])
+    //       return true;
+    // if(!account_id)
+    //   return false;
+    // let permissions = await redisController.GetUserPermission(account_id);
+    // if(!permissions || !permissions[rolesConfig.API_PERMISSION[url]])
+    //     return false;
+    // else return true;
   }
 }
 

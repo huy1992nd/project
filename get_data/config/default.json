@@ -1,0 +1,10 @@
+{
+    "dbURL" : "mongodb://huy:huy%40123!@52.77.238.57:27017/song?authSource=admin",
+    "dbuser" : "admin",
+    "dbpass" : "123",
+    "timezone" : "Asia/Ho_Chi_Minh",
+    "port" : "3300",
+    "useNewUrlParser": true,
+    "shortBaseUrl": "",
+    "appURL": ""
+}

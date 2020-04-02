@@ -1,0 +1,49 @@
+<div class="gc-add-group-dialog">
+    <h1 mat-dialog-title>Thêm rate co site</h1>
+    <form [formGroup]="createRate" (ngSubmit)="submit()">
+        <div mat-dialog-content>
+            <mat-form-field>
+                <mat-select formControlName="right">
+                    <mat-option *ngFor="let c of listCurrencies" [value]="c.code">{{c.code}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select formControlName="left">
+                    <mat-option *ngFor="let c of listCurrencies" [value]="c.code">{{c.code}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngFor="let validation of account_validation_messages.left">
+                    <mat-error class="error-message"
+                        *ngIf="createRate.get('left').hasError(validation.type) && (createRate.get('left').dirty || createRate.get('left').touched)">
+                        {{validation.message}}</mat-error>
+                </mat-error>
+
+            </mat-form-field>
+            <mat-form-field>
+                <input type="number" formControlName="rate" matInput placeholder="Tỷ giá">
+                <mat-error *ngFor="let validation of account_validation_messages.rate">
+                    <mat-error class="error-message"
+                        *ngIf="createRate.get('rate').hasError(validation.type) && (createRate.get('rate').dirty || createRate.get('rate').touched)">
+                        {{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <label><strong>Loại</strong></label>
+                <mat-select formControlName="type">
+                    <mat-option *ngFor="let type of listType" [value]="type.value">{{type.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions >
+            <div class="gc-add-group-dialog__button-group" >
+                <div class="" style="
+                    color: red;
+                    width: 100%;
+                " *ngIf="createRate.hasError('checkDifferent') && createRate.get('right').touched && createRate.get('left').touched"> Right phải khác left</div>
+                <button mat-stroked-button color="primary" cdkFocusInitial>Tạo rate</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,12 @@
+<div class="delete-item-confirm-dialog">
+    <h1 mat-dialog-title>{{(user.active == 1 ? 'user.confirm_block_title' : 'user.confirm_active_title') | translate}}</h1>
+    <div mat-dialog-content>
+      <p>{{(user.active == 1 ? 'user.confirm_block_message' : 'user.confirm_active_message') | translate}}</p>
+      <p class="delete-item-confirm-dialog__product-name">{{user.account_id}}</p>
+  
+      <div class="delete-item-confirm-dialog__button-group">
+        <button (click)="submit()" mat-stroked-button color="warn">{{ 'user.confirm' | translate }}</button>
+        <button (click)="onNoClick(false)" mat-stroked-button>{{ 'user.not_confirm' | translate }}</button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-sm-16">
+    <div class="card">
+      <div class="card-header" style="display: flex;">
+        <h5 class="card-title">Danh sách phí nạp rút tiền của site</h5>
+      </div>
+      <div class="card-body">
+          <form [formGroup]="searchForm">
+          <div class="row  align-items-center justify-content-between">
+              <div class="col-2 col-sm-3 ">
+                
+                  <mat-form-field>
+                      <input #user_name  formControlName="search_str" matInput placeholder="Tìm theo type ">
+                      <mat-icon 
+                        [svgIcon]="user_name.value=='' ? 'search': 'close'" matSuffix></mat-icon>
+                    </mat-form-field>
+  
+              </div>
+              <div *ngIf="listSite.length > 1">
+                <mat-form-field>
+                    <mat-label>List Site</mat-label>
+                    <mat-select formControlName="site" >
+                      <mat-option>All</mat-option>
+                      <mat-option *ngFor="let site of listSite" [value]="site">{{site}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+              
+            </div>
+          </form> 
+          <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="listData " multiTemplateDataRows>
+                <!-- number -->
+                <ng-container matColumnDef="number">
+                  <th mat-header-cell *matHeaderCellDef> # </th>
+                  <td mat-cell *matCellDef="let publisher; let i = dataIndex"> {{i+1}} </td>
+                </ng-container>
+                <!-- name -->
+                <ng-container matColumnDef="site">
+                  <th mat-header-cell *matHeaderCellDef>Site </th>
+                  <td mat-cell *matCellDef="let publisher; let i = index"> {{publisher.site}} </td>
+                </ng-container>
+                <!-- name -->
+                <ng-container matColumnDef="type">
+                  <th mat-header-cell *matHeaderCellDef>Type </th>
+                  <td mat-cell *matCellDef="let publisher; let i = index"> {{publisher.type}} </td>
+                </ng-container>
+                   <!-- name -->
+                   <ng-container matColumnDef="fee">
+                      <th mat-header-cell *matHeaderCellDef> Phí </th>
+                      <td mat-cell *matCellDef="let publisher; let i = index"> {{publisher.fee}} </td>
+                    </ng-container>    
+                <!-- email -->
+                <ng-container matColumnDef="promotion_id">
+                  <th mat-header-cell *matHeaderCellDef>Ưu đãi </th>
+                  <td mat-cell *matCellDef="let publisher; let i = index"> {{publisher.promotion_id}} </td>
+                </ng-container>
+            
+                <!-- email -->
+                <ng-container matColumnDef="description">
+                  <th mat-header-cell *matHeaderCellDef>Mô tả </th>
+                  <td mat-cell *matCellDef="let publisher; let i = index"> {{publisher.description }} </td>
+                </ng-container>
+            
+                <!-- expanded Detail -->
+                <ng-container matColumnDef="expandedDetail">
+                  <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                    <div [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'" class="detail-row-content">
+                      <app-update-fee-site  *ngIf= "element == expandedElement" [FeeSite]="element"></app-update-fee-site>
+                    </div>
+                  </td>
+                </ng-container>
+            
+                <!-- no data display column -->
+                <ng-container matColumnDef="noDataRow">
+                  <td mat-footer-cell *matFooterCellDef [attr.colspan]="displayedColumns.length">
+                    <div>
+                      <span>{{ 'user.none_data_to_show' | translate}}</span>
+                    </div>
+                  </td>
+                </ng-container>
+            
+                <!-- Header and Row Declarations -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row"
+                  [class.expanded-row]="expandedElement === row" matTooltip="Click vào để xem chi tiết"
+                  (click)="expandedElement = expandedElement === row ? null : row;"></tr>
+            
+                <tr mat-footer-row *matFooterRowDef="['noDataRow']"
+                  [attr.class]="listData && listData.data &&listData.data.length>0? 'table-no-data-row has-data':'table-no-data-row has-no-data' ">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];" class="detail-row"></tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons></mat-paginator>
+            </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  

@@ -1,0 +1,35 @@
+{
+	"debug": true,
+	"mysql":  {
+		"connectionLimit": 200,
+        "host": "207.180.249.210",
+        "user": "haipc",
+        "password": "Haipc@1224",
+        "database": "fx_dev",
+		"multipleStatements": "true",
+		"timezone": "utc",
+		"debug": false,
+		"connectTimeout"  :  100000,
+		"aquireTimeout"   :100000,
+		"timeout"         : 100000
+		},
+	"mongodb":{
+		"URI": "mongodb://admin:admin123@45.124.86.213:27017/app_ctv?authSource=admin"
+	},
+	"mailServer":{
+		"host": "smtp.gmail.com", 
+		"port":465,
+		"user": "sharectv.service@gmail.com", 
+		"pass": "Haipc01224"
+		},
+	"time_out_code":300000,
+	"ext_token":864000,
+	"port":81,
+	"redis": {
+		"server": "207.180.249.210",
+		"port": 6379,
+		"password": "haipc01224",
+		"clear_when_run": true
+	}
+	
+}

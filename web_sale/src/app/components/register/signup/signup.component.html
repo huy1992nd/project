@@ -1,0 +1,75 @@
+<figure class="background"> <img src="../../../../assets/img/login_bg.jpg" alt="Adminux- sign in "> </figure>
+<div class="signup-component">
+  <div class="animated fadeIn">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <mat-card *ngIf="!isLoading">
+      <mat-card-title>
+        <h4>Đăng ký</h4>
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()" class="signup-component__form">
+          <mat-form-field>
+            <input formControlName="user_name" matInput placeholder="Nhập tên đầy đủ của bạn*">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input formControlName="account_id" matInput placeholder="Nhập tên đăng nhập*">
+
+            <mat-error *ngFor="let validation of account_validation_messages.account_id">
+              <mat-error class="error-message" *ngIf="form.get('account_id').hasError(validation.type) && (form.get('account_id').dirty || form.get('account_id').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input formControlName="password" matInput placeholder="Nhập mật khẩu*" [type]="!showPassword ? 'password' : 'text'" ngDefaultControl>
+            <mat-icon matSuffix (click)="showPassword = !showPassword" [svgIcon]="!showPassword? 'visibility-off': 'visibility'"></mat-icon>
+
+            <mat-error *ngFor="let validation of account_validation_messages.password">
+              <mat-error class="error-message" *ngIf="form.get('password').hasError(validation.type) && (form.get('password').dirty || form.get('password').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input formControlName="confirm_password" matInput placeholder="Xác nhận mật khẩu*" [type]="!showConfirmPassword ? 'password' : 'text'"
+              ngDefaultControl [errorStateMatcher]="confirmPasswordValidator">
+            <mat-icon matSuffix (click)="showConfirmPassword = !showConfirmPassword" [svgIcon]="!showConfirmPassword? 'visibility-off': 'visibility'"></mat-icon>
+            <mat-error *ngFor="let validation of account_validation_messages.confirm_password">
+              <mat-error class="error-message" *ngIf="form.get('password').hasError(validation.type) && (form.get('password').dirty || form.get('password').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field>
+            <input formControlName="mail" matInput placeholder="Nhập email*">
+            <mat-error *ngFor="let validation of account_validation_messages.email">
+              <mat-error class="error-message" *ngIf="form.get('mail').hasError(validation.type) && (form.get('mail').dirty || form.get('mail').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput formControlName="birth_day" [matDatepicker]="myDatepicker" placeholder="Nhập ngày tháng năm sinh">
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input formControlName="phone_number" type="number" matInput placeholder="Nhập số điện thoại*">
+            <mat-error *ngFor="let validation of account_validation_messages.phone_number">
+              <mat-error class="error-message" *ngIf="form.get('phone_number').hasError(validation.type) && (form.get('phone_number').dirty || form.get('phone_number').touched)">{{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+          
+          <div>
+            <button type="submit" mat-flat-button color="primary">Đăng ký</button>
+          </div>
+        </form>
+
+        <div class="signup-component__login-navigator">
+          <p>Bạn đã có tài khoản?
+            <a [routerLink]="['/login']">Đăng nhập tại đây</a>
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

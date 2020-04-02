@@ -1,0 +1,69 @@
+<div class="mat-elevation-z8"> 
+  <mat-tab-group>
+    <mat-tab label="Thông tin phí nạp rút tiền của site ">
+        <div class="profiles">
+            <form [formGroup]="formProfile" #f="ngForm">
+                <div class="row">
+                    <div class="col-md-4">
+                      <div class="col-12">
+                        <mat-form-field>
+                            <label><strong>Site</strong></label>
+                            <input formControlName="site" matInput>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-12">
+                          <mat-form-field>
+                              <label><strong>Loại</strong></label>
+                              <mat-select formControlName="type">
+                                <mat-option>None</mat-option>
+                                <mat-option *ngFor="let o of listType" [value]="o.value">{{o.name}}</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="col-12">
+                          <mat-form-field>
+                              <label><strong>Phí </strong></label>
+                              <input type="number"  formControlName="fee" matInput>
+                              <mat-error *ngFor="let validation of account_validation_messages.fee">
+                                <mat-error class="error-message" *ngIf="formProfile.get('fee').hasError(validation.type) && (formProfile.get('fee').dirty || formProfile.get('fee').touched)">{{validation.message}}</mat-error>
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                      <div class="col-12">
+                        <mat-form-field>
+                          <label><strong>Ưu đãi</strong></label>
+                          <mat-select formControlName="promotion_id">
+                            <mat-option>None</mat-option>
+                            <mat-option *ngFor="let o of listPromotion" [value]="o.value">{{o.name}}</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="col-12">
+                        <mat-form-field>
+                          <label><strong>Mô tả</strong></label>
+                          <input formControlName="description" matInput>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-12">
+                         
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="col-12">
+                          <div class="wl-transactions__form-button">
+                              <button (click)="submit()" mat-stroked-button color="primary" >Cập nhật</button>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+            </form> 
+          </div>
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

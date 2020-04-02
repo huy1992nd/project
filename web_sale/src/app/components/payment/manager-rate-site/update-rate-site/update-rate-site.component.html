@@ -1,0 +1,70 @@
+<div class="mat-elevation-z8"> 
+    <mat-tab-group>
+      <mat-tab label="Thông tin tài khoản ngân hàng ">
+          <div class="profiles">
+              <form [formGroup]="formUpdate" #f="ngForm">
+                  <div class="row">
+                      <div class="col-md-4">
+                        <div class="col-12">
+                          <mat-form-field>
+                              <label><strong>Right:</strong></label>
+                              <mat-select formControlName="right">
+                                  <mat-option>None</mat-option>
+                                  <mat-option *ngFor="let c of listCurrencies" [value]="c.code">{{c.code}}</mat-option>
+                                </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-12">
+                            <mat-form-field>
+                                <label><strong>Left:</strong></label>
+                                <mat-select formControlName="left">
+                                    <mat-option>None</mat-option>
+                                    <mat-option *ngFor="let c of listCurrencies" [value]="c.code">{{c.code}}</mat-option>
+                                  </mat-select>
+                            </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="col-12">
+                            <mat-form-field>
+                                <label><strong>Rate:</strong></label>
+                                <input type="number"  formControlName="rate" matInput>
+                                <mat-error *ngFor="let validation of account_validation_messages.rate">
+                                  <mat-error class="error-message" *ngIf="formUpdate.get('rate').hasError(validation.type) && (formUpdate.get('rate').dirty || formUpdate.get('rate').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12">
+                            <mat-form-field>
+                                <label><strong>Type:</strong></label>
+                                <mat-select formControlName="type">
+                                    <mat-option>None</mat-option>
+                                    <mat-option *ngFor="let type of listType" [value]="type.value">{{type.name}}</mat-option>
+                                  </mat-select>
+                                <mat-error *ngFor="let validation of account_validation_messages.type">
+                                  <mat-error class="error-message" *ngIf="formUpdate.get('type').hasError(validation.type) && (formUpdate.get('type').dirty || formUpdate.get('type').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="col-12">
+                        </div>
+                        <div class="col-12">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="col-12">
+                            <div class="wl-transactions__form-button">
+                                <button (click)="submit()" mat-stroked-button color="primary" >Cập nhật</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+              </form> 
+            </div>
+      </mat-tab>
+  
+    </mat-tab-group>
+  
+  </div>

@@ -1,0 +1,18 @@
+.p-thumb img {
+  width: 100px;
+  height: 100px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+.media-body{
+  position: relative;
+}
+
+.media-body .view {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: crimson;
+  font-size: smaller;
+}

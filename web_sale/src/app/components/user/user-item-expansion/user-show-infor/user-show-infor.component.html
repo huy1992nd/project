@@ -1,0 +1,73 @@
+<div class="mat-elevation-z8" style="margin: 20px 0px;"> 
+        <div class="profiles">
+                <form [formGroup]="formProfile" #f="ngForm">
+                    <div class="row">
+                        <div class="col-md-4">
+                        <div class="col-12">
+                            <mat-form-field>
+                                <label><strong>Họ và tên:</strong></label>
+                                <input formControlName="user_name" matInput>
+                                <mat-error *ngFor="let validation of account_validation_messages.user_name">
+                                    <mat-error class="error-message" *ngIf="formProfile.get('user_name').hasError(validation.type) && (formProfile.get('user_name').dirty || formProfile.get('user_name').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12">
+                            <mat-form-field>
+                                <label><strong>Email:</strong></label>
+                                <input formControlName="mail" matInput>
+                                <mat-error *ngFor="let validation of account_validation_messages.mail">
+                                    <mat-error class="error-message" *ngIf="formProfile.get('mail').hasError(validation.type) && (formProfile.get('mail').dirty || formProfile.get('mail').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                        <div class="col-12">
+                            <mat-form-field>
+                                <label><strong>Số điện thoại:</strong></label>
+                                <input  formControlName="phone_number" matInput>
+                                <mat-error *ngFor="let validation of account_validation_messages.phone_number">
+                                    <mat-error class="error-message" *ngIf="formProfile.get('phone_number').hasError(validation.type) && (formProfile.get('phone_number').dirty || formProfile.get('phone_number').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12">
+                            <mat-form-field>
+                                <label><strong>Quyền hạn</strong></label>
+                                <mat-select formControlName="permission">
+                                    <mat-option *ngFor="let pmss of [3,6,9]" [value]="pmss">{{pmss | convertPermission}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                        <div class="col-12">
+                            <mat-form-field>
+                                <label><strong>Địa chỉ</strong></label>
+                                <input formControlName="address" matInput>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12">
+                            <mat-form-field>
+                                <label><strong>Vai trò</strong></label>
+                                <mat-select formControlName="roles">
+                                    <mat-option>None</mat-option>
+                                    <mat-option *ngFor="let role of roles" [value]="role.name">{{role.display_name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-12">
+                                <div class="">
+                                    <button (click)="submit()" mat-stroked-button color="primary" >Cập nhật</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form> 
+            </div>
+    
+    </div>

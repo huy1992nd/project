@@ -1,0 +1,49 @@
+.mat-elevation-z8 {
+  margin: 20px 0px;
+}
+.profiles {
+  margin: 20px;
+  margin-bottom: 50px;
+  width: 100%;
+
+}
+
+.profiles mat-card {
+  width: 40vw;
+  min-width: 400px;
+}
+
+.profiles__avatar-wrapper {
+  width: 30%;
+  position: relative;
+  margin: auto;
+}
+
+.profiles__avatar {
+  width: 100%;
+  padding-bottom: 100%;
+  position: relative;
+  margin: auto;
+}
+
+.profiles__avatar img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+
+.profiles__button-group {
+  display: flex;
+  justify-content: center;
+}
+
+.profiles__button-group button {
+  margin-left: 5px;
+}

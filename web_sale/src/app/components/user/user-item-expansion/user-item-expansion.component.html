@@ -1,0 +1,12 @@
+<div class="mat-elevation-z8">
+  <mat-tab-group>
+    <mat-tab label="Phân quyền người dùng">
+      <app-manager-role-permission [User]="selectedUser"></app-manager-role-permission>
+    </mat-tab>
+    <mat-tab label="Thông tin người dùng ">
+      <app-user-show-infor [User]="selectedUser"></app-user-show-infor>
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>
