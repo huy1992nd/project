@@ -12,6 +12,8 @@ var TemplateRouter = require('./routes/template.routers');
 var WebRouter = require('./routes/web.routers');
 var BankRouter = require('./routes/bank.routers');
 
+var SongRouter = require('./routes/song.routers');
+
 //CMS
 var PostRouter = require('./routes/cms/post.router');
 var TaxonomyRouter = require('./routes/cms/taxonomy.router');
@@ -129,6 +131,7 @@ class ApiController {
     TaxonomyRouter.intRouter(this.app);
     MenuRouter.intRouter(this.app);
     MenuNodeRouter.intRouter(this.app);
+    SongRouter.intRouter(this.app);
   }
 
   IntWeb() {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LazyLoadScriptService } from './../../common/lazyLoadScript';
+import { Router, NavigationEnd } from '@angular/router';
 @Component({
   selector: 'app-song',
   templateUrl: './song.component.html',
@@ -9,10 +10,16 @@ export class SongComponent implements OnInit {
 
   constructor(
     private lazyLoadService: LazyLoadScriptService,
+    public router: Router
   ) { }
 
   ngOnInit() {
   }
+
+  Logout() {
+		localStorage.removeItem('session');
+		this.router.navigate(['/login']);
+	}
 
   ngAfterViewInit() {
 		// this.lazyLoadService.loadScript('./assets/theme/js/jquery.js').subscribe(_ => { });

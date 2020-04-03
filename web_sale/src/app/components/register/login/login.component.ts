@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'song';
    // this.radicalValue = this.sanitizer.bypassSecurityTrustStyle("background: radial-gradient(circle at center center ,#e5e5be, #003973);");
     this.form = new FormGroup({
       account_id: new FormControl('', [Validators.required,Validators.minLength(6),Validators.pattern("[^' ']+")]),
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit(){
-    if (this.form.valid) {
+    // if (this.form.valid) {
       this.isLoading =true;
       this.userApiService.login(this.form.value)
         .then(data => {
@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
         .catch(error => {
           this.isLoading =false;
         })
-    }
+    // }
   }
 
  

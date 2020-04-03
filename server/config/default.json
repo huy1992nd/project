@@ -1,6 +1,6 @@
 {
 	"debug": true,
-	"mysql_local":  {
+	"mysql":  {
 		"connectionLimit": 200,
 		"host": "localhost",
 		"user": "root",
@@ -13,7 +13,7 @@
 		"aquireTimeout"   :100000,
 		"timeout"         : 100000
 		},
-	"mysql":  {
+	"mysql_":  {
 		"connectionLimit": 200,
 		"host": "3.0.147.118",
 		"user": "huy",
@@ -27,7 +27,9 @@
 		"timeout"         : 100000
 		},
 	"mongodb":{
-		"URI": "mongodb://admin:admin123@45.124.86.213:27017/app_ctv?authSource=admin"
+		"URI": "mongodb://huy:huy%40123!@52.77.238.57:27017/song?authSource=admin",
+		"dbuser" : "admin",
+    "dbpass" : "123"
 	},
 	"mailServer":{
 		"host": "smtp.gmail.com", 

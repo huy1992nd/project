@@ -230,7 +230,7 @@
                       <li><a href="#"><i class=" icon-suitcase"></i>Profile</a></li>
                       <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
                       <li><a href="#"><i class="icon-bell-alt"></i> Notification</a></li>
-                      <li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>
+                      <li><a (click)="Logout()"><i class="icon-key"></i> Log Out</a></li>
                   </ul>
               </li>
               <!-- user login dropdown end -->
@@ -407,7 +407,7 @@
   <!--main content start-->
   <section id="main-content">
     <section class="wrapper">
-        <div class="row">
+        <div class="row" style="display: none;">
             <div class="col-lg-12">
                 <!--breadcrumbs start -->
                 <ul class="breadcrumb">
