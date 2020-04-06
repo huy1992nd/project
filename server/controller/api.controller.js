@@ -80,7 +80,6 @@ class ApiController {
             if(this.checkExtDate(decode.Date)) {
               req.user = decode;
               req.headers.domain = req.user.site;
-              console.log(req.user);
               next();
             }else {
               return res.json({ resultCode: global.define.ResultCode.NOT_AUTHEN});

@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+declare var FB: any;
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router,ActivatedRoute  } from '@angular/router';
 import { DataService } from '../../../services/data.service';
 import { NotifyService } from 'src/app/services/notify.service';
 import { ApiService } from 'src/app/services/api.service';
+import { SocialService } from 'src/app/services/social.service';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
@@ -12,6 +14,7 @@ import {TranslateService} from '@ngx-translate/core';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
   radicalValue;
   mousePositionX;
@@ -35,6 +38,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     public userApiService: ApiService,
+    public socialService: SocialService,
     private router: Router,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
@@ -43,21 +47,49 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'song';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
    // this.radicalValue = this.sanitizer.bypassSecurityTrustStyle("background: radial-gradient(circle at center center ,#e5e5be, #003973);");
     this.form = new FormGroup({
-      account_id: new FormControl('', [Validators.required,Validators.minLength(6),Validators.pattern("[^' ']+")]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      account_id: new FormControl('root_localhost', [Validators.required,Validators.minLength(6),Validators.pattern("[^' ']+")]),
+      password: new FormControl('123456', [Validators.required, Validators.minLength(6)]),
       remember_account: new FormControl(false)
     });
+
   }
+
+  
   
   onMouseMove(e) {
     //this.radicalValue = this.sanitizer.bypassSecurityTrustStyle(`background: radial-gradient(circle at ${e.pageX}px ${e.pageY}px ,#e5e5be, #003973);`)
   }
 
+  submitLogin(){
+    console.log("submit login to facebook");
+    // FB.login();
+    this.socialService.loginFaceBook((response)=>
+        {
+          console.log('submitLogin',response);
+          if (response.authResponse)
+           {
+              console.log('token is',response.authResponse);
+              localStorage.setItem('session_face', response.authResponse);
+              this.userApiService.initApp(response.authResponse).then(() => {
+              this.notify.success('Đăng nhập thành công');
+              // this.redirectTo(this.returnUrl);
+              window.location.assign(this.returnUrl)
+              // this.router.navigateByUrl(this.returnUrl);
+              });
+           }
+           else
+           {
+           console.log('User login failed');
+         }
+      });
+
+  }
+
   submit(){
-    // if (this.form.valid) {
+    if (this.form.valid) {
       this.isLoading =true;
       this.userApiService.login(this.form.value)
         .then(data => {
@@ -67,7 +99,9 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('session', data.token_authen);
             this.userApiService.initApp(data).then(() => {
             this.notify.success('Đăng nhập thành công');
-            this.router.navigateByUrl(this.returnUrl);
+            // this.redirectTo(this.returnUrl);
+            window.location.assign(this.returnUrl)
+            // this.router.navigateByUrl(this.returnUrl);
             });
   
             // this.router.navigate(['/trang-chu']);
@@ -79,8 +113,12 @@ export class LoginComponent implements OnInit {
         .catch(error => {
           this.isLoading =false;
         })
-    // }
+    }
   }
+  redirectTo(uri:string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate([uri]));
+ }
 
  
 

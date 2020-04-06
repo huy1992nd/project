@@ -46,6 +46,7 @@ import { ViewDetailComponent } from './components/sale/view-detail/view-detail.c
 import { SongComponent } from './components/song/song.component';
 import { DashboardSongComponent } from './components/song/dashboard-song/dashboard-song.component';
 import { SongDetailComponent } from './components/song/song-detail/song-detail.component';
+import { LoginfaceComponent } from './components/login/loginface/loginface.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { SongDetailComponent } from './components/song/song-detail/song-detail.c
     SongComponent,
     DashboardSongComponent,
     SongDetailComponent,
+    LoginfaceComponent,
   ],
   imports: [
     HttpClientModule,

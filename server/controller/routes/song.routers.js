@@ -5,8 +5,11 @@ class SongRouter {
     }
     intRouter(app) {
         app.route('/list_song')
-            .post((a, b) => SiteController.ListSong(a, b));
+            .get((a, b) => SongController.ListSong(a, b));
+        app.route('/song')
+            .get((a, b) => SongController.Song(a, b));
+        app.route('/list_page_song')
+            .get((a, b) => SongController.listPageSong(a, b));
     }
-
 };
 module.exports = new SongRouter();

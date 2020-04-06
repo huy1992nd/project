@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {HomeComponent} from './components/home/home.component';
 import {LoginComponent} from './components/register/login/login.component';
+import {LoginfaceComponent} from './components/login/loginface/loginface.component';
 import {SignupComponent} from './components/register/signup/signup.component';
 import {RegisterVerifyComponent} from './components/register/register-verify/register-verify.component';
 import {ForgotPasswordComponent} from './components/register/forgot-password/forgot-password.component';
@@ -54,12 +55,12 @@ import {SongDetailComponent} from './components/song/song-detail/song-detail.com
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'home',
         canActivate: [AuthGuard],
         component: HomeComponent,
         children: [
             {
-                path: '',
+                path: 'home',
                 component: DashboardComponent
             },
             {
@@ -185,6 +186,10 @@ const routes: Routes = [
 		component: LoginComponent,
 	},
 	{
+		path: 'login_face',
+		component: LoginfaceComponent,
+	},
+	{
 		path: 'register',
 		component: SignupComponent,
 	},
@@ -211,7 +216,8 @@ const routes: Routes = [
         ]
 	},
 	{
-		path: 'song',
+        canActivate: [AuthGuard],
+		path: '',
         component: SongComponent,
         children: [
             {
@@ -219,11 +225,12 @@ const routes: Routes = [
                 component: DashboardSongComponent
             },
             {
-                path: 'detail',
+                path: 'detail/:id',
                 component: SongDetailComponent
             },
-        ]
-	},
+        ],
+    },
+    
 ];
 
 @NgModule({

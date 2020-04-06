@@ -43,7 +43,8 @@ export class HttpService {
   };
 
   public authGet(path: string, params: {} = {}) {
-    let token = this.userDataService.currentUser.getValue().session || '';
+    let user = this.userDataService.currentUser.getValue();
+    let token = user.session || '';
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': token,

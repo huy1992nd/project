@@ -19,7 +19,7 @@ export class NotifyService {
   notice(text: string) {
     let notice = this.notify.notice({
       text: text,
-      addClass: '',
+      addClass: 'alert alert-success alert-block fade in',
       modules: {
         Buttons: {
           closer: false,
@@ -36,7 +36,8 @@ export class NotifyService {
   success(text: string) {
     let notice = this.notify.success({
       text: text,
-      addClass: 'notify-success',
+      delay: 1000,
+      addClass: 'alert alert-success  notify-success',
       modules: {
         Buttons: {
           closer: false,

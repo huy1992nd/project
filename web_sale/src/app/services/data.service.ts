@@ -25,7 +25,8 @@ export class DataService {
   listCurrencies:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   listFee:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   listSong:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  currentSong:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  listSongDetail:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  listPageSong:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(private translateService: TranslateService) {
     var lang = localStorage.getItem('language') || navigator.language;
     translateService.addLangs(['en', 'vi']);

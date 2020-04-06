@@ -3,8 +3,25 @@
   <form [formGroup]="form" (ngSubmit)="submit()" class="form-signin" >
     <h2 class="form-signin-heading">sign in now</h2>
     <div class="login-wrap">
-        <input formControlName="account_id" type="text" class="form-control" placeholder="{{'loginScreen.placeholderAccount' | translate}}" autofocus>
-        <input formControlName="password" type="password" class="form-control" placeholder="{{'loginScreen.placeholderPassword' | translate}}" >
+        <div style="min-height: 55px;">
+            <input formControlName="account_id" matInput type="text" class="form-control" placeholder="{{'loginScreen.placeholderAccount' | translate}}" autofocus autocomplete="true">
+            <div class="error" *ngFor="let validation of account_validation_messages.account_id">
+                <mat-error class="error-message"
+                    *ngIf="form.get('account_id').hasError(validation.type) && (form.get('account_id').dirty || form.get('account_id').touched)">
+                    {{validation.message}}
+                </mat-error>
+            </div>
+        </div>
+        <div style="min-height: 40px;">
+            <input formControlName="password" type="password" class="form-control" placeholder="{{'loginScreen.placeholderPassword' | translate}}" autocomplete="true" >
+            <div class="error" *ngFor="let validation of account_validation_messages.password">
+                <mat-error class="error-message"
+                    *ngIf="form.get('password').hasError(validation.type) && (form.get('password').dirty || form.get('password').touched)">
+                    {{validation.message}}
+                </mat-error>
+            </div>
+        </div>
+        
         <label class="checkbox">
             <input type="checkbox" value="remember-me"> Remember me
             <span class="pull-right">
@@ -15,7 +32,7 @@
         <button class="btn btn-lg btn-login btn-block" type="submit">{{'loginScreen.buttonLoginText' | translate}}</button>
         <p>or you can sign in via social network</p>
         <div class="login-social-link">
-            <a href="index.html" class="facebook">
+            <a (click)="submitLogin()" class="facebook">
                 <i class="icon-facebook"></i>
                 Facebook
             </a>

@@ -13,10 +13,10 @@ export class ApiService {
   ) { }
 
   async initApp(currentUser) {
-	return new Promise(async (resolve, reject) => {
-	  this.dataService.currentUser.next(new UserModel(currentUser));
-		 resolve(true);
-	  });
+    return new Promise(async (resolve, reject) => {
+      this.dataService.currentUser.next(new UserModel(currentUser));
+      resolve(true);
+      });
   }
   register(data: any): Promise<any> {
 	return this.httpService.publicPost('/user_register', data).toPromise();
@@ -263,6 +263,36 @@ getListMenuNode(data: any): Promise<any> {
 
 postCreateMenuNode(data: any): Promise<any> {
     return this.httpService.authPost('/cms/menunode/create', data).toPromise();
+}
+
+//  Song
+listSong(data: any): Promise<any> {
+  return this.httpService.authGet('/list_song', data).toPromise().then((data:any)=>{
+    if (data.data != undefined) {
+      // let list = this.dataService.listSong.getValue();
+      let list = data || {};
+      list[data.page] = data.data;
+      this.dataService.listSong.next(list);
+    }
+  })
+}
+//  Song detail
+listSongDetail(data: any): Promise<any> {
+  return this.httpService.authGet('/song', data).toPromise().then((data:any)=>{
+    if (data.data != undefined) {
+      let list = data || {};
+      list[data.data.song_id] = data.data;
+      this.dataService.listSongDetail.next(list);
+    }
+  })
+}
+
+listPageSong(data: any): Promise<any> {
+  return this.httpService.authGet('/list_page_song', data).toPromise().then((data:any)=>{
+    if (data.data != undefined) {
+      this.dataService.listPageSong.next(data.data);
+    }
+  })
 }
 
 }

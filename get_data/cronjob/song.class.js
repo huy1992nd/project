@@ -13,10 +13,10 @@ const LIST_PAGE_NUMBER = [
     11,12,13,14,15,16,17,18,19,20
 ]
 const LIST_PAGE_NUMBER_2 = [
-    // 1,2,3,4,5,
+    1,2,3,4,5,
     6,7,8,9,10,
-    11,12,13,14,15,
-    16,17,18,19,20,21
+    // 11,12,13,14,15,
+    // 16,17,18,19,20,21
 ]
 
 class CrawlSongData extends Parent {
@@ -24,7 +24,7 @@ class CrawlSongData extends Parent {
     constructor(type) {
         super();
         this.browser = null;
-        this.maxTimeFailer = 15;
+        this.maxTimeFailer = 25;
         this.start_time = 0;
         this.end_time = 0;
         this.is_finish = 0;
@@ -95,6 +95,73 @@ class CrawlSongData extends Parent {
     }
 
     async getContentOfPage(link_page_object) {
+    }
+
+    async formatData(){
+        var list_data = await Song.find({type : this.type}, (error, result)=>{});
+        await this.asyncForEach(list_data, async (item, index) => {
+            if(index < 1000){
+                var list_result = [];
+                item.content.forEach(content=>{
+                    var result = [];
+                    if(content){
+                        if(typeof(content) == "string"){
+                            let list_c = content.split("\n");
+                            result = list_c.filter(item=> item && item!= "");
+                        }
+                    }
+                    if(result.length){
+                        list_result.push(result);
+                    }
+                });
+                if(list_result.length){
+                    await Song.updateOne({ song_id: item.song_id, type: this.type }, {
+                        $set: {content:list_result}
+                    }, { upsert: false }, (err, result) => {
+                        if (err) {
+                            console.log('Have error when insert data', item);
+                        } else {
+                            console.log("update ", item.song_id, "ok");
+                        }
+                    });
+                }else{
+                    console.log('bai hat', item.song_id, "không có kết quả");
+                }
+            }
+        });
+    }
+
+    async formatData2(){
+        var list_data = await Song.find({type : this.type}, (error, result)=>{});
+        var list_key = {};
+        var list_update = [];
+        var data_update = {};
+        list_data.forEach(item=>{
+              let key = item.song_id;
+              if(list_key[key]){
+                list_update.push(item.id);
+                data_update[item.id] = 1000+item.song_id;
+              }else{
+                list_key[key] = 1;
+              }
+        });
+
+        console.log("list id update",list_update, list_update.length);
+        console.log("data_update",data_update);
+
+        // await this.asyncForEach(list_update, async(id) =>{
+        //     await Song.updateOne({ _id: id, type: this.type }, {
+        //         $set: {song_id: data_update[id]}
+        //     }, { upsert: false }, (err, result) => {
+        //         if (err) {
+        //             console.log('Have error when update data', id);
+        //         } else {
+        //             console.log("update ", id, "ok");
+        //         }
+        //     });
+        // })
+
+        
     }
 
 }
@@ -380,7 +447,7 @@ class CrawlVocalData2 extends CrawlSongData{
                     item.tour_id = index;
                     await Song.updateOne({ song_id: index, type: this.type }, {
                         $set: item
-                    }, { upsert: true }, (err, result) => {
+                    }, { upsert: false }, (err, result) => {
                         if (err) {
                             console.log('Have error when insert data', item);
                         } else {
@@ -426,9 +493,22 @@ class CrawlVocalData2 extends CrawlSongData{
                     element_page
                 );
                 var  list_song_content = [];
-                content_song.forEach((item,index)=>{
-                    list_song_content.push(item);
+                content_song.forEach((content,index)=>{
+                    var result_content = [];
+                    if(content){
+                        if(typeof(content) == "string"){
+                            let list_c = content.split("\n");
+                            result_content = list_c.filter(item=> item && item!= "");
+                        }
+                    }
+                    if(result_content.length){
+                        list_song_content.push(result_content);
+                    }
+                    // list_song_content.push(item);
                 })
+                if(link_you_tube == null){
+                    console.log("link you tube null", link_page_object.name_song,link_page_object.link_song );
+                }
                 let data_save = {
                     type: this.type,
                     name: link_page_object.name_song,
@@ -450,13 +530,141 @@ class CrawlVocalData2 extends CrawlSongData{
 
         });
     }
+
+    //
+    async updateLinkYoutubeNull(){
+        var list_id = [
+            "76"
+          ];
+        var list_data = await Song.find({type : this.type, song_id : {"$in": list_id}}, (error, result)=>{});
+        this.browser = await this.initBrowser(headless);
+        list_data = list_data.filter(item=> parseInt(item.song_id) < 190 && parseInt(item.song_id) > 75);
+        var list_null = [];
+        await this.asyncForEach(list_data, async (item, index) => {
+            if(index <1000){
+                let link_you_tube = await this.getLinkYoutube(item.link_song);
+               
+                if(link_you_tube  && link_you_tube != item.link_you_tube){
+                    console.log('link you tube', link_you_tube , item.song_id);
+                    await Song.updateOne({ _id: item._id }, {
+                        $set: {link_you_tube : link_you_tube}
+                    }, { upsert: false }, (err, result) => {
+                        if (err) {
+                            console.log('Have error when insert data', item);
+                        } else {
+                            console.log("update ", item.song_id, "ok");
+                        }
+                    });
+                }else{
+                    console.log('bai hat', item.song_id, item.link_song, "không lấy được link you tube");
+                    console.log('link you tube', link_you_tube);
+                    if(link_you_tube == null){
+                        list_null.push(item.song_id);
+                        console.log(list_null);
+                    }
+                }
+            }
+        });
+        await this.browser.close();
+    }
+
+    async getLinkYoutube(link) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // const page = await this.initPage(this.browser, ["font", "stylesheet", "script", "image"]);
+                const page = await this.initPage5(this.browser, [ "image"], []);
+                await page.goto(link, { waitUntil: 'networkidle2' });
+                const element_page = element.page_detail_2;
+                
+                // const link_you_tube = await page.$eval("#video-player", el => el.src);
+                const link_you_tube = await page.evaluate(
+                    (element_page) => document.getElementById("video-player").src,
+                    element_page
+                );
+                resolve(link_you_tube);
+                await page.close();
+            } catch (error) {
+                reject(error)
+            }
+
+        });
+    }
+
+    // update content
+    async updateContent(){
+        var list_data = await Song.find({type : this.type }, (error, result)=>{});
+        this.browser = await this.initBrowser(headless);
+        list_data = list_data.filter(item=> item.song_id.includes("1"));
+        await this.asyncForEach(list_data, async (item, index) => {
+            if(index <1000){
+                let content_song = await this.getContentPage(item.link_song);
+                if(content_song.length== 0){
+                    console.log('content null', item.name , item.song_id );
+                }else{
+                    if(content_song.length && content_song.length){
+                        console.log('song', item.name , item.song_id );
+                        await Song.updateOne({ _id: item._id }, {
+                            $set: {content : content_song}
+                        }, { upsert: false }, (err, result) => {
+                            if (err) {
+                                console.log('Have error when insert data', item);
+                            } else {
+                                console.log("update ", item.song_id, "ok");
+                            }
+                        });
+                    }else{
+                        console.log('bai hat', item.song_id, item.link_song, "không lấy cần update");
+                    }
+                }
+            }
+        });
+        await this.browser.close();
+    }
+
+    async getContentPage(link) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // const page = await this.initPage(this.browser, ["font", "stylesheet", "script", "image"]);
+                const page = await this.initPage5(this.browser, ["font", "stylesheet", "script", "image"], []);
+                await page.goto(link, { waitUntil: 'networkidle2' });
+                const element_page = element.page_detail_2;
+                
+                // const singer_infor = await page.$eval(element_page.singer_infor, el => el.innerText);
+                const content_song = await page.evaluate(
+                    (element_page) => Array.from(document.querySelectorAll(element_page.content_song), element => element.textContent),
+                    element_page
+                );
+
+                var  list_song_content = [];
+                content_song.forEach((content,index)=>{
+                    var result_content = [];
+                    if(content){
+                        if(typeof(content) == "string"){
+                            let list_c = content.split("\n");
+                            result_content = list_c.filter(item=> item && item!= "");
+                        }
+                    }
+                    if(result_content.length){
+                        list_song_content.push(result_content);
+                    }
+                })
+
+                resolve(list_song_content);
+                
+                await page.close();
+            } catch (error) {
+                reject(error)
+            }
+
+        });
+    }
 }
 
 
 // s  = new CrawlVocalData("voca.vn");
 // s.crawlData();
-s_2  = new CrawlVocalData2("voca.vn_2_6_21");
-s_2.crawlData();
+s_2  = new CrawlVocalData2("2");
+s_2.updateLinkYoutubeNull();
 
 
 module.exports = CrawlVocalData;

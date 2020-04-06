@@ -4,18 +4,22 @@ import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
+import { SocialService } from './services/social.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [SocialService]
 })
 export class AppComponent {
   constructor(
     public translate: TranslateService,
     public iconRegistry: MatIconRegistry,
     public sanitizer: DomSanitizer,
-    public titleService: Title
+    public titleService: Title,
+    private socialService: SocialService
   ) {
+    this.socialService.loadSdk();
     this.titleService.setTitle(window.location.host);
     iconRegistry.addSvgIcon(
       'search',

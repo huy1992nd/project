@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LazyLoadScriptService } from './../../common/lazyLoadScript';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-song',
   templateUrl: './song.component.html',
@@ -8,12 +8,14 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class SongComponent implements OnInit {
 
+  public subSong:any;
   constructor(
     private lazyLoadService: LazyLoadScriptService,
-    public router: Router
+    public router: Router,
   ) { }
 
   ngOnInit() {
+    
   }
 
   Logout() {
@@ -29,8 +31,8 @@ export class SongComponent implements OnInit {
 		// this.lazyLoadService.loadScript('./assets/theme/js/jquery.nicescroll.js').subscribe(_ => { console.log('common-scripts is load') });
     // this.lazyLoadService.loadScript('./assets/theme/assets/gritter/js/jquery.gritter.js').subscribe(_ => { });
     // this.lazyLoadService.loadScript('./assets/theme/js/respond.min.js').subscribe(_ => { });
-    this.lazyLoadService.loadScript('./assets/theme/js/common-scripts.js').subscribe(_ => { console.log('common-scripts is load') });
+    this.lazyLoadService.loadScript('./assets/theme/js/common-scripts.js').subscribe(_ => {  });
     this.lazyLoadService.loadScript('./assets/theme/js/gritter.js').subscribe(_ => { });
-	}
+  }
 
 }
