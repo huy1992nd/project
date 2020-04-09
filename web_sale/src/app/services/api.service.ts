@@ -270,7 +270,7 @@ listSong(data: any): Promise<any> {
   return this.httpService.authGet('/list_song', data).toPromise().then((data:any)=>{
     if (data.data != undefined) {
       // let list = this.dataService.listSong.getValue();
-      let list = data || {};
+      let list = this.dataService.listSong.getValue() || {};
       list[data.page] = data.data;
       this.dataService.listSong.next(list);
     }
@@ -280,7 +280,7 @@ listSong(data: any): Promise<any> {
 listSongDetail(data: any): Promise<any> {
   return this.httpService.authGet('/song', data).toPromise().then((data:any)=>{
     if (data.data != undefined) {
-      let list = data || {};
+      let list = this.dataService.listSongDetail.getValue() || {};
       list[data.data.song_id] = data.data;
       this.dataService.listSongDetail.next(list);
     }

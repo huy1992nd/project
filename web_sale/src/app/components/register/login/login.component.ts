@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, forwardRef } from '@angular/core';
 declare var FB: any;
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -6,14 +6,17 @@ import { Router,ActivatedRoute  } from '@angular/router';
 import { DataService } from '../../../services/data.service';
 import { NotifyService } from 'src/app/services/notify.service';
 import { ApiService } from 'src/app/services/api.service';
-import { SocialService } from 'src/app/services/social.service';
+// import { SocialService } from 'src/app/services/social.service';
 import {TranslateService} from '@ngx-translate/core';
+import { AuthService } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 
 export class LoginComponent implements OnInit {
   radicalValue;
@@ -38,11 +41,12 @@ export class LoginComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     public userApiService: ApiService,
-    public socialService: SocialService,
+    // public socialService: SocialService,
     private router: Router,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer,
-    public notify: NotifyService
+    // private sanitizer: DomSanitizer,
+    public notify: NotifyService,
+    @Inject(forwardRef(() => AuthService)) private authService: AuthService
   ) {
    }
 
@@ -55,6 +59,21 @@ export class LoginComponent implements OnInit {
       remember_account: new FormControl(false)
     });
 
+    this.authService.authState.subscribe((user) => {
+        console.log("user", user);
+        localStorage.setItem('session_face', user.authToken);
+        let infor_user = {
+          user_name: user.name,
+          type:'login_face'
+        }
+        this.userApiService.initApp(infor_user).then(() => {
+        this.notify.success('Đăng nhập thành công');
+        // this.redirectTo(this.returnUrl);
+        window.location.assign(this.returnUrl)
+        // this.router.navigateByUrl(this.returnUrl);
+        });
+    });
+
   }
 
   
@@ -65,26 +84,27 @@ export class LoginComponent implements OnInit {
 
   submitLogin(){
     console.log("submit login to facebook");
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
     // FB.login();
-    this.socialService.loginFaceBook((response)=>
-        {
-          console.log('submitLogin',response);
-          if (response.authResponse)
-           {
-              console.log('token is',response.authResponse);
-              localStorage.setItem('session_face', response.authResponse);
-              this.userApiService.initApp(response.authResponse).then(() => {
-              this.notify.success('Đăng nhập thành công');
-              // this.redirectTo(this.returnUrl);
-              window.location.assign(this.returnUrl)
-              // this.router.navigateByUrl(this.returnUrl);
-              });
-           }
-           else
-           {
-           console.log('User login failed');
-         }
-      });
+    // this.socialService.loginFaceBook((response)=>
+    //     {
+    //       console.log('submitLogin',response);
+    //       if (response.authResponse)
+    //        {
+    //           console.log('token is',response.authResponse);
+    //           localStorage.setItem('session_face', response.authResponse);
+    //           this.userApiService.initApp(response.authResponse).then(() => {
+    //           this.notify.success('Đăng nhập thành công');
+    //           // this.redirectTo(this.returnUrl);
+    //           window.location.assign(this.returnUrl)
+    //           // this.router.navigateByUrl(this.returnUrl);
+    //           });
+    //        }
+    //        else
+    //        {
+    //        console.log('User login failed');
+    //      }
+    //   });
 
   }
 

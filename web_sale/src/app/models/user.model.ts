@@ -3,13 +3,13 @@ export class UserModel {
     user_name: string;
     permission: number;
     session: string;
-    accessToken: string;
+    type: string;
     constructor(object: {} = {}) {
         this.account_id = object['account_id'] || '';
         this.user_name = object['user_name'] || '';
         this.permission = object['permission'] != null ? object['permission'] : null;
         this.session = object['token_authen'] || '';
-        this.accessToken = object['accessToken'] || '';
+        this.type = object['type'] || '';
     }
 };
 

@@ -34,19 +34,10 @@ checkAuthGuardPromise(){
       var token = localStorage.getItem('session');
      
       if (!token) {
-        //  this.userDataService.isAuthenticated = false;
-        var token_face = localStorage.getItem('session_face');
-        if(!token_face){
+        if(!currentUser.type){
           resolve(false);
         }else{
-          this.socialService.checkStatusFaceBook((response)=>{
-            if (response.status === 'connected') {
-              resolve(true);
-              console.log(response.authResponse.accessToken);
-            }else{
-              resolve(false);
-            }
-          });
+          resolve(true);
         }
       }else {
           if (currentUser.account_id == '') {

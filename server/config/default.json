@@ -1,6 +1,6 @@
 {
 	"debug": true,
-	"mysql":  {
+	"mysql_local":  {
 		"connectionLimit": 200,
 		"host": "localhost",
 		"user": "root",
@@ -13,9 +13,9 @@
 		"aquireTimeout"   :100000,
 		"timeout"         : 100000
 		},
-	"mysql_":  {
+	"mysql":  {
 		"connectionLimit": 200,
-		"host": "3.0.147.118",
+		"host": "52.77.238.57",
 		"user": "huy",
 		"password": "Shark@12345",
 		"database": "fx_dev",
