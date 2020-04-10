@@ -14,6 +14,9 @@ export class ApiService {
 
   async initApp(currentUser) {
     return new Promise(async (resolve, reject) => {
+      if(currentUser.authToken && currentUser.id && currentUser.provider == "FACEBOOK"){
+        await this.registerFace({user:currentUser});
+      }
       this.dataService.currentUser.next(new UserModel(currentUser));
       resolve(true);
       });
@@ -75,6 +78,10 @@ export class ApiService {
 
   login(data: any): Promise<any> {
 	return this.httpService.publicPost('/user_login', data).toPromise();
+  }
+
+  registerFace(data: any): Promise<any> {
+	  return this.httpService.publicPost('/register_face', data).toPromise();
   }
 
   listUser(data: any): Promise<any> {
@@ -267,7 +274,7 @@ postCreateMenuNode(data: any): Promise<any> {
 
 //  Song
 listSong(data: any): Promise<any> {
-  return this.httpService.authGet('/list_song', data).toPromise().then((data:any)=>{
+  return this.httpService.publicGet('/list_song', data).toPromise().then((data:any)=>{
     if (data.data != undefined) {
       // let list = this.dataService.listSong.getValue();
       let list = this.dataService.listSong.getValue() || {};
@@ -278,7 +285,7 @@ listSong(data: any): Promise<any> {
 }
 //  Song detail
 listSongDetail(data: any): Promise<any> {
-  return this.httpService.authGet('/song', data).toPromise().then((data:any)=>{
+  return this.httpService.publicGet('/song', data).toPromise().then((data:any)=>{
     if (data.data != undefined) {
       let list = this.dataService.listSongDetail.getValue() || {};
       list[data.data.song_id] = data.data;
@@ -288,7 +295,7 @@ listSongDetail(data: any): Promise<any> {
 }
 
 listPageSong(data: any): Promise<any> {
-  return this.httpService.authGet('/list_page_song', data).toPromise().then((data:any)=>{
+  return this.httpService.publicGet('/list_page_song', data).toPromise().then((data:any)=>{
     if (data.data != undefined) {
       this.dataService.listPageSong.next(data.data);
     }

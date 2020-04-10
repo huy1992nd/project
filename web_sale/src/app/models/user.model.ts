@@ -4,12 +4,14 @@ export class UserModel {
     permission: number;
     session: string;
     type: string;
+    photoUrl: string;
     constructor(object: {} = {}) {
         this.account_id = object['account_id'] || '';
-        this.user_name = object['user_name'] || '';
+        this.user_name = object['user_name'] ||  object['name'] || '';
         this.permission = object['permission'] != null ? object['permission'] : null;
-        this.session = object['token_authen'] || '';
-        this.type = object['type'] || '';
+        this.session = object['token_authen'] || object['authToken'] || '';
+        this.type = object['facebook'] ? 'facebook' : '';
+        this.photoUrl = object['photoUrl'] ? object['photoUrl'] : 'https://img.icons8.com/officel/2x/user.png';
     }
 };
 

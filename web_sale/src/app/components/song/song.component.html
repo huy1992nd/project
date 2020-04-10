@@ -1,4 +1,4 @@
-<section id="container" class="">
+<section id="container" class="sidebar-closed">
   <!--header start-->
   <header class="header white-bg">
       <div class="sidebar-toggle-box">
@@ -221,8 +221,8 @@
               <!-- user login dropdown start-->
               <li class="dropdown">
                   <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                      <img alt="" src="./assets/theme/img/avatar1_small.jpg">
-                      <span class="username">Jhon Doue</span>
+                      <img alt="" src="{{currentUser.photoUrl}}">
+                      <span class="username">{{currentUser.user_name}}</span>
                       <b class="caret"></b>
                   </a>
                   <ul class="dropdown-menu extended logout">
@@ -240,7 +240,7 @@
   <!--header end-->
   <!--sidebar start-->
   <aside>
-      <div id="sidebar"  class="nav-collapse ">
+      <div id="sidebar"  class="nav-collapse " style="margin-left: -210px; overflow: hidden; outline: none;">
           <!-- sidebar menu start-->
           <ul class="sidebar-menu" id="nav-accordion">
               <li>

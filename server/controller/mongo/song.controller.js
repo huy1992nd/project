@@ -13,7 +13,7 @@ class SongController {
     async ListSong(req, res) {
         let data = req.body;
         var user = req.user;
-        if (user) {
+        if (1) {
             try {
                 let page = parseInt(req.query.page) || 1;
                 let number_of_page = req.number_of_page ? parseInt(req.number_of_page) : DEFAUL_NUMBER_SONG_PER_PAGE;
@@ -42,7 +42,7 @@ class SongController {
 
     async Song(req, res) {
         var user = req.user;
-        if (user) {
+        if (1) {
             try {
                 let id_song = parseInt(req.query.id_song) || 0;
                 let song = await Song.findOne({ type: "2", song_id: id_song }, {}, {});
@@ -64,7 +64,7 @@ class SongController {
 
     async listPageSong(req, res) {
         var user = req.user;
-        if (user) {
+        if (1) {
             try {
                 let count = await Song.find({ type: 2 }, {}, {}).count();
                 let number_of_page = req.number_of_page ? parseInt(req.number_of_page) : DEFAUL_NUMBER_SONG_PER_PAGE;

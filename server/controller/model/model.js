@@ -22,6 +22,22 @@ var options = {
 mongoose.Promise = global.Promise;
 
 //Song
+var UserSocialSchema = new Schema({
+    id: String,
+    name: String,
+    email: String,
+    photoUrl: String,
+    firstName: String,
+    lastName: String,
+    authToken: String,
+    provider: String,
+    facebook: Schema.Types.Mixed,
+    updated_at: { type: Date, default: Date.now },
+    created_at: { type: Date, default: Date.now }
+}, { collection: 'user_social' });
+UserSocialSchema.index({ id : 1, authToken : 1});
+
+//Song
 var SongSchema = new Schema({
     song_id: String,
     type: String,
@@ -45,3 +61,4 @@ mongoose.connect(config.get('mongodb').URI, options, function (err) {
 });
 
 exports.Song = mongoose.model('Song', SongSchema);
+exports.UserSocial = mongoose.model('UserSocial', UserSocialSchema);

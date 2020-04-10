@@ -2,6 +2,7 @@
 
 
 let  userController = require('./../mysql/user.controller');
+let  userMongoController = require('./../mongo/user_controller');
 let verifyController = require( './../verify.controller');
 let transactionController = require('./../mysql/transaction.controller')
 class UserRouter {
@@ -11,6 +12,9 @@ class UserRouter {
         
         app.route('/user_login')
         .post((a,b)=>userController.Login(a,b));
+
+        app.route('/register_face')
+        .post((a,b)=>userMongoController.registerFace(a,b));
 
         app.route('/user_register')
         .post((a,b)=>userController.Register(a,b));

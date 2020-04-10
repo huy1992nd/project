@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {ApiService} from '../services/api.service';
 import {SocialService} from '../services/social.service';
 import {DataService} from '../services/data.service';
+import {UserModel, UserInfoModel} from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,27 +35,42 @@ checkAuthGuardPromise(){
       var token = localStorage.getItem('session');
      
       if (!token) {
-        if(!currentUser.type){
+        var token_face = localStorage.getItem('session_face');
+        if(!token_face){
           resolve(false);
         }else{
-          resolve(true);
+          this.userApiService.registerFace({ authToken: token_face }).then(data => {
+            if (data.result_code == 0) {
+              this.userDataService.currentUser.next(new UserModel(data.user));
+              resolve(true);
+            }else{
+              localStorage.removeItem("session_face");
+              reject(false);
+            }
+          }).catch(error => {
+             localStorage.removeItem("session_face");
+              reject(false);
+          }).finally(() => {
+              // reject(false);
+          })
         }
       }else {
           if (currentUser.account_id == '') {
               this.userApiService.login({ token: token }).then(data => {
                   if (data.result_code == 0) {
-                    //  this.userDataService.isAuthenticated = true;
                       this.userApiService.initApp(data)
                           .then(() => {
                               resolve(true);
                           });
+                  }else{
+                    localStorage.removeItem("session");
+                    reject(false);
                   }
               }).catch(error => {
-                 // this.userDataService.isAuthenticated = false;
                  localStorage.removeItem("session");
-                  reject(false);
+                 reject(false);
               }).finally(() => {
-                  reject(false);
+                  // reject(false);
               })
           } else {
              resolve(true);

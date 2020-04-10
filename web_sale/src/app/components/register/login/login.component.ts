@@ -60,18 +60,16 @@ export class LoginComponent implements OnInit {
     });
 
     this.authService.authState.subscribe((user) => {
+      if(user){
         console.log("user", user);
         localStorage.setItem('session_face', user.authToken);
-        let infor_user = {
-          user_name: user.name,
-          type:'login_face'
-        }
-        this.userApiService.initApp(infor_user).then(() => {
-        this.notify.success('Đăng nhập thành công');
-        // this.redirectTo(this.returnUrl);
-        window.location.assign(this.returnUrl)
-        // this.router.navigateByUrl(this.returnUrl);
+        this.userApiService.initApp(user).then(() => {
+          this.notify.success('Đăng nhập thành công');
+          // this.redirectTo(this.returnUrl);
+          // window.location.assign(this.returnUrl)
+          this.router.navigateByUrl(this.returnUrl);
         });
+      }
     });
 
   }
@@ -115,13 +113,13 @@ export class LoginComponent implements OnInit {
         .then(data => {
           this.isLoading =false;
           if (data.result_code == 0) {
-            console.log('token is',data.token_authen);
-            localStorage.setItem('session', data.token_authen);
-            this.userApiService.initApp(data).then(() => {
-            this.notify.success('Đăng nhập thành công');
-            // this.redirectTo(this.returnUrl);
-            window.location.assign(this.returnUrl)
-            // this.router.navigateByUrl(this.returnUrl);
+              console.log('token is',data.token_authen);
+              localStorage.setItem('session', data.token_authen);
+              this.userApiService.initApp(data).then(() => {
+              this.notify.success('Đăng nhập thành công');
+              // this.redirectTo(this.returnUrl);
+              // window.location.assign(this.returnUrl)
+              this.router.navigateByUrl(this.returnUrl);
             });
   
             // this.router.navigate(['/trang-chu']);

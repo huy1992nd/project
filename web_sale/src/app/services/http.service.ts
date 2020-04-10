@@ -55,4 +55,15 @@ export class HttpService {
 
     return this.http.get(this.serverUrl + path, httpOptions)
   }
+
+  public publicGet(path: string, params: {} = {}) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        domain:this.domain 
+      }),
+      params: params
+    }
+
+    return this.http.get(this.serverUrl + path, httpOptions)
+  }
 }
