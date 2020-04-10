@@ -66,6 +66,7 @@ var Script = function () {
             $("#container").removeClass("sidebar-closed");
         }
     });
+    $('.icon-reorder').click();
 
 // custom scrollbar
     $("#sidebar").niceScroll({styler:"fb",cursorcolor:"#e8403f", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
