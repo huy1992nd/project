@@ -29,13 +29,12 @@ var UserSocialSchema = new Schema({
     photoUrl: String,
     firstName: String,
     lastName: String,
-    authToken: String,
     provider: String,
     facebook: Schema.Types.Mixed,
     updated_at: { type: Date, default: Date.now },
     created_at: { type: Date, default: Date.now }
 }, { collection: 'user_social' });
-UserSocialSchema.index({ id : 1, authToken : 1});
+UserSocialSchema.index({ id : 1});
 
 //Song
 var SongSchema = new Schema({

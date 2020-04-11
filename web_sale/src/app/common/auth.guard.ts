@@ -39,9 +39,9 @@ checkAuthGuardPromise(){
         if(!token_face){
           resolve(false);
         }else{
-          this.userApiService.registerFace({ authToken: token_face }).then(data => {
+          this.userApiService.loginFace({ authToken: token_face }).then(data => {
             if (data.result_code == 0) {
-              this.userDataService.currentUser.next(new UserModel(data.user));
+              this.userDataService.currentUser.next(new UserModel(data));
               resolve(true);
             }else{
               localStorage.removeItem("session_face");

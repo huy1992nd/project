@@ -24,17 +24,21 @@
     "lodash": "^4.17.15",
     "log4js": "^3.0.5",
     "md5": "^2.2.1",
+    "mongoose": "^4.10.8",
+    "mongoose-simple-random": "^0.4.1",
     "multer": "^1.4.1",
     "mysql": "^2.16.0",
     "mysql2": "^1.7.0",
     "node-cron": "^1.2.1",
     "nodemailer": "^4.6.8",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-facebook-token": "^3.3.0",
+    "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7",
     "querystring": "^0.2.0",
     "redis": "^2.8.0",
     "sequelize": "^4.43.0",
-    "socket.io": "^2.1.1",
-    "mongoose": "^4.10.8",
-    "mongoose-simple-random": "^0.4.1"
+    "socket.io": "^2.1.1"
   }
 }

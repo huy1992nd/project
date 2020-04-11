@@ -92,10 +92,11 @@ class ApiController {
           next();
       }
     });
+
     this.app.use( (req, res, next) =>{
-      if(!req.headers.domain){
-        return res.json({  resultCode: global.define.ResultCode.INCORRECT_DATA });
-      }
+      // if(!req.headers.domain){
+      //   return res.json({  resultCode: global.define.ResultCode.INCORRECT_DATA });
+      // }
 
       next();
     });

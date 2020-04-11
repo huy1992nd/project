@@ -46,25 +46,6 @@ import { ViewDetailComponent } from './components/sale/view-detail/view-detail.c
 import { SongComponent } from './components/song/song.component';
 import { DashboardSongComponent } from './components/song/dashboard-song/dashboard-song.component';
 import { SongDetailComponent } from './components/song/song-detail/song-detail.component';
-import { LoginfaceComponent } from './components/login/loginface/loginface.component';
-
-import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
-import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
-
-let config = new AuthServiceConfig([
-  // {
-  //   id: GoogleLoginProvider.PROVIDER_ID,
-  //   provider: new GoogleLoginProvider("Google-OAuth-Client-Id")
-  // },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider("698817537590545")
-  }
-]);
-
-export function provideConfig() {
-  return config;
-}
 
 @NgModule({
   declarations: [
@@ -95,7 +76,6 @@ export function provideConfig() {
     SongComponent,
     DashboardSongComponent,
     SongDetailComponent,
-    LoginfaceComponent,
   ],
   imports: [
     HttpClientModule,
@@ -119,17 +99,13 @@ export function provideConfig() {
       }
     }),
     PermissionModule,
-    SocialLoginModule
+    // SocialLoginModule
   ],
   providers: [
     
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     AuthGuard,
-    LazyLoadScriptService,
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
-    }
+    LazyLoadScriptService
   ],
   bootstrap: [AppComponent],
   

@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpService} from './http.service';
 import {DataService} from './data.service';
 import {UserModel, UserInfoModel} from '../models/user.model';
+import {FACEBOOK_CLIENT_ID, GOOGLE_CLIENT_ID} from '../common/define';
+declare const FB:any;
+declare const gapi:any;
 
 @Injectable({
     providedIn: 'root'
@@ -10,13 +13,25 @@ export class ApiService {
 
   constructor(  private httpService: HttpService,
 	private dataService: DataService
-  ) { }
+  ) {
+    FB.init({
+      appId      : FACEBOOK_CLIENT_ID,
+      status     : false, // the SDK will attempt to get info about the current user immediately after init
+      cookie     : false,  // enable cookies to allow the server to access
+      xfbml      : false,  // With xfbml set to true, the SDK will parse your page's DOM to find and initialize any social plugins that have been added using XFBML
+      version    : 'v2.8' // use graph api version 2.5
+    });
+
+    // gapi.auth2.init({
+    //   client_id: GOOGLE_CLIENT_ID,
+    //   cookiepolicy: 'single_host_origin',
+    //   scope: 'profile email'
+    // });
+
+   }
 
   async initApp(currentUser) {
     return new Promise(async (resolve, reject) => {
-      if(currentUser.authToken && currentUser.id && currentUser.provider == "FACEBOOK"){
-        await this.registerFace({user:currentUser});
-      }
       this.dataService.currentUser.next(new UserModel(currentUser));
       resolve(true);
       });
@@ -80,8 +95,58 @@ export class ApiService {
 	return this.httpService.publicPost('/user_login', data).toPromise();
   }
 
+  googleLogin(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      gapi.auth2.attachClickHandler(this, {},
+        (googleUser) => {
+   
+          let profile = googleUser.getBasicProfile();
+          console.log('Token || ' + googleUser.getAuthResponse().id_token);
+          console.log('ID: ' + profile.getId());
+          console.log('Name: ' + profile.getName());
+          console.log('Image URL: ' + profile.getImageUrl());
+          console.log('Email: ' + profile.getEmail());
+          //YOUR CODE HERE
+        }, (error) => {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+    });
+  }
+
+  registerGoogle(data: any): Promise<any> {
+	  return this.httpService.publicPost('/register_face', data).toPromise();
+  }
+
+  loginGoogle(data: any): Promise<any> {
+	  return this.httpService.publicPost('/login_face', data).toPromise();
+  }
+  fbLogin(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      FB.login(result => {
+        if (result.authResponse) {
+          this.registerFace({access_token: result.authResponse.accessToken}).then(data=>{
+            if(data.result_code == 0){
+              data.user.login_type = "face_book";
+              resolve({
+                    token:data.token,
+                    user:data.user
+                  }
+                );
+            }else{
+              reject(false);
+            }
+          });
+        }
+      }, {scope: 'public_profile,email'})
+    });
+  }
+
   registerFace(data: any): Promise<any> {
 	  return this.httpService.publicPost('/register_face', data).toPromise();
+  }
+
+  loginFace(data: any): Promise<any> {
+	  return this.httpService.publicPost('/login_face', data).toPromise();
   }
 
   listUser(data: any): Promise<any> {
@@ -274,7 +339,7 @@ postCreateMenuNode(data: any): Promise<any> {
 
 //  Song
 listSong(data: any): Promise<any> {
-  return this.httpService.publicGet('/list_song', data).toPromise().then((data:any)=>{
+  return this.httpService.authGet('/list_song', data).toPromise().then((data:any)=>{
     if (data.data != undefined) {
       // let list = this.dataService.listSong.getValue();
       let list = this.dataService.listSong.getValue() || {};
@@ -285,7 +350,7 @@ listSong(data: any): Promise<any> {
 }
 //  Song detail
 listSongDetail(data: any): Promise<any> {
-  return this.httpService.publicGet('/song', data).toPromise().then((data:any)=>{
+  return this.httpService.authGet('/song', data).toPromise().then((data:any)=>{
     if (data.data != undefined) {
       let list = this.dataService.listSongDetail.getValue() || {};
       list[data.data.song_id] = data.data;
@@ -295,7 +360,7 @@ listSongDetail(data: any): Promise<any> {
 }
 
 listPageSong(data: any): Promise<any> {
-  return this.httpService.publicGet('/list_page_song', data).toPromise().then((data:any)=>{
+  return this.httpService.authGet('/list_page_song', data).toPromise().then((data:any)=>{
     if (data.data != undefined) {
       this.dataService.listPageSong.next(data.data);
     }

@@ -8,8 +8,6 @@ import { NotifyService } from 'src/app/services/notify.service';
 import { ApiService } from 'src/app/services/api.service';
 // import { SocialService } from 'src/app/services/social.service';
 import {TranslateService} from '@ngx-translate/core';
-import { AuthService } from "angularx-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-login',
@@ -46,7 +44,6 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     // private sanitizer: DomSanitizer,
     public notify: NotifyService,
-    @Inject(forwardRef(() => AuthService)) private authService: AuthService
   ) {
    }
 
@@ -59,50 +56,47 @@ export class LoginComponent implements OnInit {
       remember_account: new FormControl(false)
     });
 
-    this.authService.authState.subscribe((user) => {
-      if(user){
-        console.log("user", user);
-        localStorage.setItem('session_face', user.authToken);
-        this.userApiService.initApp(user).then(() => {
-          this.notify.success('Đăng nhập thành công');
-          // this.redirectTo(this.returnUrl);
-          // window.location.assign(this.returnUrl)
-          this.router.navigateByUrl(this.returnUrl);
-        });
-      }
-    });
-
   }
 
-  
-  
   onMouseMove(e) {
     //this.radicalValue = this.sanitizer.bypassSecurityTrustStyle(`background: radial-gradient(circle at ${e.pageX}px ${e.pageY}px ,#e5e5be, #003973);`)
   }
 
-  submitLogin(){
+  facebookLogin(){
+    this.userApiService.fbLogin()
+    .then( data =>{
+         if(data && data.token){
+            console.log('token is',data.token);
+            localStorage.setItem('session_face', data.token);
+            this.userApiService.initApp(data.user).then(() => {
+              this.notify.success('Đăng nhập thành công');
+              window.location.assign(this.returnUrl)
+              this.router.navigateByUrl(this.returnUrl);
+            });
+         }else{
+          console.log('User login failed');
+         }
+    })
     console.log("submit login to facebook");
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    // FB.login();
-    // this.socialService.loginFaceBook((response)=>
-    //     {
-    //       console.log('submitLogin',response);
-    //       if (response.authResponse)
-    //        {
-    //           console.log('token is',response.authResponse);
-    //           localStorage.setItem('session_face', response.authResponse);
-    //           this.userApiService.initApp(response.authResponse).then(() => {
-    //           this.notify.success('Đăng nhập thành công');
-    //           // this.redirectTo(this.returnUrl);
-    //           window.location.assign(this.returnUrl)
-    //           // this.router.navigateByUrl(this.returnUrl);
-    //           });
-    //        }
-    //        else
-    //        {
-    //        console.log('User login failed');
-    //      }
-    //   });
+
+  }
+
+  googleLogin(){
+    this.userApiService.googleLogin()
+    .then( data =>{
+         if(data && data.token){
+            console.log('token is',data.token);
+            localStorage.setItem('session_face', data.token);
+            this.userApiService.initApp(data.user).then(() => {
+              this.notify.success('Đăng nhập thành công');
+              window.location.assign(this.returnUrl)
+              this.router.navigateByUrl(this.returnUrl);
+            });
+         }else{
+          console.log('User login failed');
+         }
+    })
+    console.log("submit login to facebook");
 
   }
 
@@ -117,12 +111,9 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('session', data.token_authen);
               this.userApiService.initApp(data).then(() => {
               this.notify.success('Đăng nhập thành công');
-              // this.redirectTo(this.returnUrl);
-              // window.location.assign(this.returnUrl)
               this.router.navigateByUrl(this.returnUrl);
             });
-  
-            // this.router.navigate(['/trang-chu']);
+
           } else {
             this.notify.error(this.translate.instant(`error_code.${data.result_code}`));
             // this.notify.error("Tên tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại");
@@ -137,8 +128,4 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
     this.router.navigate([uri]));
  }
-
- 
-
-
 }

@@ -3,14 +3,14 @@ export class UserModel {
     user_name: string;
     permission: number;
     session: string;
-    type: string;
+    login_type: string;
     photoUrl: string;
     constructor(object: {} = {}) {
         this.account_id = object['account_id'] || '';
         this.user_name = object['user_name'] ||  object['name'] || '';
         this.permission = object['permission'] != null ? object['permission'] : null;
         this.session = object['token_authen'] || object['authToken'] || '';
-        this.type = object['facebook'] ? 'facebook' : '';
+        this.login_type = object['login_type'] ? object['login_type'] : '';
         this.photoUrl = object['photoUrl'] ? object['photoUrl'] : 'https://img.icons8.com/officel/2x/user.png';
     }
 };

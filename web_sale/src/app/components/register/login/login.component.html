@@ -32,13 +32,13 @@
         <button class="btn btn-lg btn-login btn-block" type="submit">{{'loginScreen.buttonLoginText' | translate}}</button>
         <p>or you can sign in via social network</p>
         <div class="login-social-link">
-            <a (click)="submitLogin()" class="facebook">
+            <a (click)="facebookLogin()" class="facebook">
                 <i class="icon-facebook"></i>
                 Facebook
             </a>
-            <a href="index.html" class="twitter">
-                <i class="icon-twitter"></i>
-                Twitter
+            <a (click)="facebookLogin()" class="twitter">
+                <i class="icon-google-plus"></i>
+                Google
             </a>
         </div>
         <div class="registration">
