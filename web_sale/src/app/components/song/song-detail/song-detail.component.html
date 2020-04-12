@@ -1,10 +1,7 @@
-<div class="row" *ngIf="!current_song">
-    Không thể tìm thấy bài hát này !
-</div>
-<div class="row" *ngIf="current_song">
-  <div class="col-lg-12">
+<div class="row" >
+  <div *ngIf="current_song" class="col-lg-12">
       <!--notification start-->
-      <section class="panel"  style="min-height: 755px;">
+      <section class="panel">
           <div class="panel-body">
               <div class="row">
                   <div class="col-md-8">
@@ -84,4 +81,7 @@
 
       </section>
   </div>
+  <div *ngIf="!current_song" class="col-lg-12 no-result" >
+    <img src="https://mantuatownship.com/wp-content/uploads/2018/01/no-results-empty-state.jpg" alt="">
+ </div>
 </div>

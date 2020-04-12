@@ -1,16 +1,16 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div *ngIf="listSong && listSong.length" class="col-lg-12">
         <!--notification start-->
         <section class="panel" style="min-height: 755px;">
 
             <div class="panel-body">
-                <div class="adv-table editable-table " style="text-align: right;">
+                <div *ngIf="pageTable.pagedItems.length > 1" class="adv-table editable-table " style="text-align: right;">
                     <div id="editable-sample_wrapper" class="dataTables_wrapper form-inline" role="grid">
                         <div style="float: unset; margin-bottom: 0px;" class="dataTables_paginate paging_bootstrap pagination">
                             <ul>
                                 <li [ngClass]="{ 'prev': 1, 'disabled': pageTable.start == 0}"  ><a (click)="pageTable.prevPage2()">← Prev</a></li>
                                 <li *ngFor="let n of pageTable.range(pageTable.pagedItems.length, pageTable.currentPage, pageTable.currentPage + pageTable.gap) "
-                                [ngClass]="{'next': 1, 'active': n == page-1}" class="paginate_button page-item " ><a [routerLink]="['../']" [queryParams]="{page: n+1}" >{{n +1}}</a></li>
+                                [ngClass]="{'next': 1, 'active': n == page-1}" class="paginate_button page-item " ><a [routerLink]="['../']" [queryParams]="{page: n+1, search: search}" >{{n +1}}</a></li>
                                 <li [ngClass]="{'disabled': pageTable.end == pageTable.pagedItems.length}" ><a (click) ="pageTable.nextPage2()">Next → </a></li>
                             </ul>
                         </div>
@@ -24,7 +24,7 @@
                                     <img src="{{song.link_image}}">
                                 </a>
                                 <div class="media-body" style="position: relative;">
-                                    <a class=" p-head" [routerLink]="['/detail', song.song_id] " [queryParams]="{page:page}" >{{song.name}}</a>
+                                    <a class=" p-head" [routerLink]="['/detail', song.song_id]" [queryParams]="{page:page}" >{{song.name}}</a>
                                     <p class="song-content">{{song.content[0]}}</p>
                                     <b>{{song.singer}}</b>
                                     <p class="view"><i class="icon-headphones"></i> 200 </p>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div class="adv-table editable-table ">
+            <div  *ngIf="pageTable.pagedItems.length > 1" class="adv-table editable-table ">
                 <div id="editable-sample_wrapper" class="dataTables_wrapper form-inline" role="grid">
                     <div class="row">
                         <div class="col-lg-12" style="text-align: right;">
@@ -74,7 +74,7 @@
                                 <ul>
                                     <li [ngClass]="{ 'prev': 1, 'disabled': pageTable.start == 0}"  ><a (click)="pageTable.prevPage2()">← Prev</a></li>
                                     <li *ngFor="let n of pageTable.range(pageTable.pagedItems.length, pageTable.currentPage, pageTable.currentPage + pageTable.gap) "
-                                    [ngClass]="{'next': 1, 'active': n == page-1}" class="paginate_button page-item " ><a [routerLink]="['../']" [queryParams]="{page: n+1}" >{{n +1}}</a></li>
+                                    [ngClass]="{'next': 1, 'active': n == page-1}" class="paginate_button page-item " ><a [routerLink]="['../']" [queryParams]="{page: n+1, search: search}" >{{n +1}}</a></li>
                                     <li [ngClass]="{'disabled': pageTable.end == pageTable.pagedItems.length }" ><a (click) ="pageTable.nextPage2()">Next → </a></li>
                                 </ul>
                             </div>
@@ -83,5 +83,8 @@
                 </div>
             </div>
         </section>
+    </div>
+    <div *ngIf="!listSong ||(listSong && !listSong.length)" class="col-lg-12 no-result" >
+       <img src="https://mantuatownship.com/wp-content/uploads/2018/01/no-results-empty-state.jpg" alt="">
     </div>
 </div>

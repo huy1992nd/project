@@ -16,12 +16,20 @@ class SongController {
         if (user) {
             try {
                 let page = parseInt(req.query.page) || 1;
+                let search = req.query.search || "";
+                var condition = {
+                    type: "2"
+                };
+                if(search){
+                    condition = {$or:[
+                    {"name":{'$regex': search}, "type": "2"},
+                    {"singer":{'$regex': search}, "type": "2"}
+                  ]}
+                }
                 let number_of_page = req.number_of_page ? parseInt(req.number_of_page) : DEFAUL_NUMBER_SONG_PER_PAGE;
                 let offset = number_of_page * parseInt(page - 1);
-                console.log('limit', number_of_page);
-                console.log('offset', offset);
                 let list_song = await Song.find(
-                    { type: "2" },
+                    condition,
                     {},
                     { skip: offset, limit: number_of_page }
                 ).sort({"name": 1 });
@@ -68,7 +76,20 @@ class SongController {
         var user = req.user;
         if (user) {
             try {
-                let count = await Song.find({ type: 2 }, {}, {}).count();
+                var condition = {
+                    type: "2"
+                };
+                let search = req.query.search || "";
+                var condition = {
+                    type: "2"
+                };
+                if(search){
+                    condition = {$or:[
+                    {"name":{'$regex': search}, "type": "2"},
+                    {"singer":{'$regex': search}, "type": "2"}
+                  ]}
+                }
+                let count = await Song.find(condition, {}, {}).count();
                 let number_of_page = req.number_of_page ? parseInt(req.number_of_page) : DEFAUL_NUMBER_SONG_PER_PAGE;
                 var result = [];
                 let number_page = Math.ceil(count / number_of_page);

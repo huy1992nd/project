@@ -348,19 +348,21 @@ postCreateMenuNode(data: any): Promise<any> {
 }
 
 //  Song
-listSong(data: any): Promise<any> {
-  return this.httpService.authGet('/list_song', data).toPromise().then((data:any)=>{
+listSong(input: any): Promise<any> {
+  return this.httpService.authGet('/list_song', input).toPromise().then((data:any)=>{
     if (data.data != undefined) {
-      // let list = this.dataService.listSong.getValue();
       let list = this.dataService.listSong.getValue() || {};
-      list[data.page] = data.data;
+      if(!list[input.search]){
+        list[input.search] = {};
+      }
+      list[input.search][input.page] = data.data;
       this.dataService.listSong.next(list);
     }
   })
 }
 //  Song detail
-listSongDetail(data: any): Promise<any> {
-  return this.httpService.authGet('/song', data).toPromise().then((data:any)=>{
+listSongDetail(input: any): Promise<any> {
+  return this.httpService.authGet('/song', input).toPromise().then((data:any)=>{
     if (data.data != undefined) {
       let list = this.dataService.listSongDetail.getValue() || {};
       list[data.data.song_id] = data.data;
@@ -369,10 +371,12 @@ listSongDetail(data: any): Promise<any> {
   })
 }
 
-listPageSong(data: any): Promise<any> {
-  return this.httpService.authGet('/list_page_song', data).toPromise().then((data:any)=>{
+listPageSong(input: any): Promise<any> {
+  return this.httpService.authGet('/list_page_song', input).toPromise().then((data:any)=>{
     if (data.data != undefined) {
-      this.dataService.listPageSong.next(data.data);
+      let list = this.dataService.listPageSong.getValue() || {};
+      list[input.search] = data.data;
+      this.dataService.listPageSong.next(list);
     }
   })
 }

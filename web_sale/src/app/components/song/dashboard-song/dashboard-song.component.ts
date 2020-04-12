@@ -13,7 +13,10 @@ export class DashboardSongComponent implements OnInit {
   public sub:any;
   public subListSong:any;
   public subPageSong:any;
+  public subCurrentPage:any;
+  public subCurrentSearch:any;
   public page:any = 1;
+  public search:any = "";
   public listSong:any [];
   public listPageSong:any [];
   public  pageTable = new  PageTable();
@@ -30,38 +33,51 @@ export class DashboardSongComponent implements OnInit {
       .queryParams
       .subscribe(params => {
         this.page = +params['page'] || 1;
+        this.search = params['search'] || "";
         this.getListPageSong();
         this.getListSong(this.page);
       });
-      this.subListSong = this.dataService.listSong.subscribe(data=>{
-        if(!data)
-            return;
-            this.listSong = data[this.page];
-            console.log('list song',this.listSong);
-      });
-      this.subPageSong = this.dataService.listPageSong.subscribe(data=>{
-        if(!data)
-            return;
-            this.listPageSong = data;
-            this.paginate();
-      });
+      this.initSub();
+  }
+
+  initSub(){
+    this.subListSong = this.dataService.listSong.subscribe(data=>{
+      if(!data)
+          return;
+      if(data[this.search] && data[this.search][this.page]){
+        this.listSong = data[this.search][this.page];
+        console.log('list song',this.listSong);
+      }
+    });
+
+    this.subPageSong = this.dataService.listPageSong.subscribe(data=>{
+      if(!data)
+          return;
+      if(data[this.search]){
+        this.listPageSong = data[this.search];
+        this.paginate();
+      }
+    });
+
   }
 
   getListSong(page: any) {
     let list = this.dataService.listSong.getValue();
-    if (list && list[page]) {
-      this.listSong = list[page];
+    if (list && list[this.search] && list[this.search][this.page]) {
+      this.listSong = list[this.search][this.page];
     } else {
-      this.apiService.listSong({page:this.page}).then(data => {});
+      this.apiService.listSong({page:this.page, search: this.search}).then(data => {});
     }
   }
 
   getListPageSong() {
     let list = this.dataService.listPageSong.getValue();
-    if (list ) {
-      this.listPageSong = list;
+    if (list && list[this.search] ) {
+      this.listPageSong = list[this.search];
     } else {
-      this.apiService.listPageSong({}).then(data => {});
+      this.apiService.listPageSong({search:this.search}).then(data => {
+        search: this.search
+      });
     }
   }
 

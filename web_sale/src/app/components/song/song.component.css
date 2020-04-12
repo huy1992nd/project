@@ -1,3 +1,5 @@
-.dropdown-toggle img{
-  width: 25px;
+::ng-deep .no-result{
+  text-align: center;
+  background-color: #fff;
+  height: 85vh;
 }
