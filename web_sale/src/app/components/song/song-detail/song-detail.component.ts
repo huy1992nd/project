@@ -26,9 +26,12 @@ export class SongDetailComponent implements OnInit {
     this.id_song = this.route.snapshot.params.id;
     this.page = this.route.snapshot.queryParams.page;
     this.subSong = this.dataService.listSongDetail.subscribe(data=>{
-      if(!data)
-          return;
-          this.current_song = data[this.id_song] || null;
+      if(!data){
+        this.current_song ="none"
+        return;
+      }else{
+        this.current_song = data[this.id_song] || null;
+      }
     });
     this.getSong();
   }

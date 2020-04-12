@@ -1,5 +1,5 @@
 <div class="row" >
-  <div *ngIf="current_song" class="col-lg-12">
+  <div *ngIf="current_song && current_song!= 'none'" class="col-lg-12">
       <!--notification start-->
       <section class="panel">
           <div class="panel-body">
@@ -81,7 +81,7 @@
 
       </section>
   </div>
-  <div *ngIf="!current_song" class="col-lg-12 no-result" >
+  <div *ngIf="current_song == 'none'" class="col-lg-12 no-result" >
     <img src="https://mantuatownship.com/wp-content/uploads/2018/01/no-results-empty-state.jpg" alt="">
  </div>
 </div>
