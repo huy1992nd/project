@@ -8,8 +8,9 @@ class User {
 
     }
 
-    async LoginFace(req, res) {
+    async LoginSocial(req, res) {
         if( req.body.authToken){
+            let login_type = req.body.login_type;
             jwt.verify(req.body.authToken.trim(), KeyJwt, async (err, user) => {
                 if (err) {
                     res.json({
@@ -25,7 +26,7 @@ class User {
                                 account_id: userData.id,
                                 permission: 0,
                                 photoUrl: userData.photoUrl,
-                                login_type: "face_book",
+                                login_type: login_type,
                                 token_authen: jwt.sign({ 
                                     account_id: user.id,
                                     key: "", 

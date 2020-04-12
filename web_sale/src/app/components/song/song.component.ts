@@ -23,7 +23,8 @@ export class SongComponent implements OnInit {
 
   Logout() {
 		localStorage.removeItem('session');
-		localStorage.removeItem('session_face');
+		localStorage.removeItem('session_facebook');
+		localStorage.removeItem('session_google');
 		this.router.navigate(['/login']);
 	}
 

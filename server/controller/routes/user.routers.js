@@ -55,16 +55,16 @@ class UserRouter {
             next();
           }, generateToken, sendToken);
 
+        app.route('/login_social')
+        .post((a,b)=>userMongoController.LoginSocial(a,b));
+
         app.route('/register_google')
-        .post(passport.authenticate('facebook-token', {session: false}), function(req, res, next) {
+        .post(passport.authenticate('google-token', {session: false}), (req, res, next)=> {
             if (!req.user) {
               return res.send(401, 'User Not Authenticated');
             }
             next();
           }, generateToken, sendToken);
-
-        app.route('/login_face')
-        .post((a,b)=>userMongoController.LoginFace(a,b));
 
         app.route('/user_register')
         .post((a,b)=>userController.Register(a,b));

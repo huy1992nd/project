@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
     .then( data =>{
          if(data && data.token){
             console.log('token is',data.token);
-            localStorage.setItem('session_face', data.token);
+            localStorage.setItem('session_facebook', data.token);
             this.userApiService.initApp(data.user).then(() => {
               this.notify.success('Đăng nhập thành công');
               window.location.assign(this.returnUrl)
@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
     .then( data =>{
          if(data && data.token){
             console.log('token is',data.token);
-            localStorage.setItem('session_face', data.token);
+            localStorage.setItem('session_google', data.token);
             this.userApiService.initApp(data.user).then(() => {
               this.notify.success('Đăng nhập thành công');
               window.location.assign(this.returnUrl)

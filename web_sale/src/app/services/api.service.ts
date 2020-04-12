@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {HttpService} from './http.service';
 import {DataService} from './data.service';
 import {UserModel, UserInfoModel} from '../models/user.model';
@@ -11,8 +11,11 @@ declare const gapi:any;
 })
 export class ApiService {
 
+  auth2: any;
+
   constructor(  private httpService: HttpService,
-	private dataService: DataService
+  private dataService: DataService,
+  private zone: NgZone
   ) {
     FB.init({
       appId      : FACEBOOK_CLIENT_ID,
@@ -22,11 +25,17 @@ export class ApiService {
       version    : 'v2.8' // use graph api version 2.5
     });
 
-    // gapi.auth2.init({
-    //   client_id: GOOGLE_CLIENT_ID,
-    //   cookiepolicy: 'single_host_origin',
-    //   scope: 'profile email'
-    // });
+    gapi.load('auth2', () => {
+      gapi.auth2.init({
+            client_id: GOOGLE_CLIENT_ID,
+            fetch_basic_profile: true
+        }).then((auth) => {
+            this.zone.run(() => {
+                this.auth2 = auth;
+            });
+        },
+        );
+      });
 
    }
 
@@ -97,29 +106,30 @@ export class ApiService {
 
   googleLogin(): Promise<any> {
     return new Promise((resolve, reject) => {
-      gapi.auth2.attachClickHandler(this, {},
-        (googleUser) => {
-   
-          let profile = googleUser.getBasicProfile();
-          console.log('Token || ' + googleUser.getAuthResponse().id_token);
-          console.log('ID: ' + profile.getId());
-          console.log('Name: ' + profile.getName());
-          console.log('Image URL: ' + profile.getImageUrl());
-          console.log('Email: ' + profile.getEmail());
-          //YOUR CODE HERE
-        }, (error) => {
-          alert(JSON.stringify(error, undefined, 2));
+      this.auth2.signIn().then(user => {
+        console.log('user google', user);
+        this.registerGoogle({
+          access_token: user.tc.access_token,
+        }).then(data=>{
+          if(data.result_code == 0){
+            data.user.login_type = "google";
+            resolve({
+                  token:data.token,
+                  user:data.user
+                }
+              );
+          }else{
+            reject(false);
+          }
         });
+      });
     });
   }
 
   registerGoogle(data: any): Promise<any> {
-	  return this.httpService.publicPost('/register_face', data).toPromise();
+	  return this.httpService.publicPost('/register_google', data).toPromise();
   }
 
-  loginGoogle(data: any): Promise<any> {
-	  return this.httpService.publicPost('/login_face', data).toPromise();
-  }
   fbLogin(): Promise<any> {
     return new Promise((resolve, reject) => {
       FB.login(result => {
@@ -145,8 +155,8 @@ export class ApiService {
 	  return this.httpService.publicPost('/register_face', data).toPromise();
   }
 
-  loginFace(data: any): Promise<any> {
-	  return this.httpService.publicPost('/login_face', data).toPromise();
+  loginSocial(data: any): Promise<any> {
+	  return this.httpService.publicPost('/login_social', data).toPromise();
   }
 
   listUser(data: any): Promise<any> {

@@ -22,8 +22,9 @@ module.exports = () => {
       }, { upsert: true }, (err, result) => {
         if (err) {
           console.log('Have error when insert social user', err, user);
+          return done(err, null);
         } else {
-          return done(null, result);
+          return done(err, result);
         }
       });
     }));

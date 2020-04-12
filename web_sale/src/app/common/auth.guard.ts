@@ -35,24 +35,11 @@ checkAuthGuardPromise(){
       var token = localStorage.getItem('session');
      
       if (!token) {
-        var token_face = localStorage.getItem('session_face');
-        if(!token_face){
-          resolve(false);
+      let login_social = await this.checkLoginSocial();
+        if(login_social){
+          resolve(true);
         }else{
-          this.userApiService.loginFace({ authToken: token_face }).then(data => {
-            if (data.result_code == 0) {
-              this.userDataService.currentUser.next(new UserModel(data));
-              resolve(true);
-            }else{
-              localStorage.removeItem("session_face");
-              reject(false);
-            }
-          }).catch(error => {
-             localStorage.removeItem("session_face");
-              reject(false);
-          }).finally(() => {
-              // reject(false);
-          })
+          resolve(false);
         }
       }else {
           if (currentUser.account_id == '') {
@@ -79,6 +66,45 @@ checkAuthGuardPromise(){
   })
 }
 
-  
- 
+checkLoginSocial(){
+  return new Promise((resolve, reject)=>{
+    var token_face = localStorage.getItem('session_facebook');
+    if(!token_face){
+      var token_google = localStorage.getItem('session_google');
+      if(!token_google){
+        resolve(false);
+      }else{
+        this.userApiService.loginSocial({ authToken: token_google, login_type : "google" }).then(data => {
+          if (data.result_code == 0) {
+            this.userDataService.currentUser.next(new UserModel(data));
+            resolve(true);
+          }else{
+            localStorage.removeItem("session_google");
+            reject(false);
+          }
+        }).catch(error => {
+           localStorage.removeItem("session_google");
+           reject(false);
+        }).finally(() => {
+        })
+      }
+
+    }else{
+      this.userApiService.loginSocial({ authToken: token_face, login_type:"facebook" }).then(data => {
+        if (data.result_code == 0) {
+          this.userDataService.currentUser.next(new UserModel(data));
+          resolve(true);
+        }else{
+          localStorage.removeItem("session_facebook");
+          reject(false);
+        }
+      }).catch(error => {
+         localStorage.removeItem("session_facebook");
+         reject(false);
+      }).finally(() => {
+      })
+    }
+  })
+}
+
 }
