@@ -41,6 +41,10 @@
   outline:none!important;
 }
 
-.search{
-  /* background: none; */
+.sidebar-toggle-box {
+  display: none;
+}
+
+.i-home{
+  color: #666666;
 }

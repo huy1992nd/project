@@ -5,6 +5,10 @@
   -webkit-border-radius: 3px;
 }
 
+.disabled{
+  cursor: not-allowed;
+}
+
 .media-body{
   position: relative;
 }
@@ -37,4 +41,8 @@
   animation-timing-function: linear;
   padding: 0 10px;
   border-radius: 9999px
+}
+
+.tab-content{
+  min-height: 90vh;
 }

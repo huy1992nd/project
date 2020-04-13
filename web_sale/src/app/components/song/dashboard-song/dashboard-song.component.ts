@@ -74,6 +74,7 @@ export class DashboardSongComponent implements OnInit {
     let list = this.dataService.listPageSong.getValue();
     if (list && list[this.search] ) {
       this.listPageSong = list[this.search];
+      this.paginate();
     } else {
       this.apiService.listPageSong({search:this.search}).then(data => {
         search: this.search

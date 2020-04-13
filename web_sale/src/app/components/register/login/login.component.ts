@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
               this.router.navigateByUrl(this.returnUrl);
             });
          }else{
-          console.log('User login failed');
+          this.notify.error(this.translate.instant(`error_code.${data.result_code}`));
          }
     })
     console.log("submit login to facebook");
@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
               this.router.navigateByUrl(this.returnUrl);
             });
          }else{
-          console.log('User login failed');
+            this.notify.error(this.translate.instant(`error_code.${data.result_code}`));
          }
     })
     console.log("submit login to facebook");
