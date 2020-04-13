@@ -13,15 +13,15 @@ export class PageTable {
     reverse: false
   };
 
-  public gap: Number;
+  public gap: number;
   public filteredItems = [];
   public groupedItems = [];
-  public itemsPerPage: Number;
+  public itemsPerPage: number;
   public pagedItems = [];
-  public currentPage: Number;
+  public currentPage: number;
   public items = [];
-  public start = [];
-  public end = [];
+  public start : number;
+  public end : number;
 
 
   // calculate page in place

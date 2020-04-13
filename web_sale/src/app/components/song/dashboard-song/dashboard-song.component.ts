@@ -15,7 +15,7 @@ export class DashboardSongComponent implements OnInit {
   public subPageSong:any;
   public subCurrentPage:any;
   public subCurrentSearch:any;
-  public page:any = 1;
+  public page:number = 1;
   public search:any = "";
   public listSong:any [];
   public listPageSong:any [];
@@ -46,7 +46,6 @@ export class DashboardSongComponent implements OnInit {
           return;
       if(data[this.search] && data[this.search][this.page]){
         this.listSong = data[this.search][this.page];
-        console.log('list song',this.listSong);
       }
     });
 
