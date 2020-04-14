@@ -13,18 +13,29 @@
   position: relative;
 }
 
-.media-body .view {
-  position: absolute;
-  top: 5px;
-  right: 30px;
+.media-body .more-infor {
+  position: relative;
+
+}
+.media-body .like {
+  color: #eaea1f;
+  font-size: 18px;
+}
+.view{
+  width: 35px;
   color: crimson;
+  position: absolute;
+  top: 2px;
+  right: 15px;
   font-size: smaller;
+  margin-left: 250px;
 }
 .song-content{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 250px;
+  margin-bottom: 5px;
 }
 
 .media:first-child {

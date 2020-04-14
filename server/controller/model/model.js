@@ -31,6 +31,7 @@ var UserSocialSchema = new Schema({
     lastName: String,
     provider: String,
     facebook: Schema.Types.Mixed,
+    views: { type: Number, default: 0 },
     updated_at: { type: Date, default: Date.now },
     created_at: { type: Date, default: Date.now }
 }, { collection: 'user_social' });
@@ -53,6 +54,17 @@ var SongSchema = new Schema({
 }, { collection: 'song' });
 SongSchema.index({ source : 1, name: 1 });
 
+//favoriteSong
+var FavoritesSongSchema = new Schema({
+    song_id: String,
+    account_id: String,
+    song_type: String,
+    status: Boolean,
+    updated_at: { type: Date, default: Date.now },
+    created_at: { type: Date, default: Date.now }
+}, { collection: 'favorites_song' });
+FavoritesSongSchema.index({ song_id : 1, account_id: 1 });
+
 //mongoose.connect(config.get('dbURL'), options);
 mongoose.connect(config.get('mongodb').URI, options, function (err) {
     if (err) throw err;
@@ -60,4 +72,5 @@ mongoose.connect(config.get('mongodb').URI, options, function (err) {
 });
 
 exports.Song = mongoose.model('Song', SongSchema);
+exports.FavoritesSong = mongoose.model('FavoritesSong', FavoritesSongSchema);
 exports.UserSocial = mongoose.model('UserSocial', UserSocialSchema);

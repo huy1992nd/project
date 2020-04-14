@@ -36,3 +36,8 @@
   height: 80vh;
   overflow-y: auto;
 }
+.like {
+  color: #eaea1f;
+  font-size: 18px;
+  margin-right: 10px;
+}

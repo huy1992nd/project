@@ -25,9 +25,10 @@
                                 </a>
                                 <div class="media-body" style="position: relative;">
                                     <a class=" p-head" [routerLink]="['/detail', song.song_id]" [queryParams]="{page:page}" >{{song.name}}</a>
-                                    <p class="song-content">{{song.content[0]}}</p>
+                                    <p class="song-content">{{song.content[0]}}<br>{{song.content[1]}}</p>
                                     <b>{{song.singer}}</b>
-                                    <p class="view"><i class="icon-headphones"></i> 200 </p>
+                                    <p class="more-infor"><span class="like"><i class="icon-star"></i></span></p>
+                                    <p class="view"><i class="icon-headphones"></i> 200</p>
                                 </div>
                             </article>
                         </div>

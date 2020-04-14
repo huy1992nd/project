@@ -29,6 +29,9 @@ export class DataService {
   listPageSong:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   currentSearchSong:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   currentPageSong:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  listLike:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  topLike:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  topView:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(private translateService: TranslateService) {
     var lang = localStorage.getItem('language') || navigator.language;
     translateService.addLangs(['en', 'vi']);

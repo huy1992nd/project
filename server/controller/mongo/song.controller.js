@@ -2,9 +2,11 @@
 const config = require('config');
 const model = require('../model/model');
 const Song = model.Song;
+const FavoritesSong = model.FavoritesSong;
 let { ResultCode } = require('../../define');
-const DEFAUL_NUMBER_SONG_PER_PAGE =  30;
-
+const DEFAUL_NUMBER_SONG_PER_PAGE = 30;
+const NUMBER_TOP_LIKE = 10;
+const NUMBER_TOP_VIEW = 10;
 class SongController {
     constructor() {
         this.ext_token = config.get("ext_token") * 1000;
@@ -20,11 +22,13 @@ class SongController {
                 var condition = {
                     type: "2"
                 };
-                if(search){
-                    condition = {$or:[
-                    {"name":{'$regex': search}, "type": "2"},
-                    {"singer":{'$regex': search}, "type": "2"}
-                  ]}
+                if (search) {
+                    condition = {
+                        $or: [
+                            { "name": { '$regex': search }, "type": "2" },
+                            { "singer": { '$regex': search }, "type": "2" }
+                        ]
+                    }
                 }
                 let number_of_page = req.number_of_page ? parseInt(req.number_of_page) : DEFAUL_NUMBER_SONG_PER_PAGE;
                 let offset = number_of_page * parseInt(page - 1);
@@ -32,7 +36,7 @@ class SongController {
                     condition,
                     {},
                     { skip: offset, limit: number_of_page }
-                ).sort({"name": 1 });
+                ).sort({ "name": 1 });
                 res.status(200).json({
                     page: page,
                     data: list_song
@@ -83,11 +87,13 @@ class SongController {
                 var condition = {
                     type: "2"
                 };
-                if(search){
-                    condition = {$or:[
-                    {"name":{'$regex': search}, "type": "2"},
-                    {"singer":{'$regex': search}, "type": "2"}
-                  ]}
+                if (search) {
+                    condition = {
+                        $or: [
+                            { "name": { '$regex': search }, "type": "2" },
+                            { "singer": { '$regex': search }, "type": "2" }
+                        ]
+                    }
                 }
                 let count = await Song.find(condition, {}, {}).count();
                 let number_of_page = req.number_of_page ? parseInt(req.number_of_page) : DEFAUL_NUMBER_SONG_PER_PAGE;
@@ -99,6 +105,158 @@ class SongController {
                 res.status(200).json({
                     data: result
                 });
+            } catch (error) {
+                res.status(500).json({
+                    result_code: ResultCode.NOT_SUCCESS
+                });
+            }
+
+        } else {
+            res.status(401).json({
+                result_code: ResultCode.NOT_AUTHEN
+            });
+        }
+    }
+
+    async listFavorites(req, res) {
+        var user = req.user;
+        if (user) {
+            try {
+                let list_favorites = await FavoritesSong.find({ account_id: user.account_id, status: true }, {}, {});
+                var list_result = {};
+                list_favorites.forEach(item => {
+                    list_result[item.song_id] = true;
+                })
+                res.status(200).json({
+                    data: list_result
+                });
+            } catch (error) {
+                res.status(500).json({
+                    result_code: ResultCode.NOT_SUCCESS
+                });
+            }
+
+        } else {
+            res.status(401).json({
+                result_code: ResultCode.NOT_AUTHEN
+            });
+        }
+    }
+
+    async updateFavorites(req, res) {
+        var user = req.user;
+        if (user && req.song_id) {
+            try {
+                let status = req.status ? true : false;
+                await FavoritesSong.findOneAndUpdate({
+                    account_id: user.account_id,
+                    song_id: req.song_id
+                }, {
+                    $set: {
+                        status: status
+                    }
+                }, { upsert: true }, (err, result) => {
+                    if (err) {
+                        console.log('Have error when update status favorites', err, user);
+                        return done(err, null);
+                    } else {
+                        return done(err, result);
+                    }
+                });
+                res.status(200).json({
+                    result_code: 0
+                });
+            } catch (error) {
+                res.status(500).json({
+                    result_code: ResultCode.NOT_SUCCESS
+                });
+            }
+
+        } else {
+            res.status(401).json({
+                result_code: ResultCode.NOT_AUTHEN
+            });
+        }
+    }
+
+    async topLike(req, res) {
+        var user = req.user;
+        if (user) {
+            try {
+                let list_favorites = await FavoritesSong.aggregate([
+                    { $match: { status: true } },
+                    { $group: { song_id: "$song_id", count: { $sum: 1 } } },
+                    {
+                        $sort: { count: -1 }
+                    },
+                    { $limit: NUMBER_TOP_LIKE }
+                ], (err, result) => {
+                    if (err) throw err
+                });
+                var list_song_id = [];
+                list_favorites.forEach(item => {
+                    list_song_id.push(item.song_id);
+                });
+
+                var list_song = await Song.find({ song_id: { "$in": list_song_id }, type: "2" }, {}, {});
+
+                res.status(200).json({
+                    data: list_song
+                });
+            } catch (error) {
+                res.status(500).json({
+                    result_code: ResultCode.NOT_SUCCESS
+                });
+            }
+
+        } else {
+            res.status(401).json({
+                result_code: ResultCode.NOT_AUTHEN
+            });
+        }
+    }
+
+    async topView(req, res) {
+        var user = req.user;
+        if (user) {
+            try {
+                var list_song = await Song.find({
+                    type: "2"
+                }, {},
+                    { skip: offset, limit: NUMBER_TOP_VIEW }
+                ).sort({ "views": 1 });
+
+                res.status(200).json({
+                    data: list_song
+                });
+            } catch (error) {
+                res.status(500).json({
+                    result_code: ResultCode.NOT_SUCCESS
+                });
+            }
+
+        } else {
+            res.status(401).json({
+                result_code: ResultCode.NOT_AUTHEN
+            });
+        }
+    }
+
+    async updateView(req, res) {
+        var user = req.user;
+        if (user && req._id) {
+            try {
+                Song.findOneAndUpdate({ _id: req._id }, { $inc: { views: 1 } }, { new: true }, function (err, response) {
+                    if (err) {
+                        res.status(500).json({
+                            result_code: ResultCode.NOT_SUCCESS
+                        });
+                    } else {
+                        res.status(200).json({
+                            data: list_song
+                        });
+                    }
+                })
             } catch (error) {
                 res.status(500).json({
                     result_code: ResultCode.NOT_SUCCESS

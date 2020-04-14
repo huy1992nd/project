@@ -381,4 +381,42 @@ listPageSong(input: any): Promise<any> {
   })
 }
 
+listLike(input: any): Promise<any> {
+  return this.httpService.authGet('/list_like', input).toPromise().then((data:any)=>{
+    if (data.data != undefined) {
+      let list = this.dataService.listLike.getValue() || {};
+      list[input.account_id] = data.data;
+      this.dataService.listLike.next(list);
+    }
+  })
+}
+
+topLike(input: any): Promise<any> {
+  return this.httpService.authGet('/top_like', input).toPromise().then((data:any)=>{
+    if (data.data != undefined) {
+      let list = this.dataService.topLike.getValue() || {};
+      list = data.data;
+      this.dataService.topLike.next(list);
+    }
+  })
+}
+
+topView(input: any): Promise<any> {
+  return this.httpService.authGet('/top_view', input).toPromise().then((data:any)=>{
+    if (data.data != undefined) {
+      let list = this.dataService.topView.getValue() || {};
+      list = data.data;
+      this.dataService.topView.next(list);
+    }
+  })
+}
+
+updateLike(input: any): Promise<any> {
+  return this.httpService.authPost('/update_like', input).toPromise().then((data:any)=>{})
+}
+
+updateView(input: any): Promise<any> {
+  return this.httpService.authPost('/update_view', input).toPromise().then((data:any)=>{})
+}
+
 }

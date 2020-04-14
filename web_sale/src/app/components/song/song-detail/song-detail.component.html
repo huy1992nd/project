@@ -19,7 +19,16 @@
                         <div class="tab-pane active" id="popular">
                             <article  class="media" style="">
                                 <div class="media-body" style="position: relative; font-size: 18px;">
-                                    <p><span><strong> {{current_song.name}} </strong></span>  <i class=" icon-ellipsis-horizontal bt"></i> <span><strong> {{current_song.singer}}</strong></span> </p>
+                                    <p>
+                                        <i class="like icon-star"></i> 
+                                        <span>
+                                            <strong> {{current_song.name}} </strong>
+                                        </span>
+                                        <i class=" icon-ellipsis-horizontal bt"></i> 
+                                        <span>
+                                            <strong> {{current_song.singer}}</strong>
+                                        </span> 
+                                    </p>
                                 </div>
                             </article>
                             <article *ngFor="let content of current_song.content; index as i; first as isFirst" class="media" >
