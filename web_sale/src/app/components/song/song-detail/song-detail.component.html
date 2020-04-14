@@ -9,7 +9,7 @@
                         <div class="tab-pane active" id="popular">
                             <div class="video-show-detail">
                                 <iframe id="video-player" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" title="YouTube video player" width="100%" height="100%" 
-                                [src] ='sanitizer.bypassSecurityTrustResourceUrl(current_song.link_you_tube?current_song.link_you_tube.replace("autoplay=1","autoplay=0") :"")'></iframe>
+                                [src] ='current_song.link_you_tube | safe'></iframe>
                             </div>
                         </div>
                     </div>
@@ -17,10 +17,10 @@
                   <div class="col-md-4">
                     <div class="tab-content tasi-tab lyric-show">
                         <div class="tab-pane active" id="popular">
-                            <article  class="media" style="">
+                            <article  class="media" >
                                 <div class="media-body" style="position: relative; font-size: 18px;">
-                                    <p>
-                                        <i class="like icon-star"></i> 
+                                    <p >
+                                        <i  (click)="updateLike(id_song)" [ngClass]="{'icon-star': like, 'icon-star-empty': !like}" class="like"></i> 
                                         <span>
                                             <strong> {{current_song.name}} </strong>
                                         </span>

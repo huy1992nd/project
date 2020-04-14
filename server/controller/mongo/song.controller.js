@@ -145,12 +145,13 @@ class SongController {
 
     async updateFavorites(req, res) {
         var user = req.user;
-        if (user && req.song_id) {
+        var body = req.body;
+        if (user && body.song_id) {
             try {
-                let status = req.status ? true : false;
+                let status = body.status ? true : false;
                 await FavoritesSong.findOneAndUpdate({
                     account_id: user.account_id,
-                    song_id: req.song_id
+                    song_id: body.song_id
                 }, {
                     $set: {
                         status: status
@@ -158,14 +159,16 @@ class SongController {
                 }, { upsert: true }, (err, result) => {
                     if (err) {
                         console.log('Have error when update status favorites', err, user);
-                        return done(err, null);
+                        res.status(500).json({
+                            result_code: ResultCode.NOT_SUCCESS
+                        });
                     } else {
-                        return done(err, result);
+                        res.status(200).json({
+                            result_code: 0
+                        });
                     }
                 });
-                res.status(200).json({
-                    result_code: 0
-                });
+              
             } catch (error) {
                 res.status(500).json({
                     result_code: ResultCode.NOT_SUCCESS
@@ -244,16 +247,17 @@ class SongController {
 
     async updateView(req, res) {
         var user = req.user;
-        if (user && req._id) {
+        var body = req.body;
+        if (user && body._id) {
             try {
-                Song.findOneAndUpdate({ _id: req._id }, { $inc: { views: 1 } }, { new: true }, function (err, response) {
+                Song.findOneAndUpdate({ _id: body._id }, { $inc: { view: 1 } }, { new: true }, function (err, response) {
                     if (err) {
                         res.status(500).json({
                             result_code: ResultCode.NOT_SUCCESS
                         });
                     } else {
                         res.status(200).json({
-                            data: list_song
+                            result_code: 0
                         });
                     }
                 })

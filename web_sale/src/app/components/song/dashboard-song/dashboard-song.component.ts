@@ -33,7 +33,7 @@ export class DashboardSongComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.currentUser = this.dataService.listSong.getValue();
+    this.currentUser = this.dataService.currentUser.getValue();
     this.sub = this.route
       .queryParams
       .subscribe(params => {
@@ -83,7 +83,7 @@ export class DashboardSongComponent implements OnInit {
 
   getListLike() {
     let list = this.dataService.listLike.getValue();
-    if (list && list(this.currentUser.account_id)) {
+    if (list && list[this.currentUser.account_id]) {
       this.listLike = list[this.currentUser.account_id];
     } else {
       this.apiService.listLike({account_id:this.currentUser.account_id, type : this.currentUser.login_type}).then(data => {});
@@ -103,13 +103,15 @@ export class DashboardSongComponent implements OnInit {
   }
 
   updateLike(song_id){
-    let status = this.listLike[this.currentUser.account_id][song_id]? false : true
+    let status = this.listLike[song_id]? false : true
     this.apiService.updateLike({
       account_id:this.currentUser.account_id,
       song_id: song_id,
       status: status,
     }).then(data => {
-      this.listLike[this.currentUser.account_id][song_id] = status;
+      let list = this.dataService.listLike.getValue();
+      list[this.currentUser.account_id][song_id] = status;
+      this.dataService.listSong.next(list);
     });
   }
 

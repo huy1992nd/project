@@ -27,8 +27,8 @@
                                     <a class=" p-head" [routerLink]="['/detail', song.song_id]" [queryParams]="{page:page}" >{{song.name}}</a>
                                     <p class="song-content">{{song.content[0]}}<br>{{song.content[1]}}</p>
                                     <b>{{song.singer}}</b>
-                                    <p class="more-infor"><span class="like"><i class="icon-star"></i></span></p>
-                                    <p class="view"><i class="icon-headphones"></i> 200</p>
+                                    <p class="more-infor"><span class="like"><i (click)="updateLike(song.song_id)" [ngClass]="{'icon-star': listLike&&listLike[song.song_id], ' icon-star-empty': listLike&&!listLike[song.song_id]}"  ></i></span></p>
+                                    <p class="view"><i class="icon-headphones"></i> {{song.view}}</p>
                                 </div>
                             </article>
                         </div>

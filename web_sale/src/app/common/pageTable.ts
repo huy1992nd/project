@@ -65,7 +65,7 @@ export class PageTable {
       this.currentPage-= this.gap;
     }else{
       if (this.currentPage > 0) {
-        this.currentPage--;
+        this.currentPage = 0;
       }
     }
   };
@@ -80,7 +80,7 @@ export class PageTable {
       this.currentPage+= this.gap;
     }else{
       if (this.currentPage < this.pagedItems.length - 1) {
-        this.currentPage++;
+        this.currentPage = this.pagedItems.length -1;
       }
     }
   };

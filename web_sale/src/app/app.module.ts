@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import {LocationStrategy, HashLocationStrategy,PathLocationStrategy} from '@angular/common';
 import { HttpConfigInterceptor } from './interceptors/httpConfig.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS,HttpClient } from '@angular/common/http';
@@ -47,6 +47,7 @@ import { SongComponent } from './components/song/song.component';
 import { DashboardSongComponent } from './components/song/dashboard-song/dashboard-song.component';
 import { SongDetailComponent } from './components/song/song-detail/song-detail.component';
 import { SongHeaderComponent } from './components/song/song-header/song-header.component';
+import { SafePipe  } from './pipes/safe-url.pipe';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { SongHeaderComponent } from './components/song/song-header/song-header.c
     DashboardSongComponent,
     SongDetailComponent,
     SongHeaderComponent,
+    SafePipe,
   ],
   imports: [
     HttpClientModule,

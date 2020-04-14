@@ -620,6 +620,24 @@ class CrawlVocalData2 extends CrawlSongData{
         });
         await this.browser.close();
     }
+    // update content
+    async replaceLinkYoutube(){
+        var list_data = await Song.find({type : this.type }, (error, result)=>{});
+        await this.asyncForEach(list_data, async (item, index) => {
+            if(index <1000){
+                let link_you_tube = item.link_you_tube.replace("autoplay=1","autoplay=0");
+                await Song.updateOne({ _id: item._id }, {
+                    $set: {link_you_tube : link_you_tube}
+                }, { upsert: false }, (err, result) => {
+                    if (err) {
+                        console.log('Have error when insert data', item);
+                    } else {
+                        console.log("update ", item.song_id, "ok");
+                    }
+                });
+            }
+        });
+    }
 
     async getContentPage(link) {
         return new Promise(async (resolve, reject) => {
@@ -664,7 +682,7 @@ class CrawlVocalData2 extends CrawlSongData{
 // s  = new CrawlVocalData("voca.vn");
 // s.crawlData();
 s_2  = new CrawlVocalData2("2");
-s_2.updateLinkYoutubeNull();
+s_2.replaceLinkYoutube();
 
 
 module.exports = CrawlVocalData;
