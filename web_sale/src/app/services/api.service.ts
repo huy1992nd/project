@@ -391,6 +391,16 @@ listLike(input: any): Promise<any> {
   })
 }
 
+listFavorites(input: any): Promise<any> {
+  return this.httpService.authGet('/list_favorites', input).toPromise().then((data:any)=>{
+    if (data.data != undefined) {
+      let list = this.dataService.listFavorites.getValue() || {};
+      list[input.account_id] = data.data;
+      this.dataService.listFavorites.next(list);
+    }
+  })
+}
+
 topLike(input: any): Promise<any> {
   return this.httpService.authGet('/top_like', input).toPromise().then((data:any)=>{
     if (data.data != undefined) {

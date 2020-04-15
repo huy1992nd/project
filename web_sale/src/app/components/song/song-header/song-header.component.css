@@ -48,3 +48,44 @@
 .i-home{
   color: #666666;
 }
+
+.icon-star{
+  color: #eaea1f;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: -15px !important; 
+  padding-top: 15px;
+  background-color: unset !important;
+  box-shadow: 0 0px 0px rgba(0,0,0,0.175) !important;
+}
+
+ul.dropdown-menu li{
+  background-color: #fff;
+  box-shadow: 0 6px 6px rgba(0,0,0,0.175);
+}
+.dropdown-menu:hover {
+  display: block;
+  margin-top: 0; 
+}
+.notify-arrow {
+  top:-3px;
+}
+
+.alert-message{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  margin-bottom: 5px;
+}
+
+.dropdown-menu.inbox li a .photo img {
+  height: 35px;
+}
+
+.bt-star{
+  width: 30px;
+}
+

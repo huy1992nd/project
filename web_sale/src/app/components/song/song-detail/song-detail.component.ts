@@ -11,8 +11,6 @@ import { DomSanitizer  } from '@angular/platform-browser';
 export class SongDetailComponent implements OnInit {
   public currentUser:any;
   public subSong:any;
-  public subLike:any;
-  public like:any [];
   public first_load = true;
   id_song: any ;
   current_song: any ;
@@ -31,7 +29,6 @@ export class SongDetailComponent implements OnInit {
     this.id_song = this.route.snapshot.params.id;
     this.page = this.route.snapshot.queryParams.page;
     this.getSong();
-    this.getListLike();
     this.initSub();
   }
 
@@ -43,13 +40,6 @@ export class SongDetailComponent implements OnInit {
       }else{
         this.current_song = data[this.id_song] || null;
         this.updateView();
-      }
-    });
-    this.subLike = this.dataService.listLike.subscribe(data=>{
-      if(!data)
-          return;
-      if(data[this.currentUser.account_id]){
-        this.like = data[this.currentUser.account_id][this.id_song] || false;
       }
     });
   }
@@ -88,27 +78,6 @@ export class SongDetailComponent implements OnInit {
       });
     }
   }
-  getListLike() {
-    let list = this.dataService.listLike.getValue();
-    if (list && list[this.currentUser.account_id]) {
-      this.like = list[this.currentUser.account_id][this.id_song] || false;
-    } else {
-      this.apiService.listLike({account_id:this.currentUser.account_id, type : this.currentUser.login_type}).then(data => {});
-    }
-  }
-
-  updateLike(){
-    let status = this.like? false : true;
-    this.apiService.updateLike({
-      account_id:this.currentUser.account_id,
-      song_id: this.id_song,
-      status: status,
-    }).then(data => {
-      let list = this.dataService.listLike.getValue();
-      list[this.currentUser.account_id][this.id_song] = status;
-      this.dataService.listLike.next(list);
-    });
-  }
 
   findInListPage(listSongInPage){
        if(this.page && listSongInPage){
@@ -120,7 +89,6 @@ export class SongDetailComponent implements OnInit {
 
   ngOnDestroy() {
     this.subSong.unsubscribe();
-    this.subLike.unsubscribe();
   }
 
 }

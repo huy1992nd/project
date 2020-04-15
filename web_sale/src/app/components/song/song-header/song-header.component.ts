@@ -14,6 +14,9 @@ export class SongHeaderComponent implements OnInit {
   @ViewChild('searchbt', {static: false}) btsearch:ElementRef ;
   @ViewChild('searchip', {static: false}) ipsearch:ElementRef ;
   public sub:any;
+  public subMode:any;
+  public subFavorites:any;
+  public listFavorites:any =[];
   public page:any = 1;
   public search:any = "";
   form: FormGroup;
@@ -27,21 +30,62 @@ export class SongHeaderComponent implements OnInit {
     private renderer: Renderer2
   ) { }
   public currentUser: any;
+  public currentMode: any;
   public currentPage: any;
   public currentSearch: any;
   ngOnInit() {
+    this.currentMode = this.dataService.currentMode.getValue();   
+    this.currentUser = this.dataService.currentUser.getValue();
+    this.initSub();
+    this.form = new FormGroup({
+      search: new FormControl(this.search, []),
+      page: new FormControl("1", []),
+    });
+
+    this.getListFavorites();
+  }
+
+  initSub(){
+    this.subMode = this.dataService.currentMode.subscribe(data=>{
+      if(!data)
+          return;
+      this.currentMode = data;
+    });
     this.sub = this.route
       .queryParams
       .subscribe(params => {
         this.page = +params['page'] || 1;
         this.search = params['search'] || "";
       });
-
-    this.currentUser = this.dataService.currentUser.getValue();
-    this.form = new FormGroup({
-      search: new FormControl(this.search, []),
-      page: new FormControl("1", []),
+    this.subFavorites = this.dataService.listFavorites.subscribe(data=>{
+      if(!data)
+          return;
+      if(data[this.currentUser.account_id]){
+        this.listFavorites = data[this.currentUser.account_id];
+      }
     });
+  }
+
+  getListFavorites() {
+    let list = this.dataService.listFavorites.getValue();
+    if (list &&  list[this.currentUser.account_id]) {
+      this.listFavorites = list[this.currentUser.account_id];
+    } else {
+      this.userApiService.listFavorites({account_id:this.currentUser.account_id}).then(data => {});
+    }
+  }
+
+  changeMode(){
+    if(this.currentMode == 'favorites'){
+      this.currentMode = '';
+      this.dataService.currentMode.next(this.currentMode);
+      this.router.navigate(['../'], { });
+    }else{
+      this.currentMode = 'favorites';
+      this.dataService.currentMode.next(this.currentMode);
+      this.router.navigate(['/favorites'], { });
+    }
+
   }
 
   removeSearch(){
@@ -65,8 +109,11 @@ export class SongHeaderComponent implements OnInit {
 		localStorage.removeItem('session_google');
 		this.router.navigate(['/login']);
   }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.subMode.unsubscribe();
+    this.subFavorites.unsubscribe();
   }
 
 

@@ -30,6 +30,8 @@ export class DataService {
   currentSearchSong:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   currentPageSong:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   listLike:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  listFavorites:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  currentMode:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   topLike:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   topView:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(private translateService: TranslateService) {

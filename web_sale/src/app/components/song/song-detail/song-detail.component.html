@@ -20,7 +20,7 @@
                             <article  class="media" >
                                 <div class="media-body" style="position: relative; font-size: 18px;">
                                     <p >
-                                        <i  (click)="updateLike(id_song)" [ngClass]="{'icon-star': like, 'icon-star-empty': !like}" class="like"></i> 
+                                        <app-like-song [id_song]="id_song"></app-like-song>
                                         <span>
                                             <strong> {{current_song.name}} </strong>
                                         </span>

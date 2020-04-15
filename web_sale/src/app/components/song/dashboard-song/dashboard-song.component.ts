@@ -15,13 +15,11 @@ export class DashboardSongComponent implements OnInit {
   public subListSong:any;
   public subPageSong:any;
   public subView:any;
-  public subLike:any;
   public subCurrentPage:any;
   public subCurrentSearch:any;
   public page:number = 1;
   public search:any = "";
   public listSong:any [];
-  public listLike:any [];
   public listPageSong:any [];
   public  pageTable = new  PageTable();
   constructor(
@@ -41,7 +39,6 @@ export class DashboardSongComponent implements OnInit {
         this.search = params['search'] || "";
         this.getListPageSong();
         this.getListSong();
-        this.getListLike();
       });
       this.initSub();
   }
@@ -63,13 +60,6 @@ export class DashboardSongComponent implements OnInit {
         this.paginate();
       }
     });
-    this.subLike = this.dataService.listLike.subscribe(data=>{
-      if(!data)
-          return;
-      if(data[this.currentUser.account_id]){
-        this.listLike = data[this.currentUser.account_id];
-      }
-    });
   }
 
   getListSong() {
@@ -78,15 +68,6 @@ export class DashboardSongComponent implements OnInit {
       this.listSong = list[this.search][this.page];
     } else {
       this.apiService.listSong({page:this.page, search: this.search}).then(data => {});
-    }
-  }
-
-  getListLike() {
-    let list = this.dataService.listLike.getValue();
-    if (list && list[this.currentUser.account_id]) {
-      this.listLike = list[this.currentUser.account_id];
-    } else {
-      this.apiService.listLike({account_id:this.currentUser.account_id, type : this.currentUser.login_type}).then(data => {});
     }
   }
 
@@ -102,19 +83,6 @@ export class DashboardSongComponent implements OnInit {
     }
   }
 
-  updateLike(song_id){
-    let status = this.listLike[song_id]? false : true
-    this.apiService.updateLike({
-      account_id:this.currentUser.account_id,
-      song_id: song_id,
-      status: status,
-    }).then(data => {
-      let list = this.dataService.listLike.getValue();
-      list[this.currentUser.account_id][song_id] = status;
-      this.dataService.listSong.next(list);
-    });
-  }
-
   paginate(){
     this.pageTable.currentPage = this.page-1;
     this.pageTable.itemsPerPage= 1;
@@ -126,7 +94,6 @@ export class DashboardSongComponent implements OnInit {
     this.sub.unsubscribe();
     this.subListSong.unsubscribe();
     this.subPageSong.unsubscribe();
-    this.subLike.unsubscribe();
   }
 
   ngAfterViewInit() {

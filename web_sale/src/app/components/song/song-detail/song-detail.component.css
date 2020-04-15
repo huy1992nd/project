@@ -36,8 +36,9 @@
   height: 80vh;
   overflow-y: auto;
 }
-.like {
-  color: #eaea1f;
-  font-size: 18px;
+::ng-deep .icon-star {
+  margin-right: 10px;
+}
+::ng-deep .icon-star-empty {
   margin-right: 10px;
 }

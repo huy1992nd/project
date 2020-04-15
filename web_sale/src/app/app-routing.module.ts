@@ -51,6 +51,7 @@ import {ViewDetailComponent} from './components/sale/view-detail/view-detail.com
 import {SongComponent} from './components/song/song.component';
 import {DashboardSongComponent} from './components/song/dashboard-song/dashboard-song.component';
 import {SongDetailComponent} from './components/song/song-detail/song-detail.component';
+import { FavoritesSongComponent } from './components/song/favorites-song/favorites-song.component';
 
 const routes: Routes = [
     {
@@ -218,6 +219,10 @@ const routes: Routes = [
             {
                 path: '',
                 component: DashboardSongComponent
+            },
+            {
+                path: 'favorites',
+                component: FavoritesSongComponent
             },
             {
                 path: 'detail/:id',

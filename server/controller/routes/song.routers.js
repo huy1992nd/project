@@ -14,6 +14,9 @@ class SongRouter {
             .get((a, b) => SongController.listPageSong(a, b));
 
         app.route('/list_like')
+            .get((a, b) => SongController.listLike(a, b));
+            
+        app.route('/list_favorites')
             .get((a, b) => SongController.listFavorites(a, b));
         
         app.route('/update_like')

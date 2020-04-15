@@ -118,7 +118,7 @@ class SongController {
         }
     }
 
-    async listFavorites(req, res) {
+    async listLike(req, res) {
         var user = req.user;
         if (user) {
             try {
@@ -130,6 +130,51 @@ class SongController {
                 res.status(200).json({
                     data: list_result
                 });
+            } catch (error) {
+                res.status(500).json({
+                    result_code: ResultCode.NOT_SUCCESS
+                });
+            }
+
+        } else {
+            res.status(401).json({
+                result_code: ResultCode.NOT_AUTHEN
+            });
+        }
+    }
+
+    async listFavorites(req, res) {
+        var user = req.user;
+        if (user) {
+            try {
+                FavoritesSong.aggregate([
+                    {$match : {status : true}},
+                    { $lookup:
+                      {
+                        from: 'song',
+                        localField: 'song_id',
+                        foreignField: 'song_id',
+                        as: 'songData'
+                      }
+                    }
+                  ], (err, result) => {
+                    if (err) {
+                        res.status(500).json({
+                            result_code: ResultCode.NOT_SUCCESS
+                        });
+                        throw err;
+                    }
+                    let list_result = [];
+                    result.forEach(item=>{
+                        if(item && item.songData && item.songData[0]){
+                            list_result.push(item.songData[0]);
+                        }
+                    })
+                    res.status(200).json({
+                        data: list_result
+                    });
+                });
+               
             } catch (error) {
                 res.status(500).json({
                     result_code: ResultCode.NOT_SUCCESS

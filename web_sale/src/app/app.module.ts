@@ -48,6 +48,8 @@ import { DashboardSongComponent } from './components/song/dashboard-song/dashboa
 import { SongDetailComponent } from './components/song/song-detail/song-detail.component';
 import { SongHeaderComponent } from './components/song/song-header/song-header.component';
 import { SafePipe  } from './pipes/safe-url.pipe';
+import { FavoritesSongComponent } from './components/song/favorites-song/favorites-song.component';
+import { LikeSongComponent } from './components/song/common/like-song/like-song.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,8 @@ import { SafePipe  } from './pipes/safe-url.pipe';
     SongDetailComponent,
     SongHeaderComponent,
     SafePipe,
+    FavoritesSongComponent,
+    LikeSongComponent,
   ],
   imports: [
     HttpClientModule,
