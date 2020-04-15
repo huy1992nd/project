@@ -28,7 +28,7 @@ class User {
                                 photoUrl: userData.photoUrl,
                                 login_type: login_type,
                                 token_authen: jwt.sign({ 
-                                    account_id: user.id,
+                                    account_id: userData.id,
                                     key: "", 
                                     site: "", 
                                     permission: null,

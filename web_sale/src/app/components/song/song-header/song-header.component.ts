@@ -71,7 +71,6 @@ export class SongHeaderComponent implements OnInit {
           return;
       if(data[this.currentUser.account_id]){
         this.listFavorites = data[this.currentUser.account_id];
-        
       }
     });
     this.subView = this.dataService.topView.subscribe(data=>{

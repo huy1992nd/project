@@ -148,7 +148,7 @@ class SongController {
         if (user) {
             try {
                 FavoritesSong.aggregate([
-                    {$match : {status : true}},
+                    {$match : {status : true, account_id:user.account_id}},
                     { $lookup:
                       {
                         from: 'song',
@@ -195,7 +195,7 @@ class SongController {
             try {
                 let status = body.status ? true : false;
                 await FavoritesSong.findOneAndUpdate({
-                    account_id: user.account_id,
+                    account_id: body.account_id,
                     song_id: body.song_id
                 }, {
                     $set: {
