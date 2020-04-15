@@ -26,7 +26,7 @@ export class LikeSongComponent implements OnInit {
       }
     });
 
-    this.getListLike();
+    // this.getListLike();
   }
 
   updateLike(){
@@ -41,16 +41,6 @@ export class LikeSongComponent implements OnInit {
       this.dataService.listLike.next(list);
       this.apiService.listFavorites({account_id:this.currentUser.account_id}).then(data => {});
     });
-  }
-
-
-  getListLike() {
-    let list = this.dataService.listLike.getValue();
-    if (list && list[this.currentUser.account_id]) {
-      this.like = list[this.currentUser.account_id][this.id_song] || false;
-    } else {
-      this.apiService.listLike({account_id:this.currentUser.account_id, type : this.currentUser.login_type}).then(data => {});
-    }
   }
 
   ngOnDestroy() {

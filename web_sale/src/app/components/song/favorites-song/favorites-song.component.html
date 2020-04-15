@@ -12,7 +12,7 @@
                                     <img src="{{song.link_image}}">
                                 </a>
                                 <div class="media-body" style="position: relative;">
-                                    <a class=" p-head" [routerLink]="['/detail', song.song_id]" [queryParams]="{page:page}" >{{song.name}}</a>
+                                    <a class=" p-head" [routerLink]="['/detail', song.song_id]" [queryParams]="{}" >{{song.name}}</a>
                                     <p class="song-content">{{song.content[0]}}<br>{{song.content[1]}}</p>
                                     <b>{{song.singer}}</b>
                                     <p class="more-infor"><span class="like"><app-like-song [id_song]="song.song_id"></app-like-song></span></p>

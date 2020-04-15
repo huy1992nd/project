@@ -15,8 +15,10 @@ export class SongHeaderComponent implements OnInit {
   @ViewChild('searchip', {static: false}) ipsearch:ElementRef ;
   public sub:any;
   public subMode:any;
+  public subView:any;
   public subFavorites:any;
   public listFavorites:any =[];
+  public listViews:any =[];
   public page:any = 1;
   public search:any = "";
   form: FormGroup;
@@ -29,10 +31,16 @@ export class SongHeaderComponent implements OnInit {
     private e: ElementRef,
     private renderer: Renderer2
   ) { }
-  public currentUser: any;
   public currentMode: any;
+  public currentUser: any;
+  public max_view: number = 100;
   public currentPage: any;
   public currentSearch: any;
+  public listNotyfication: any = [
+    {"type":"1","message": "Có 10 bài hát mới được cập nhật", "time":"50 mins"},
+    {"type":"2","message": "You are in the world", "time": "1 Hour"},
+  ];
+
   ngOnInit() {
     this.currentMode = this.dataService.currentMode.getValue();   
     this.currentUser = this.dataService.currentUser.getValue();
@@ -43,6 +51,7 @@ export class SongHeaderComponent implements OnInit {
     });
 
     this.getListFavorites();
+    this.getView();
   }
 
   initSub(){
@@ -62,7 +71,14 @@ export class SongHeaderComponent implements OnInit {
           return;
       if(data[this.currentUser.account_id]){
         this.listFavorites = data[this.currentUser.account_id];
+        
       }
+    });
+    this.subView = this.dataService.topView.subscribe(data=>{
+      if(!data)
+          return;
+      this.listViews = data;
+      this.max_view = this.listViews[0].view || 100;
     });
   }
 
@@ -72,6 +88,28 @@ export class SongHeaderComponent implements OnInit {
       this.listFavorites = list[this.currentUser.account_id];
     } else {
       this.userApiService.listFavorites({account_id:this.currentUser.account_id}).then(data => {});
+    }
+  }
+
+  getView() {
+    let list = this.dataService.topView.getValue();
+    if (list) {
+      this.listViews = list;
+    } else {
+      this.userApiService.topView({}).then(data => {});
+    }
+  }
+
+  getPercent(i){
+    let v = i? parseInt(i): 0;
+    return Math.floor(v*100/this.max_view);
+  }
+
+  convertM(m){
+    if(m && m.length > 25){
+      return m.slice(0,23)+"...";
+    }else{
+      return m;
     }
   }
 
@@ -86,6 +124,11 @@ export class SongHeaderComponent implements OnInit {
       this.router.navigate(['/favorites'], { });
     }
 
+  }
+  clickHeader(e){
+    if (e.target && e.target.classList && e.target.classList[0] == 'header'){
+      this.renderer.removeClass(this.ipsearch.nativeElement,"search-select");
+    }
   }
 
   removeSearch(){
@@ -114,7 +157,8 @@ export class SongHeaderComponent implements OnInit {
     this.sub.unsubscribe();
     this.subMode.unsubscribe();
     this.subFavorites.unsubscribe();
+    this.subView.unsubscribe();
   }
-
-
 }
+
+

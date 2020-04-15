@@ -89,3 +89,16 @@ ul.dropdown-menu li{
   width: 30px;
 }
 
+.dropdown-menu.tasks-bar .task-info .percent {
+  min-width: 42px;
+  text-align: right;
+}
+
+.message-no{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  margin-bottom: 5px;
+ }
+

@@ -32,6 +32,7 @@ export class DashboardSongComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.dataService.currentUser.getValue();
+    this.dataService.currentMode.next('normal');
     this.sub = this.route
       .queryParams
       .subscribe(params => {

@@ -414,9 +414,7 @@ topLike(input: any): Promise<any> {
 topView(input: any): Promise<any> {
   return this.httpService.authGet('/top_view', input).toPromise().then((data:any)=>{
     if (data.data != undefined) {
-      let list = this.dataService.topView.getValue() || {};
-      list = data.data;
-      this.dataService.topView.next(list);
+      this.dataService.topView.next(data.data);
     }
   })
 }

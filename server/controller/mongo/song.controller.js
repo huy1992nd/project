@@ -6,7 +6,7 @@ const FavoritesSong = model.FavoritesSong;
 let { ResultCode } = require('../../define');
 const DEFAUL_NUMBER_SONG_PER_PAGE = 30;
 const NUMBER_TOP_LIKE = 10;
-const NUMBER_TOP_VIEW = 10;
+const NUMBER_TOP_VIEW = 8;
 class SongController {
     constructor() {
         this.ext_token = config.get("ext_token") * 1000;
@@ -271,8 +271,8 @@ class SongController {
                 var list_song = await Song.find({
                     type: "2"
                 }, {},
-                    { skip: offset, limit: NUMBER_TOP_VIEW }
-                ).sort({ "views": 1 });
+                    { skip: 0, limit: NUMBER_TOP_VIEW }
+                ).sort({ "view": -1 });
 
                 res.status(200).json({
                     data: list_song

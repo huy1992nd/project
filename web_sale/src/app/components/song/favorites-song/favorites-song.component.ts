@@ -11,7 +11,6 @@ export class FavoritesSongComponent implements OnInit {
   public sub:any;
   public listFavorites:any;
   public currentUser:any;
-  public currentMode:any;
   constructor(
     private apiService: ApiService,
     private dataService: DataService,
@@ -21,10 +20,7 @@ export class FavoritesSongComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.dataService.currentUser.getValue();
-    this.currentMode = this.dataService.currentMode.getValue();
-    if(this.currentMode != 'favorites'){
-      this.dataService.currentMode.next('favorites');
-    }
+    this.dataService.currentMode.next('favorites');
     this.sub = this.dataService.listFavorites.subscribe(data=>{
       if(!data)
           return;
