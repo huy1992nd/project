@@ -33,6 +33,11 @@ export class SongDetailComponent implements OnInit {
   }
 
   initSub(){
+    this.route.params
+    .subscribe((value) => {
+      this.id_song = this.route.snapshot.params.id;
+      this.getSong();
+    });
     this.subSong = this.dataService.listSongDetail.subscribe(data=>{
       if(!data){
         this.current_song ="none";

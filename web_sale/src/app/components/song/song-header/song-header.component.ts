@@ -81,6 +81,10 @@ export class SongHeaderComponent implements OnInit {
     });
   }
 
+  gotoLink(song_id){
+    this.router.navigate(['/detail'], song_id);
+  }
+
   getListFavorites() {
     let list = this.dataService.listFavorites.getValue();
     if (list &&  list[this.currentUser.account_id]) {

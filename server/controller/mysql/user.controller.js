@@ -122,7 +122,7 @@ class UserController {
         var data = req.body;
         var headers = req.headers;
         console.log("data register", data);
-        if (data.user_name && data.password && data.account_id && data.phone_number && data.mail ) {
+        if (data.user_name && data.password && data.account_id  && data.email ) {
             let check = await this.CheckExistUser(data.account_id);
             if (check) {
                 res.json({
@@ -131,7 +131,7 @@ class UserController {
                 return;
             }
 
-            check = await this.CheckExistMail(data.mail);
+            check = await this.CheckExistMail(data.email);
             if (check) {
                 res.json({
                     result_code: global.define.ResultCode.MAIL_EXISTED
@@ -144,19 +144,19 @@ class UserController {
                 list: []
             }
 
-            stream.sql = `insert into fx_users (account_id,user_name,password,phone_number,mail,address,permission,identity_card,gender,birth_day,site)
-         values(?,?,?,?,?,?,?,?,?,?,?);`;
+            stream.sql = `insert into fx_users (account_id,user_name,password,phone_number,mail,address,permission,identity_card,gender,site)
+         values(?,?,?,?,?,?,?,?,?,?);`;
 
             stream.values.push(data.account_id);
             stream.values.push(data.user_name);
             stream.values.push(util.saltAndHash(data.password));
-            stream.values.push(data.phone_number);
-            stream.values.push(data.mail ? data.mail : "");
+            stream.values.push(data.phone_number|| 0);
+            stream.values.push(data.email ? data.email : "");
             stream.values.push(data.address ? data.address : "");
             stream.values.push(1);
             stream.values.push(data.identity_card ? data.identity_card : "");
             stream.values.push(data.gender ? data.gender : "");
-            stream.values.push(data.birth_day ? dateFormat(new Date(data.birth_day), "yyyy-mm-dd") : "");
+            // stream.values.push(data.birth_day ? dateFormat(new Date(data.birth_day), "yyyy-mm-dd") : "");
             stream.values.push(headers.domain ? headers.domain : "");
 
             mySqlController.ExeQuery({

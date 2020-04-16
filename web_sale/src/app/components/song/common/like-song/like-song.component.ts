@@ -43,6 +43,13 @@ export class LikeSongComponent implements OnInit {
     });
   }
 
+  ngOnChanges() {
+    let listLike = this.dataService.listLike.getValue();
+    if(listLike && this.currentUser && this.id_song){
+      this.like = listLike[this.currentUser.account_id][this.id_song] || false;
+    }
+  }
+
   ngOnDestroy() {
     this.subLike.unsubscribe();
   }

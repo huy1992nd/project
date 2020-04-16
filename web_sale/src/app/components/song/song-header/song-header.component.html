@@ -22,7 +22,8 @@
                   <p class="green">Top view song</p>
               </li>
               <li *ngFor="let song of listViews | slice:0:8; index as i; first as isFirst">
-                  <a [routerLink]="['/detail', song.song_id]">
+                  <a  [routerLink]="['/detail', song.song_id]">
+                  <!-- <a (click)="gotoLink(song.song_id)" > -->
                       <div class="task-info">
                           <div  class="desc" >
                               {{song.name}}

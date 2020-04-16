@@ -35,18 +35,10 @@ export class SignupComponent implements OnInit {
     ],
     'confirm_password': [
       { type: 'required', message: 'Confirm password không được để trống' },
-      { type: 'confirmPassword', message: 'Confirm password không giống password' }
     ],
     'password': [
       { type: 'required', message: 'Password không được để trống' },
       { type: 'minlength', message: 'Password không được dưới 6 kí tự' }
-    ],
-    'phone_number': [
-      { type: 'minlength', message: 'Số phone không được dưới 10 kí tự' },
-      { type: 'pattern', message: 'Số phone không đúng' }
-    ],
-    'agree': [
-      {type:'pattern', message:'phái nhấn agree'}
     ]
     };
     public isLoading : boolean = false;
@@ -61,14 +53,12 @@ export class SignupComponent implements OnInit {
     console.log(" host",window.location.hostname);
    // this.isRootDomain = (window.location.hostname == 'sharectv.com' || window.location.hostname == 'localhost');
     this.form = new FormGroup({
-      user_name: new FormControl('', []),
+      user_name: new FormControl('test123', []),
       gender: new FormControl('male', [Validators.required]),
-      agree: new FormControl(false, [Validators.pattern('true')]),
-      account_id: new FormControl('', [Validators.required,Validators.minLength(6),Validators.pattern("[^' ']+")]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      confirm_password: new FormControl('', [Validators.required,Validators.minLength(6)]),
-      phone_number: new FormControl('',[]),
+      account_id: new FormControl('test123', [Validators.required,Validators.minLength(6),Validators.pattern("[^' ']+")]),
+      email: new FormControl('test@gmail.com', [Validators.required, Validators.email]),
+      password: new FormControl('123456', [Validators.required, Validators.minLength(6)]),
+      confirm_password: new FormControl('123456', []),
       current_domain: new FormControl(window.location.hostname),
     }, { validators: [confirmPasswordValidator] });
   }
