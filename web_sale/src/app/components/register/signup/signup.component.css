@@ -45,3 +45,14 @@ mat-icon {
 h4 {
     font-weight: 500;
 }
+
+.block-input{
+    position: relative;
+    height: 60px;
+}
+.block-input .error{
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    font-size: 11px;
+}

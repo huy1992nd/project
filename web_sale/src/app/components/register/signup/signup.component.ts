@@ -44,6 +44,9 @@ export class SignupComponent implements OnInit {
     'phone_number': [
       { type: 'minlength', message: 'Số phone không được dưới 10 kí tự' },
       { type: 'pattern', message: 'Số phone không đúng' }
+    ],
+    'agree': [
+      {type:'pattern', message:'phái nhấn agree'}
     ]
     };
     public isLoading : boolean = false;
@@ -58,18 +61,16 @@ export class SignupComponent implements OnInit {
     console.log(" host",window.location.hostname);
    // this.isRootDomain = (window.location.hostname == 'sharectv.com' || window.location.hostname == 'localhost');
     this.form = new FormGroup({
-      user_name: new FormControl('', [Validators.required]),
+      user_name: new FormControl('', []),
+      gender: new FormControl('male', [Validators.required]),
+      agree: new FormControl(false, [Validators.pattern('true')]),
       account_id: new FormControl('', [Validators.required,Validators.minLength(6),Validators.pattern("[^' ']+")]),
-      mail: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirm_password: new FormControl('', [Validators.required,Validators.minLength(6)]),
-      birth_day: new FormControl('',[Validators.required]),
-      phone_number: new FormControl('',[Validators.required, Validators.minLength(10),Validators.pattern('^[0-9]\\d*$')]),
+      phone_number: new FormControl('',[]),
       current_domain: new FormControl(window.location.hostname),
     }, { validators: [confirmPasswordValidator] });
-
-    
-  
   }
 
   submit() {
