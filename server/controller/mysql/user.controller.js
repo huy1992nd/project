@@ -1,12 +1,15 @@
 'use strict';
 var mySqlController = require('./mysql.controller');
+var  mailController = require('../../mail/mail.controller');
+
 var crypto_controller = require('../../lib/util');
 var jwt = require('jsonwebtoken');
 let util = require('./../../lib/util');
 let { log, logHacker } = require('./../../lib/log');
-var verifyController = require('./../verify.controller');
+// var verifyController = require('./../verify.controller');
+
 const config = require('config');
-const myEmitter = require('./../../lib/myemitter.js');
+// const myEmitter = require('./../../lib/myemitter.js');
 let { RoleType,ResultCode, UserPermission, EmitType, KeyJwt, VerifyType } = require('./../../define');
 var dateFormat = require('dateformat');
 
@@ -156,7 +159,6 @@ class UserController {
             stream.values.push(1);
             stream.values.push(data.identity_card ? data.identity_card : "");
             stream.values.push(data.gender ? data.gender : "");
-            // stream.values.push(data.birth_day ? dateFormat(new Date(data.birth_day), "yyyy-mm-dd") : "");
             stream.values.push(headers.domain ? headers.domain : "");
 
             mySqlController.ExeQuery({
@@ -164,12 +166,14 @@ class UserController {
                 values: stream.values
             }, async (err, rows, fields) => {
                 if (!err) {
-                    data.type = VerifyType.REGISTER;
-                    myEmitter.emit(EmitType.SOCKET_EMIT, stream.list);
+                    // data.type = VerifyType.REGISTER;
+                    // myEmitter.emit(EmitType.SOCKET_EMIT, stream.list);
+                    mailController.sendMailRegister(data.account_id, data.email, (err,result)=>{});
                     res.json({
                         result_code: global.define.ResultCode.SUCCESS,
                         message: 'register success'
                     });
+                    
                 } else {
                     log.info("register user err", err);
                     res.json({
@@ -529,16 +533,38 @@ class UserController {
         })
     }
 
+    async ResendVerifyMail(req, res){
+        let data = req.body;
+        if (data.account_id && data.email) {
+            mailController.sendMailRegister(data.account_id, data.email, (err,result)=>{
+                if(result&& result.status){
+                    res.json({
+                        result_code: global.define.ResultCode.SUCCESS,
+                        message: 'resend success'
+                    });
+                }else{
+                    res.status(401).json({
+                        result_code: global.define.ResultCode.NOT_SUCCESS
+                    });
+                }
+            })
+        }else{
+            res.status(401).json({
+                result_code: ResultCode.INCORRECT_DATA
+            });
+        }
+       
+    }
+
     async VerifyMail(req, res) {
         var data = req.body;
-        var user = req.user;
-        if (data.session && data.verify_code && data.account_id) {
-            let obj = verifyController.VerifyCode(data);
-            if (obj.result == 1) {
+        if (data.verify_code && data.account_id && data.email) {
+            let obj = await mailController.checkCode(data);
+            if (obj.status) {
                 let sql = 'Update  fx_users set permission = 0 where account_id = ? and permission = 3';
                 mySqlController.ExeQuery({
                     query: sql,
-                    values: [obj.data.account_id]
+                    values: [data.account_id]
                 }, function (err, rows, fields) {
                     if (!err) {
                         res.json({
@@ -552,14 +578,13 @@ class UserController {
                     }
                 });
             } else {
-                res.status(401).json({
-                    result_code: ResultCode.VERIFY_ERROR
+                res.status(200).json({
+                    result_code: ResultCode.MAIL_VERIFY_CODE_NOT_TRUE
                 });
             }
 
         } else {
-            logHacker.info(user, req.url);
-            res.status(401).json({
+            res.status(200).json({
                 result_code: ResultCode.INCORRECT_DATA
             });
         }
@@ -662,7 +687,7 @@ class UserController {
             });
         } else {
             res.json({
-                result_code: global.define.ResultCode.INCORRECT_DATA
+                result_code: global.define.ResultCode.MAIL_VERIFY_CODE_NOT_TRUE
             });
         }
     }

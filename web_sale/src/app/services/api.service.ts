@@ -46,8 +46,17 @@ export class ApiService {
       });
   }
   register(data: any): Promise<any> {
-	return this.httpService.publicPost('/user_register', data).toPromise();
+	  return this.httpService.publicPost('/user_register', data).toPromise();
   }
+
+  userVerify(data: any): Promise<any> {
+	  return this.httpService.publicPost('/user_verify', data).toPromise();
+  }
+
+  resendsVerify(data: any): Promise<any> {
+	  return this.httpService.publicPost('/resend_verify', data).toPromise();
+  }
+
   getRole(): Promise<any> {
     return this.httpService.authPost('/list_roles').toPromise();
   }
@@ -360,6 +369,7 @@ listSong(input: any): Promise<any> {
     }
   })
 }
+
 //  Song detail
 listSongDetail(input: any): Promise<any> {
   return this.httpService.authGet('/song', input).toPromise().then((data:any)=>{

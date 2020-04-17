@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { confirmPasswordValidator } from 'src/app/common/ultilities';
 import { NotifyService } from 'src/app/services/notify.service';
 import {TranslateService} from '@ngx-translate/core';
-
+import { DataService } from './../../../services/data.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -46,19 +46,20 @@ export class SignupComponent implements OnInit {
     public translate: TranslateService,
     private userApiService: ApiService,
     private router: Router,
-    public notify: NotifyService
+    public notify: NotifyService,
+    public dataservice: DataService
   ) { }
 
   ngOnInit() {
     console.log(" host",window.location.hostname);
    // this.isRootDomain = (window.location.hostname == 'sharectv.com' || window.location.hostname == 'localhost');
     this.form = new FormGroup({
-      user_name: new FormControl('test123', []),
+      user_name: new FormControl('', []),
       gender: new FormControl('male', [Validators.required]),
-      account_id: new FormControl('test123', [Validators.required,Validators.minLength(6),Validators.pattern("[^' ']+")]),
-      email: new FormControl('test@gmail.com', [Validators.required, Validators.email]),
-      password: new FormControl('123456', [Validators.required, Validators.minLength(6)]),
-      confirm_password: new FormControl('123456', []),
+      account_id: new FormControl('', [Validators.required,Validators.minLength(6),Validators.pattern("[^' ']+")]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirm_password: new FormControl('', []),
       current_domain: new FormControl(window.location.hostname),
     }, { validators: [confirmPasswordValidator] });
   }
@@ -75,9 +76,11 @@ export class SignupComponent implements OnInit {
 
           let data = {
             account_id: this.form.get('account_id').value,
-            password: this.form.get('password').value,
-            keyVerify: result.keyVerify
+            email: this.form.get('email').value,
+            // password: this.form.get('password').value,
+            // keyVerify: result.keyVerify
           }
+          this.dataservice.inforRegister.next(data)
           this.router.navigate(['register-verify']);
           // this.router.navigateByUrl('/xac-nhan-tai-khoan-moi', { state: { data: 'test test' } });
         } else {

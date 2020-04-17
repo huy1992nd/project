@@ -65,6 +65,20 @@ var FavoritesSongSchema = new Schema({
 }, { collection: 'favorites_song' });
 FavoritesSongSchema.index({ song_id : 1, account_id: 1 });
 
+//verify mail
+var VerifyMailSchema = new Schema({
+    account_id: String,
+    email: String,
+    code: String,
+    template: String,
+    type: String,
+    status: Boolean,
+    time: Number,
+    updated_at: { type: Date, default: Date.now },
+    created_at: { type: Date, default: Date.now }
+}, { collection: 'verify_mail' });
+VerifyMailSchema.index({ type:1, account_id : 1, email: 1});
+
 //mongoose.connect(config.get('dbURL'), options);
 mongoose.connect(config.get('mongodb').URI, options, function (err) {
     if (err) throw err;
@@ -74,3 +88,4 @@ mongoose.connect(config.get('mongodb').URI, options, function (err) {
 exports.Song = mongoose.model('Song', SongSchema);
 exports.FavoritesSong = mongoose.model('FavoritesSong', FavoritesSongSchema);
 exports.UserSocial = mongoose.model('UserSocial', UserSocialSchema);
+exports.VerifyMail = mongoose.model('VerifyMail', VerifyMailSchema);

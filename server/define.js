@@ -11,7 +11,6 @@ exports.gSequence = {
 }
 
 exports.ResultCode = {
-   
     HACKER: 33,
     SUCCESS: 0,
     NOT_SUCCESS:1,
@@ -24,6 +23,9 @@ exports.ResultCode = {
     WRONG_PASSWORD:22,
     USER_EXISTED:11,
     MAIL_EXISTED:31,
+    MAIL_VERIFY_REGIS_USER_NOT_EXIT:32,
+    MAIL_VERIFY_REGIS_USER_EXPIRSE:33,
+    MAIL_VERIFY_CODE_NOT_TRUE:35,
     EXIT_ROLE:61,
     EXIT_PERMISSION:62,
     EXIT_SYMBOL:71,

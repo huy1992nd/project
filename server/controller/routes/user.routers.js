@@ -69,6 +69,12 @@ class UserRouter {
         app.route('/user_register')
         .post((a,b)=>userController.Register(a,b));
              
+        app.route('/user_verify')
+        .post((a,b)=>userController.VerifyMail(a,b));
+
+        app.route('/resend_verify')
+        .post((a,b)=>userController.ResendVerifyMail(a,b));
+             
         app.route("/user_create_new")
         .post((a,b)=>userController.CreateNewUser(a,b));
 

@@ -42,8 +42,8 @@
 	"mailServer":{
 		"host": "smtp.gmail.com", 
 		"port":465,
-		"user": "sharectv.service@gmail.com", 
-		"pass": "Haipc01224"
+		"user": "musicforlife202017@gmail.com", 
+		"pass": "Music@2020"
 		},
 	"time_out_code":300000,
 	"ext_token":8640000,
