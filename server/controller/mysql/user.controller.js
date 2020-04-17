@@ -1,6 +1,8 @@
 'use strict';
 var mySqlController = require('./mysql.controller');
-var  mailController = require('../../mail/mail.controller');
+const model = require('../model/model');
+const UserSocial = model.UserSocial;
+var mailController = require('../../mail/mail.controller');
 
 var crypto_controller = require('../../lib/util');
 var jwt = require('jsonwebtoken');
@@ -10,7 +12,7 @@ let { log, logHacker } = require('./../../lib/log');
 
 const config = require('config');
 // const myEmitter = require('./../../lib/myemitter.js');
-let { RoleType,ResultCode, UserPermission, EmitType, KeyJwt, VerifyType } = require('./../../define');
+let { RoleType, ResultCode, UserPermission, EmitType, KeyJwt, VerifyType } = require('./../../define');
 var dateFormat = require('dateformat');
 
 class UserController {
@@ -36,10 +38,10 @@ class UserController {
                         if (user.active) {
                             let passKey = util.md5(user.account_id + user.password);
                             let token = jwt.sign({ account_id: user.account_id, key: passKey, site: user.site, permission: user.permission, Date: Date.now() }, KeyJwt);
-                            console.log('token',token);
+                            console.log('token', token);
                             res.json({
                                 result_code: 0,
-                                site:user.site,
+                                site: user.site,
                                 user_name: user.user_name,
                                 account_id: user.account_id,
                                 permission: user.permission,
@@ -125,7 +127,7 @@ class UserController {
         var data = req.body;
         var headers = req.headers;
         console.log("data register", data);
-        if (data.user_name && data.password && data.account_id  && data.email ) {
+        if (data.user_name && data.password && data.account_id && data.email) {
             let check = await this.CheckExistUser(data.account_id);
             if (check) {
                 res.json({
@@ -153,7 +155,7 @@ class UserController {
             stream.values.push(data.account_id);
             stream.values.push(data.user_name);
             stream.values.push(util.saltAndHash(data.password));
-            stream.values.push(data.phone_number|| 0);
+            stream.values.push(data.phone_number || 0);
             stream.values.push(data.email ? data.email : "");
             stream.values.push(data.address ? data.address : "");
             stream.values.push(1);
@@ -168,12 +170,12 @@ class UserController {
                 if (!err) {
                     // data.type = VerifyType.REGISTER;
                     // myEmitter.emit(EmitType.SOCKET_EMIT, stream.list);
-                    mailController.sendMailRegister(data.account_id, data.email, (err,result)=>{});
+                    mailController.sendMailRegister(data.account_id, data.email, (err, result) => { });
                     res.json({
                         result_code: global.define.ResultCode.SUCCESS,
                         message: 'register success'
                     });
-                    
+
                 } else {
                     log.info("register user err", err);
                     res.json({
@@ -194,20 +196,20 @@ class UserController {
     ListAllUser(req, res) {
         var data = req.body;
         var paging = data.paging;
-        var  user = req.user;
-         if(user && parseInt(user.permission) >= 6){
-            if(typeof(paging) == "string"){
+        var user = req.user;
+        if (user && parseInt(user.permission) >= 6) {
+            if (typeof (paging) == "string") {
                 paging = JSON.parse(paging);
             }
             let paging_str = "";
-            if(paging){
-                var offset = paging.offset? paging.offset : 0;
-                var limit = paging.limit? paging.limit : 1000;
+            if (paging) {
+                var offset = paging.offset ? paging.offset : 0;
+                var limit = paging.limit ? paging.limit : 1000;
                 paging_str = `LIMIT ${offset}, ${limit}`;
             }
             let list_value = [];
             let condition = "";
-            if(user.permission == 6 ){
+            if (user.permission == 6) {
                 condition = ` where site = ? `;
                 list_value.push(user.site);
             }
@@ -227,12 +229,12 @@ class UserController {
                     });
                 }
             });
-         }else {
-            res.status(401).json({
+        } else {
+            res.status(200).json({
                 result_code: ResultCode.INCORRECT_DATA
             });
-         }
-       
+        }
+
     }
 
     BlockUser(req, res) {
@@ -270,7 +272,7 @@ class UserController {
         let sql_query = "";
         var data = req.body;
 
-        if (user && data.active &&  data.account_id) {
+        if (user && data.active && data.account_id) {
             sql_query = 'update fx_users set active = ? where account_id = ? and site = ?';
             mySqlController.ExeQuery({
                 query: sql_query,
@@ -384,7 +386,7 @@ class UserController {
     async CreateNewUser(req, res) {
         var data = req.body;
         var headers = req.headers;
-        var  user = req.user;
+        var user = req.user;
         if (user && data.user_name && data.password && data.account_id) {
             let check = await this.CheckExistUser(data.account_id);
             if (check) {
@@ -450,13 +452,13 @@ class UserController {
              where account_id = ?`;
             mySqlController.ExeQuery({
                 query: sql,
-                values: [data.user_name, data.mail, data.phone_number, 
-                    data.address ? data.address : "", 
-                    data.identity_card ? data.identity_card : "", 
-                    data.gender ? data.gender : "", 
-                    data.birth_day ? dateFormat(new Date(data.birth_day), "yyyy-mm-dd") : "", 
-                    data.roles ? data.roles : "", 
-                    user.account_id]
+                values: [data.user_name, data.mail, data.phone_number,
+                data.address ? data.address : "",
+                data.identity_card ? data.identity_card : "",
+                data.gender ? data.gender : "",
+                data.birth_day ? dateFormat(new Date(data.birth_day), "yyyy-mm-dd") : "",
+                data.roles ? data.roles : "",
+                user.account_id]
             }, function (err, rows, fields) {
                 if (!err) {
                     res.json({
@@ -533,27 +535,27 @@ class UserController {
         })
     }
 
-    async ResendVerifyMail(req, res){
+    async ResendVerifyMail(req, res) {
         let data = req.body;
         if (data.account_id && data.email) {
-            mailController.sendMailRegister(data.account_id, data.email, (err,result)=>{
-                if(result&& result.status){
+            mailController.sendMailRegister(data.account_id, data.email, (err, result) => {
+                if (result && result.status) {
                     res.json({
                         result_code: global.define.ResultCode.SUCCESS,
                         message: 'resend success'
                     });
-                }else{
-                    res.status(401).json({
+                } else {
+                    res.status(200).json({
                         result_code: global.define.ResultCode.NOT_SUCCESS
                     });
                 }
             })
-        }else{
+        } else {
             res.status(401).json({
                 result_code: ResultCode.INCORRECT_DATA
             });
         }
-       
+
     }
 
     async VerifyMail(req, res) {
@@ -593,27 +595,59 @@ class UserController {
     async GetUserProfile(req, res) {
         let user = req.user;
         let data = req.body;
-        let sql = `SELECT u.user_name, u.mail, u.permission,u.phone_number,u.address,u.site,u.identity_card,u.gender,u.birth_day FROM fx_users as u where u.account_id = '${data.account_id}'`;
-        mySqlController.ExeQuery({
-            query: sql
-        }, function (err, rows, fields) {
-            if (!err) {
-                if (rows.length > 0) {
-                    res.json({
-                        result_code: global.define.ResultCode.SUCCESS,
-                        data: rows[0]
-                    });
-                } else
-                    res.json({
-                        result_code: global.define.ResultCode.NOT_SUCCESS,
-                        data: {}
-                    });
-            } else {
+        let query = req.query;
+        if (user) {
+            var data_return = {};
+            if (query.login_type == 'facebook' || query.login_type == 'google') {
+                let userProfile = await UserSocial.findOne({
+                    id: user.account_id
+                }, {}, {});
+
+                if (userProfile) {
+                    data_return.account_id = userProfile.id;
+                    data_return.email = userProfile.email;
+                    data_return.firstName = userProfile.firstName;
+                    data_return.lastName = userProfile.lastName;
+                    data_return.name = userProfile.name;
+                    data_return.photoUrl = userProfile.photoUrl;
+                    data_return.login_type = userProfile.provider;
+                }
                 res.json({
-                    result_code: global.define.ResultCode.SQL_ERROR
+                    result_code: global.define.ResultCode.SUCCESS,
+                    data: data_return
                 });
+            } else {
+                let sql = `SELECT u.user_name, u.mail, u.permission,u.phone_number,u.address,u.site,u.identity_card,u.gender,u.birth_day FROM fx_users as u where u.account_id = '${user.account_id}'`;
+                mySqlController.ExeQuery({
+                    query: sql
+                },  (err, rows, fields) => {
+                    if (!err) {
+                        if (rows.length > 0) {
+                            let userProfile = rows[0];
+                            data_return.account_id = userProfile.account_id;
+                            data_return.email = userProfile.mail;
+                            data_return.firstName = userProfile.user_name.split(" ")[0];
+                            data_return.lastName = userProfile.user_name.split(" ")[1] || "";
+                            data_return.name = userProfile.user_name;
+                            data_return.photoUrl = "";
+                            data_return.login_type = "Đăng ký tài khoản";
+                        }
+
+                        res.json({
+                            result_code: global.define.ResultCode.SUCCESS,
+                            data: data_return
+                        });
+                    }
+                });
+
             }
-        });
+           
+        } else {
+            res.json({
+                result_code: global.define.ResultCode.INCORRECT_DATA
+            });
+        }
+
     }
 
     UpdateUserProfile(req, res) {
@@ -635,7 +669,7 @@ class UserController {
             values.push(data.address ? data.address : "");
             values.push(data.identity_card ? data.identity_card : "");
             values.push(data.gender ? data.gender : "");
-            if(user.permission == 9){
+            if (user.permission == 9) {
                 values.push(data.permission ? data.permission : 0);
             }
             values.push(data.roles ? data.roles : "");

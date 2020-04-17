@@ -1,0 +1,59 @@
+.p-thumb img {
+  width: 150px;
+  height: 100px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+.disabled{
+  cursor: not-allowed;
+}
+
+.media-body{
+  position: relative;
+}
+
+.media-body .more-infor {
+  position: relative;
+
+}
+.media-body .like {
+  color: #eaea1f;
+  font-size: 18px;
+}
+.view{
+  width: 35px;
+  color: crimson;
+  position: absolute;
+  top: 2px;
+  right: 15px;
+  font-size: smaller;
+  margin-left: 250px;
+}
+.song-content{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+  margin-bottom: 5px;
+}
+
+.media:first-child {
+  margin-top: 15px;
+}
+
+.animated-linear-gradient {
+  background: repeating-linear-gradient(to right, red 0%, blue 50%, red 100%);
+  width: 100%;
+  background-size: 200% auto;
+  background-position: 0 100%;
+  animation: gradient 2s infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  padding: 0 10px;
+  border-radius: 9999px
+}
+
+.tab-content{
+  min-height: 90vh;
+}

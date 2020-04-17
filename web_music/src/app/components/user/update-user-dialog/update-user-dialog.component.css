@@ -1,0 +1,5 @@
+.gc-add-group-dialog__button-group {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

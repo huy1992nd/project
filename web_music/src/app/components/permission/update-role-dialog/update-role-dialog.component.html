@@ -1,0 +1,32 @@
+<div class="gc-add-group-dialog">
+        <h1 mat-dialog-title>{{ 'update-role.Title' | translate }} </h1>
+        <div mat-dialog-content>
+          <form [formGroup]="updateRole">
+            <!-- <input formControlName="create_account"  matInput type="text" > -->
+      
+            <mat-form-field>
+              <input formControlName="name" matInput placeholder="{{ 'update-role.PlaceholderName' | translate }} ">
+            </mat-form-field>
+      
+            <mat-form-field>
+              <input formControlName="display_name" matInput placeholder="{{ 'update-role.PlaceholderDisplayname' | translate }} ">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input formControlName="description" matInput placeholder="{{ 'update-role.PlaceholderDescription' | translate }} ">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input formControlName="language" matInput placeholder="{{ 'update-role.Language' | translate }} ">
+            </mat-form-field>
+          </form>
+        </div>
+      
+        <div mat-dialog-actions>
+            <div class="gc-add-group-dialog__button-group">
+                <button  mat-stroked-button color="primary" (click)="submit()" cdkFocusInitial>{{ 'update-role.UpdateButton' | translate}} </button>
+                <button  mat-stroked-button color="primary" (click)="onNoClick(false)" cdkFocusInitial>Cancel</button>
+              </div>
+        </div>
+      
+      </div>

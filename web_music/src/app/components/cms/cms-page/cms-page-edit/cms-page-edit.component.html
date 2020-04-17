@@ -1,0 +1,91 @@
+<div class="row  align-items-center justify-content-between">
+    <div class="col-11 col-sm-12 page-title">
+        <h3><i class="fa fa-sitemap "></i> Trang tĩnh</h3>
+        <p>Sửa trang tĩnh</p>
+    </div>
+</div>
+
+<form [formGroup]="editPost" (ngSubmit)="submit()">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Sửa trang tĩnh</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Tiêu đề" formControlName="post_title" (keyup)="post_title_change($event)">
+                            <mat-error *ngFor="let validation of edit_post_validation_messages.post_title">
+                                <mat-error class="error-message"
+                                  *ngIf="editPost.get('post_title').hasError(validation.type)">
+                                  {{validation.message}}
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Slug" value={{currentPost.post_slug}} formControlName="post_slug">
+                            <mat-error *ngFor="let validation of edit_post_validation_messages.post_slug">
+                                <mat-error class="error-message"
+                                  *ngIf="editPost.get('post_slug').hasError(validation.type)">
+                                  {{validation.message}}
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label">Nội dung</label>
+                        <ckeditor 
+                            [config]="config"
+                            formControlName="post_content"
+                        >
+                        </ckeditor>
+                    </div>
+                    
+                    <div class="form-group">
+                        <mat-form-field>
+                            <textarea matInput placeholder="Miêu tả ngắn" rows="5" formControlName="post_excerpt" value={{currentPost.post_excerpt}}></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Thao tác</h5>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="form-group">
+                        <mat-form-field>
+                            <mat-label>Trạng thái</mat-label>
+                            <mat-select [(value)]=currentPost.post_status formControlName="post_status">
+                                <mat-option value="publish">Kích hoạt</mat-option>
+                                <mat-option value="draft">Lưu nháp</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label">Ngày </label>
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker" placeholder="Chọn ngày" formControlName="publish_at">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="margin-top: 20px">Lưu lại</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

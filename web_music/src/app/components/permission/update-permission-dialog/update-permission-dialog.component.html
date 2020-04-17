@@ -1,0 +1,38 @@
+<div class="gc-add-group-dialog">
+    <h1 mat-dialog-title>{{ 'update-permission.Title' | translate }} </h1>
+    <div mat-dialog-content>
+      <form [formGroup]="createPermission">
+        <!-- <input formControlName="create_account"  matInput type="text" > -->
+  
+        <mat-form-field>
+          <input formControlName="name" matInput placeholder="{{ 'update-permission.PlaceholderName' | translate }} ">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input formControlName="display_name" matInput placeholder="{{ 'update-permission.PlaceholderDisplayname' | translate }} ">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input formControlName="description" matInput placeholder="{{ 'update-permission.PlaceholderDescription' | translate }} ">
+        </mat-form-field>
+        <mat-form-field>
+          <label><strong>Module</strong></label>
+          <mat-select formControlName="module">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let module of module" [value]="module.name">{{module.display_name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="language" matInput placeholder="{{ 'update-permission.Language' | translate }} ">
+        </mat-form-field>
+      </form>
+    </div>
+  
+    <div mat-dialog-actions>
+      <div class="gc-add-group-dialog__button-group">
+        <button  mat-stroked-button color="primary" (click)="submit()" cdkFocusInitial>{{ 'update-permission.AddButton' | translate }} </button>
+        <button  mat-stroked-button color="primary" (click)="onNoClick(false)" cdkFocusInitial>Cancel</button>
+      </div>
+    </div>
+  
+  </div>

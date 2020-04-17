@@ -1,0 +1,36 @@
+<div class="gc-add-group-dialog">
+        <h1 mat-dialog-title>{{ 'create-permission.Title' | translate }} </h1>
+        <div mat-dialog-content>
+          <form [formGroup]="createPermission">
+            <!-- <input formControlName="create_account"  matInput type="text" > -->
+      
+            <mat-form-field>
+              <input formControlName="name" matInput placeholder="{{ 'create-permission.PlaceholderName' | translate }} ">
+            </mat-form-field>
+      
+            <mat-form-field>
+              <input formControlName="display_name" matInput placeholder="{{ 'create-permission.PlaceholderDisplayname' | translate }} ">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input formControlName="description" matInput placeholder="{{ 'create-permission.PlaceholderDescription' | translate }} ">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input formControlName="module" matInput placeholder="{{ 'create-permission.PlaceholderModule' | translate }} ">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input formControlName="language" matInput placeholder="{{ 'create-permission.Language' | translate }} ">
+            </mat-form-field>
+          </form>
+        </div>
+      
+        <div mat-dialog-actions>
+            <div class="gc-add-group-dialog__button-group">
+              <button  mat-stroked-button color="primary" (click)="submit()" cdkFocusInitial>{{ 'create-permission.AddButton' | translate }} </button>
+              <button mat-button (click)="onNoClick(false)">Cancel</button>
+            </div>
+        </div>
+      
+      </div>

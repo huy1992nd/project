@@ -1,6 +1,4 @@
 // 'use strict';
-
-
 let  userController = require('./../mysql/user.controller');
 let  userMongoController = require('./../mongo/user_controller');
 const passport = require('passport');
@@ -85,7 +83,7 @@ class UserRouter {
         .post((a,b)=>userController.BlockUser(a,b));
      
         app.route("/user_get_profile")
-        .post((a,b)=>userController.GetProfile(a,b));
+        .get((a,b)=>userController.GetUserProfile(a,b));
 
         app.route("/user_active")
         .post((a,b)=>userController.ActiveUser(a,b));
@@ -98,10 +96,6 @@ class UserRouter {
         
         app.route("/user_reset_password")
         .post((a,b)=>userController.ResetUserPassword(a,b));
-
-        app.route("/user_update_profile")
-        .post((a,b)=>userController.UpdateUserProfile(a,b));
-
     }
 };
 module.exports = new UserRouter();

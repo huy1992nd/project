@@ -1,0 +1,138 @@
+
+<header class="header white-bg" (click)="clickHeader($event)">
+  <div class="sidebar-toggle-box">
+      <!-- <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div> -->
+      <i class="icon-home"></i>
+  </div>
+  <!--logo start-->
+  <a [routerLink]="['/'] " class="logo" ><span class="i-home"><i class="icon-home"></i></span> E <span> song</span></a>
+  <!--logo end-->
+  <div class="nav notify-row" id="top_menu">
+    <!--  notification start -->
+    <ul class="nav top-menu">
+      <!-- settings start -->
+      <li class="dropdown">
+          <a data-toggle="dropdownn" class="dropdown-toggle" >
+              <i class="icon-tasks"></i>
+              <span class="badge bg-success">5</span>
+          </a>
+          <ul class="dropdown-menu extended tasks-bar">
+              <div class="notify-arrow notify-arrow-green"></div>
+              <li>
+                  <p class="green">Top view song</p>
+              </li>
+              <li *ngFor="let song of listViews | slice:0:8; index as i; first as isFirst">
+                  <a  [routerLink]="['/detail', song.song_id]">
+                  <!-- <a (click)="gotoLink(song.song_id)" > -->
+                      <div class="task-info">
+                          <div  class="desc" >
+                              {{song.name}}
+                          </div>  
+
+                          <div class="percent">{{getPercent(song.view)}}%</div>
+                      </div>
+                      <div class="progress progress-striped">
+                          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" [style.width]="getPercent(song.view) + '%'" >
+                              <span class="sr-only">60%</span>
+                          </div>
+                      </div>
+                  </a>
+              </li>
+   
+          </ul>
+      </li>
+      <!-- settings end -->
+      <!-- inbox dropdown start-->
+      <li id="header_inbox_bar" class="dropdown">
+          <a data-toggle="dropdownn" class="bt-star dropdown-toggle" >
+              <i (click)="changeMode()" [ngClass]="{'icon-star': currentMode == 'favorites', 'icon-star-empty': currentMode != 'favorites'}" ></i>
+              <span class="badge bg-important">{{listFavorites.length}}</span>
+          </a>
+          <ul class="dropdown-menu extended inbox">
+              <div class="notify-arrow notify-arrow-red"></div>
+              <li>
+                  <p class="red">You have {{listFavorites.length}} song favorites</p>
+              </li>
+              <li *ngFor="let song of listFavorites | slice:0:8; index as i; first as isFirst">
+                  <a [routerLink]="['/detail', song.song_id]">
+                      <span class="photo"><img alt="avatar" src="{{song.link_image}}"></span>
+                            <span class="subject">
+                            <span class="from">{{song.singer}}</span>
+                            <span class="time"><i class="icon-star"></i></span>
+                            </span>
+                            <span class="alert-message message">
+                                {{song.content[0]}}
+                            </span>
+                  </a>
+              </li>
+          </ul>
+      </li>
+      <!-- inbox dropdown end -->
+      <!-- notification dropdown start-->
+      <li id="header_notification_bar" class="dropdown">
+          <a data-toggle="dropdownn" class="dropdown-toggle" href="#">
+
+              <i class="icon-bell-alt"></i>
+              <span class="badge bg-warning">{{listNotyfication.length}}</span>
+          </a>
+          <ul class="dropdown-menu extended notification">
+              <div class="notify-arrow notify-arrow-yellow"></div>
+              <li>
+                  <p class="yellow">You have {{listNotyfication.length}} new notifications</p>
+              </li>
+              <li *ngFor="let n of listNotyfication | slice:0:8; index as i; first as isFirst">
+                  <a >
+                      <span  [ngClass]="{
+                       'label-success': n.type==1,
+                       'label-info': n.type==2,
+                       'label-warning': n.type==3,
+                       'label-danger': n.type==4
+                    }" class="label"><i 
+                    [ngClass]="{
+                        'icon-plus': n.type==1,
+                        'icon-bullhorn': n.type==2,
+                        'icon-bell': n.type==3,
+                        'icon-bolt': n.type==4
+                     }"
+                    class="icon-bolt"></i></span>
+                      {{convertM(n.message)}}
+                      <span style="margin-left: 5px;" class="small italic">{{n.time}}</span>
+                  </a>
+              </li>
+          </ul>
+      </li>
+      <!-- notification dropdown end -->
+  </ul>
+  </div>
+  <div class="top-nav ">
+      <ul class="nav pull-right top-menu">
+          <li>
+            <form [formGroup]="form" (ngSubmit)="submit()">
+              <div class="search-contailner">
+                <label #searchbt style="z-index: 10;" (click)="submit()"><i class="icon-search"></i></label>
+                <input #searchip  formControlName="search" type="text" class="form-control search-custom" id="search-on-header" placeholder="Search">
+                <!-- <input #searchip on-focus="focusFunction()" on-focusout="focusOutFunction()" formControlName="search" type="text" class="form-control search" id="search-on-header" placeholder="Search"> -->
+                <!-- <input #searchip  formControlName="search" type="text" class="form-control search" id="search-on-header" placeholder="Search"> -->
+              </div>
+            </form>
+          </li>
+          <!-- user login dropdown start-->
+          <li class="dropdown">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                  <img alt="" src="{{currentUser.photoUrl}}">
+                  <span class="username">{{currentUser.user_name}}</span>
+                  <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu extended logout">
+                  <div class="log-arrow-up"></div>
+                  <li><a href="#"><i class=" icon-suitcase"></i>Profile</a></li>
+                  <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+                  <li><a href="#"><i class="icon-bell-alt"></i> Notification</a></li>
+                  <li><a (click)="Logout()"><i class="icon-key"></i> Log Out</a></li>
+              </ul>
+          </li>
+          <!-- user login dropdown end -->
+      </ul>
+  </div>
+</header>
+\

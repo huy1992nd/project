@@ -1,0 +1,206 @@
+<header class="navbar-fixed">
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-faded">
+    <div class="sidebar-left"> <a class="navbar-brand imglogo" href="index.html"></a>
+      <button class="btn btn-link icon-header mr-sm-2 pull-right menu-collapse" (click)="menuClick()"><span
+          class="fa fa-bars"></span></button>
+    </div>
+    <form class="form-inline mr-sm-2  pull-left search-header hidden-md-down">
+      <input class="form-control " type="text" placeholder="Search" id="search_header">
+      <button class="btn btn-link icon-header " type="submit"><span class="fa fa-search"></span></button>
+    </form>
+    <div class="d-flex mr-auto"> &nbsp;</div>
+    <ul class="navbar-nav content-right">
+
+      <li class="nav-item hidden-xs-down">
+        <button class="btn btn-link icon-header " data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false"><span class="fa fa-th"></span> </button>
+        <div class="dropdown-menu message-container box-links">
+          <div class="list-unstyled"> <a href="?#" class="media"> <span class="quick-block "><span
+                  class="fa fa-bullhorn"></span></span> </a> <a href="?#" class="media"> <span
+                class="quick-block "><span class="fa fa-bell-o"></span></span> </a> <a href="?#" class="media"> <span
+                class="quick-block "><span class="fa fa-calendar"></span></span> </a> <a href="?#" class="media"> <span
+                class="quick-block "><span class="fa fa-id-card"></span></span> </a> <a href="?#" class="media"> <span
+                class="quick-block "><span class="fa fa-handshake-o"></span></span> </a> <a href="?#" class="media">
+              <span class="quick-block "><span class="fa fa-camera-retro"></span></span> </a> <a href="?#"
+              class="media"> <span class="quick-block "><span class="fa fa-flask"></span></span> </a> <a href="?#"
+              class="media"> <span class="quick-block "><span class="fa fa-plane"></span></span> </a> <a href="?#"
+              class="media"> <span class="quick-block "><span class="fa fa-pie-chart"></span></span> </a> </div>
+        </div>
+      </li>
+      <li class="v-devider"></li>
+      <li class="nav-item "> <a class="btn btn-link icon-header menu-collapse-right" href="#"><span
+            class="fa fa-podcast"></span> </a> </li>
+      <li class="nav-item">
+        <select #langSelect (change)="ChangeCurrentlang(langSelect.value)">
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">
+            {{ lang }}</option>
+        </select>
+
+        <!-- <mat-form-field>
+                  <mat-label>Language</mat-label>
+                  <mat-select #language (selectionChange)= "ChangeCurrentlang(language.value)" [value]= 'currentLang'>
+                    <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">
+                      {{lang}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>  -->
+      </li>
+    </ul>
+    <div class="sidebar-right pull-right ">
+      <ul class="navbar-nav  justify-content-end">
+        <li class="nav-item">
+          <button class="btn-link btn userprofile" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false"><span class="userpic"><img src="./assets/img/user-header.png" alt="user pic"></span>
+            <span class="text" (click)="Logout()">{{currentUser.user_name}}</span></button>
+          <div class="dropdown-menu"> <a class="dropdown-item" href="customerprofile.html">Profile</a> <a
+              class="dropdown-item" href="#">Analytics Report</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="Logout()">Logout</a>
+          </div>
+        </li>
+        <li><a href="sign-in2.html" class="btn btn-link icon-header"><span class="fa fa-sign-out"></span></a></li>
+      </ul>
+    </div>
+  </nav>
+</header>>
+
+<div class="sidebar-left">
+
+  <ul *ngIf="isCms < 0" class="nav flex-column in" id="side-menu">
+    <li class="nav-item "> <a [routerLink]="['/']"
+        class="menudropdown nav-link">{{ 'homeScreen.dashboard' | translate }} </a>
+    <li  class="nav-item " (click)="toggleClass($event,'show','mn_1')" [ngClass]="{ 'active':router.url == '/user' }"> 
+      <a  href="javascript:void(0)" class="menudropdown nav-link" [ngClass]="{ 'show':router.url == '/user' }">Quản lý người dùng<i
+         class="fa fa-angle-down "></i></a>
+      <ul [@detailExpand] = "show_menu['mn_1'] ? 'show' : 'hiden'"  class="nav flex-column nav-second-level  in">
+        <li class="nav-item"><a [routerLink]="['/user']" class="nav-link " [ngClass]="{ 'active':router.url == '/user' }">
+          <i class="fa fa-globe"></i>
+           Danh sách users</a>
+        </li>
+      </ul>
+    </li>
+
+    <li (click)="toggleClass($event,'show','mn_2')" class="nav-item " [ngClass]="{ 'active':router.url == '/customer' }">
+       <a href="javascript:void(0)" class="menudropdown nav-link" [ngClass]="{ 'show':router.url == '/customer' }">Quản lý người chơi<i
+          class="fa fa-angle-down "></i></a>
+      <ul [@detailExpand] = "show_menu['mn_2'] ? 'show' : 'hiden'" class="nav flex-column nav-second-level  in">
+        <li class="nav-item " ><a [routerLink]="['/customer']"  [ngClass]="{ 'active':router.url == '/customer' }" class="nav-link"><i class="fa fa-globe"></i>
+            Danh sách người chơi</a></li>
+      </ul>
+    </li>
+    <li (click)="toggleClass($event,'show','forex')" class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">Forex<i
+          class="fa fa-angle-down "></i></a>
+    <li class="nav-item " [ngClass]="{ 'active':router.url == '/cms' }"> <a [routerLink]="['/cms']" class="menudropdown nav-link" [ngClass]="{ 'active':router.url == '/cms' }" >Quản lý websites</a>
+    </li>
+    <li (click)="toggleClass($event,'show','mn_3')" class="nav-item " [ngClass]="{'active':router.url == '/list-role'|| router.url == '/list-permission'}" >
+       <a href="javascript:void(0)" class="menudropdown nav-link" [ngClass]="{'show':router.url == '/list-role'|| router.url == '/list-permission'}">Quản lý phân quyền <i
+          class="fa fa-angle-down "></i></a>
+          <ul [@detailExpand] = "show_menu['mn_3'] ? 'show' : 'hiden'" class="nav flex-column nav-second-level  in">
+            <li class="nav-item"><a [routerLink]="['/list-role']" class="nav-link " [routerLinkActive]="['is-active']" [ngClass]="{ 'active':router.url == '/list-role' }"><i
+                  class="fa fa-globe"></i> {{ 'homeScreen.roleMenu' | translate }}</a></li>
+            <li class="nav-item " ><a [routerLink]="['/list-permission']" class="nav-link "
+                [routerLinkActive]="['is-active']" [ngClass]="{ 'active':router.url == '/list-permission' }"><i class="fa fa-globe"></i>
+                {{ 'homeScreen.permissionMenu' | translate }}</a></li>
+          </ul>
+    </li>
+    <li (click)="toggleClass($event,'show','mn_4')" class="nav-item " [ngClass]="{'active':router.url == '/list-account-site'
+    ||router.url == '/list-rate-site' 
+    || router.url == '/list-bank'
+    || router.url == '/list-fee-site'
+  
+  }" >
+       <a href="javascript:void(0)" class="menudropdown nav-link" [ngClass]="{'show':router.url == '/list-account-site'|| router.url == '/list-rate-site' || router.url == '/list-bank' }">
+         Quản lý thanh toán <i
+          class="fa fa-angle-down "></i></a>
+          <ul [@detailExpand] = "show_menu['mn_4'] ? 'show' : 'hiden'" class="nav flex-column nav-second-level  in">
+            <li *ngIf="currentUser.permission == 9" class="nav-item ">
+              <a [routerLink]="['/list-bank']" class="nav-link " [routerLinkActive]="['is-active']" [ngClass]="{'active':router.url == '/list-bank'}">
+                <i class="fa fa-globe"></i> Danh sách ngân hàng</a></li>
+            <li class="nav-item "><a [routerLink]="['/list-account-site']" class="nav-link "
+                [routerLinkActive]="['is-active']" [ngClass]="{'active':router.url == '/list-account-site'}">
+                <i class="fa fa-globe"></i>
+                Tài khoản của site</a>
+            </li>
+            <li class="nav-item "><a [routerLink]="['/list-rate-site']" class="nav-link "
+                [routerLinkActive]="['is-active']" [ngClass]="{'active':router.url == '/list-rate-site'}">
+                <i class="fa fa-globe"></i>
+                Quản lý tỷ giá</a>
+            </li>
+            <li class="nav-item "><a [routerLink]="['/list-fee-site']" class="nav-link "
+                [routerLinkActive]="['is-active']" [ngClass]="{'active':router.url == '/list-fee-site'}">
+                <i class="fa fa-globe"></i>
+                Quản lý nạp/rút tiền</a>
+            </li>
+          </ul>    
+    </li>
+    <li (click)="toggleClass($event,'show','logs')" class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">Quản lý logs<i
+          class="fa fa-angle-down "></i></a></li>
+    <li (click)="toggleClass($event,'show','mails')" class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">Quản lý mails<i
+          class="fa fa-angle-down "></i></a></li>
+  </ul>
+
+  <ul *ngIf="isCms > 0" class="nav flex-column in" id="side-menu">
+    <li class="nav-item "> <a [routerLink]="['/']" class="menudropdown nav-link">Quay lại màn hình chính</a>
+    <li class="nav-item "> <a [routerLink]="['/cms']" class="menudropdown nav-link" [ngClass]="{'active':router.url == '/cms'}">Bảng điều khiển</a>
+    <li (click)="toggleClass($event,'show','mn_5')" class="nav-item " [ngClass]="{'active':router.url.includes('cms/post')|| router.url.includes('taxonomy') }"> 
+      <a href="javascript:void(0)" class="menudropdown nav-link" [ngClass]="{'show':router.url.includes('cms/post')|| router.url.includes('taxonomy') }">
+        Bài viết<i
+          class="fa fa-angle-down "></i></a>
+      <ul [@detailExpand] = "show_menu['mn_5'] ? 'show' : 'hiden'" class="nav flex-column nav-second-level  in">
+        <li class="nav-item">
+          <a [routerLink]="['/cms/post/index']" class="nav-link " [ngClass]="{'active':router.url.includes('/cms/post/index') || router.url.includes('/cms/post/edit')}"><i class="fa fa-globe"></i> Danh
+            sách bài viết</a></li>
+        <li class="nav-item"><a [routerLink]="['/cms/post/create']" class="nav-link " [ngClass]="{'active':router.url.includes('/cms/post/create')}">
+          <i class="fa fa-globe"></i> Thêm
+            mới</a></li>
+        <li class="nav-item"><a [routerLink]="['/cms/taxonomy/index']" class="nav-link " [ngClass]="{'active':router.url.includes('/cms/taxonomy')}">
+          <i class="fa fa-globe"></i>
+            Chuyên mục</a></li>
+      </ul>
+    </li>
+    <li (click)="toggleClass($event,'show','mn_6')" class="nav-item " [ngClass]="{'active':router.url.includes('/cms/page')}"> 
+      <a href="javascript:void(0)" class="menudropdown nav-link" [ngClass]="{'show':router.url.includes('/cms/page')}">
+        Trang tĩnh<i
+          class="fa fa-angle-down "></i></a>
+      <ul [@detailExpand] = "show_menu['mn_6'] ? 'show' : 'hiden'" class="nav flex-column nav-second-level  in">
+        <li class="nav-item">
+          <a [routerLink]="['/cms/page/index']" class="nav-link " [ngClass]="{'active':router.url.includes('/cms/page/index') || router.url.includes('/cms/page/edit') }"><i class="fa fa-globe"></i> Danh
+            sách trang tĩnh</a></li>
+        <li class="nav-item"><a [routerLink]="['/cms/page/create']" class="nav-link " [ngClass]="{'active':router.url.includes('/cms/page/create')}">
+          <i class="fa fa-globe"></i> Thêm
+            mới</a></li>
+      </ul>
+    </li>
+    <li class="nav-item "> <a [routerLink]="['/cms/menu/index']" class="menudropdown nav-link" [ngClass]="{'active':router.url == '/cms/menu/index'}">Menu</a></li>
+    <li (click)="toggleClass($event,'show','mn_7')" class="nav-item "> <a href="javascript:void(0)"
+        class="menudropdown nav-link">{{ 'homeScreen.systemManager' | translate }}<i class="fa fa-angle-down "></i></a>
+    </li>
+  </ul>
+  <br>
+  <br>
+</div>
+<div class="wrapper-content">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+  <footer class="footer-content ">
+    <div class="container ">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-md-16 col-lg-8 col-xl-8">This template is designed by <a href="http://www.maxartkiller.in"
+            target="_blank" class="">www.maxartkiller.in</a></div>
+        <div class="col-md-16 col-lg-8 col-xl-8 text-right"><a href="#" target="_blank" class="">Privacy Policy</a> | <a
+            href="#" target="_blank" class="">Terms of use</a> </div>
+      </div>
+    </div>
+  </footer>
+</div>
+<div class="search-block">
+</div>
+<div class="sidebar-right">
+
+</div>
+<!-- themepicker modal starts -->
+<div class="modal fade" id="themepicker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+
+</div>

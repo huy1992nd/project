@@ -1,0 +1,84 @@
+
+<div *ngIf="isLoading" class="container">
+    <div class="signup-component">
+      <div class="animated fadeIn">
+        <mat-spinner ></mat-spinner>
+      </div>
+    </div>
+</div>
+<div *ngIf="!isLoading" class="container">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form-signin" >
+    <h2 class="form-signin-heading">sign in now</h2>
+    <div class="login-wrap">
+        <div style="min-height: 55px;">
+            <input formControlName="account_id" matInput type="text" class="form-control" placeholder="{{'loginScreen.placeholderAccount' | translate}}" autofocus autocomplete="true">
+            <div class="error" *ngFor="let validation of account_validation_messages.account_id">
+                <mat-error class="error-message"
+                    *ngIf="form.get('account_id').hasError(validation.type) && (form.get('account_id').dirty || form.get('account_id').touched)">
+                    {{validation.message}}
+                </mat-error>
+            </div>
+        </div>
+        <div style="min-height: 40px;">
+            <input formControlName="password" type="password" class="form-control" placeholder="{{'loginScreen.placeholderPassword' | translate}}" autocomplete="true" >
+            <div class="error" *ngFor="let validation of account_validation_messages.password">
+                <mat-error class="error-message"
+                    *ngIf="form.get('password').hasError(validation.type) && (form.get('password').dirty || form.get('password').touched)">
+                    {{validation.message}}
+                </mat-error>
+            </div>
+        </div>
+        
+        <label class="checkbox">
+            <input type="checkbox" value="remember-me"> Remember me
+            <span class="pull-right">
+                <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
+
+            </span>
+        </label>
+        <button class="btn btn-lg btn-login btn-block" type="submit">{{'loginScreen.buttonLoginText' | translate}}</button>
+        <p>or you can sign in via social network</p>
+        <div class="login-social-link">
+            <a (click)="facebookLogin()" class="facebook">
+                <i class="icon-facebook"></i>
+                Facebook
+            </a>
+            <a (click)="googleLogin()" class="twitter">
+                <i class="icon-google-plus"></i>
+                Google
+            </a>
+        </div>
+        <div class="registration">
+            Don't have an account yet?
+            <a [routerLink]="['/register']">
+                Create an account
+            </a>
+        </div>
+
+    </div>
+
+      <!-- Modal -->
+      <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title">Forgot Password ?</h4>
+                  </div>
+                  <div class="modal-body">
+                      <p>Enter your e-mail address below to reset your password.</p>
+                      <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+
+                  </div>
+                  <div class="modal-footer">
+                      <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                      <button class="btn btn-success" type="button">Submit</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- modal -->
+
+  </form>
+
+</div>

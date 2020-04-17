@@ -1,0 +1,43 @@
+<div class="gc-add-group-dialog">
+  <h1 mat-dialog-title>{{ 'bank_add.add_new_bank' | translate }}</h1>
+  <form [formGroup]="createBank" (ngSubmit)="submit()">
+    <div mat-dialog-content>
+      <mat-form-field>
+        <input formControlName="name" matInput placeholder="{{ 'bank_add.name' | translate }}">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="code" matInput placeholder="{{ 'bank_add.input_code' | translate }}">
+        <mat-error *ngFor="let validation of account_validation_messages.code">
+          <mat-error class="error-message"
+            *ngIf="createBank.get('code').hasError(validation.type) && (createBank.get('code').dirty || createBank.get('code').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="country_code" matInput placeholder="Mã đất nước">
+        <mat-error *ngFor="let validation of account_validation_messages.country_code">
+          <mat-error class="error-message"
+            *ngIf="createBank.get('country_code').hasError(validation.type) && (createBank.get('country_code').dirty || createBank.get('country_code').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input formControlName="language" matInput placeholder="Ngôn ngữ">
+        <mat-error *ngFor="let validation of account_validation_messages.language">
+          <mat-error class="error-message"
+            *ngIf="createBank.get('language').hasError(validation.type) && (createBank.get('language').dirty || createBank.get('language').touched)">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+      <div class="gc-add-group-dialog__button-group">
+        <button mat-stroked-button color="primary"  cdkFocusInitial>{{ 'bank_add.add_bank_btn' | translate }}</button>
+      </div>
+    </div>
+  </form>
+</div>

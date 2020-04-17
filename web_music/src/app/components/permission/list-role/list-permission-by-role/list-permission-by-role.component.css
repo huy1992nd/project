@@ -1,0 +1,25 @@
+.role-select {
+  display: flex;
+  margin: 15px 0px;
+}
+
+.role-select mat-form-field{
+  max-width: 200px;
+}
+
+.update-permission {
+  margin: 7px 0px 7px auto;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
+ul li {
+  list-style-type: none;
+  margin: 5px 25px;
+  max-width: 300px;
+}

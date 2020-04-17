@@ -1,0 +1,70 @@
+.signup-component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+ 
+}
+h1, h2, h3, h4, h5, h6 {
+    color:darkslategrey;
+}
+.signup-component__form {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    min-width: 350px;
+}
+
+.signup-component__form>* {
+    width: 100%;
+}
+
+.signup-component__form button {
+    width: 100%;
+}
+
+mat-icon {
+    cursor: pointer;
+}
+
+.signup-component__login-navigator {
+    margin-top: 10px;
+}
+
+.signup-component__login-navigator p {
+    font-size: 12px;
+    text-align: right;
+    margin-bottom: 0px;
+}
+
+.signup-component__login-navigator a {
+    font-style: italic;
+    font-weight: 600;
+}
+
+h4 {
+    font-weight: 500;
+}
+
+.block-input{
+    position: relative;
+    height: 58px;
+}
+.block-input .error{
+    position: absolute;
+    top: 37px;
+    left: 10px;
+    font-size: 11px;
+}
+
+.form-signin{
+    margin: auto auto;
+    width: 330px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.radios {
+    padding-top:0px
+}

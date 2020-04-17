@@ -1,0 +1,33 @@
+<div class="gc-add-group-dialog">
+        <h1 mat-dialog-title>{{ 'create-role.Title' | translate }} </h1>
+        <div mat-dialog-content>
+          <form [formGroup]="createRole">
+            <!-- <input formControlName="create_account"  matInput type="text" > -->
+      
+            <mat-form-field>
+              <input formControlName="name" matInput placeholder="{{ 'create-role.PlaceholderName' | translate }} ">
+            </mat-form-field>
+      
+            <mat-form-field>
+              <input formControlName="display_name" matInput placeholder="{{ 'create-role.PlaceholderDisplayname' | translate }} ">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input formControlName="description" matInput placeholder="{{ 'create-role.PlaceholderDescription' | translate }} ">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input formControlName="language" matInput placeholder="{{ 'create-role.Language' | translate }} ">
+            </mat-form-field>
+          </form>
+        </div>
+      
+        <div mat-dialog-actions>
+            <div class="gc-add-group-dialog__button-group">
+            <button  mat-stroked-button color="primary" (click)="submit()" cdkFocusInitial>{{ 'create-role.AddButton' | translate }} </button>
+            <button mat-button (click)="onNoClick(false)">Cancel</button>
+            
+          </div>
+        </div>
+      
+      </div>

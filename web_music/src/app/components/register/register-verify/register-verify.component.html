@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="signup-component">
+    <div class="animated fadeIn">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <mat-card *ngIf="!isLoading">
+        <mat-card-title>
+          <h4>Đăng ký</h4>
+        </mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="submit()" class="signup-component__form">
+            <mat-form-field>
+              <input formControlName="verify_code" matInput placeholder="Nhập mã xác nhận">
+            </mat-form-field>
+            <button type="submit" mat-flat-button color="primary">Xác thực</button>
+            <div style="margin-top: 8px;">
+              <p>Bạn không nhận được mã xác nhận từ mail? <a (click)="resendVerifyCode()">Gửi lại</a></p>
+            </div> 
+            
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

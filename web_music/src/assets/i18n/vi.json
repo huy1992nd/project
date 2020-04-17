@@ -1,0 +1,153 @@
+{
+	"homeScreen": {
+		"dashboard": "Màn hình chính",
+		"permissionMenu":"Quản lý phân quyền",
+		"roleMenu":"Quản lý vai trò",
+		"systemManager":"Quản lý hệ thống"
+	},
+	"create-role": {
+		"AddButton": "Tạo mới",
+		"Language": "Ngôn ngữ",
+		"PlaceholderDisplayname": "Hiển thị",
+		"PlaceholderName": "Từ khóa",
+		"Title": "Thêm mới vai trò",
+		"PlaceholderDescription":"Mô tả"
+	},
+	"update-role": {
+		"UpdateButton": "Cập nhật",
+		"Language": "Ngôn ngữ",
+		"PlaceholderDisplayname": "Hiển thị",
+		"PlaceholderName": "Từ khóa",
+		"Title": "Thêm mới vai trò",
+		"PlaceholderDescription":"Mô tả"
+	},
+	
+	"list-role": {
+		"TextCreateRole":"Thêm vai trò",
+		"find":"Tìm theo tên",
+		"Action": "Thao tác",
+		"DeleteAction": "Xóa",
+		"DisplayName": "Hiển thị",
+		"Language": "Ngôn ngữ",
+		"Name": "Từ khóa",
+		"Description":"Mô tả",
+		"NoData": "Không có dữ liệu hiển thị",
+		"SearchPlaceholder": "Tìm theo ",
+		"TextCreatePermission": "Thêm vai trò",
+		"Title": "Danh sách vai trò",
+		"UpdateAction": "Cập nhật",
+		"CreateSuccessMessage":"Thêm mới thành công",
+		"UpdateSuccessMessage":"Cập nhật thành công",
+		"ID":"ID"
+	},
+	"create-permission": {
+		"AddButton": "Tạo mới",
+		"Language": "Ngôn ngữ",
+		"PlaceholderDisplayname": "Hiển thị",
+		"PlaceholderName": "Từ khóa",
+		"Title": "Thêm mới vai trò",
+		"PlaceholderDescription":"Mô tả"
+	},
+	"update-permission": {
+		"AddButton": "Cập nhật",
+		"Language": "Ngôn ngữ",
+		"PlaceholderDisplayname": "Hiển thị",
+		"PlaceholderName": "Từ khóa",
+		"Title": "Thêm mới phân quyền",
+		"PlaceholderModule":"Module",
+		"PlaceholderDescription":"Mô tả"
+	},
+	
+	"list-permission": {
+		"Action": "Thao tác",
+		"CreateDate": "Ngày tạo",
+		"DeleteAction": "Xóa",
+		"DisplayName": "Hiển thị",
+		"Language": "Ngôn ngữ",
+		"Module":"module",
+		"Description":"Mô tả",
+		"Name": "Từ khóa",
+		"NoData": "Không có dữ liệu hiển thị",
+		"SearchPlaceholder": "Tìm theo ",
+		"TextCreatePermission": "Thêm quyền",
+		"Title": "Danh sách quyền truy cập",
+		"UpdateAction": "Cập nhật",
+		"CreateSuccessMessage":"Thêm mới thành công",
+		"UpdateSuccessMessage":"Cập nhật thành công",
+		"TextAddPermissionToRole":"Thêm mới quyền",
+		"DeleteFromRoleAction":"Xóa quyền"
+	},
+	"loginScreen": {
+		"buttonForgotPass": "Quên mật khẩu ?",
+		"buttonLoginText": "Đăng nhập",
+		"buttonRegister": "Đăng ký tại đây",
+		"placeholderAccount": "Tài khoản",
+		"placeholderPassword": "Mật khẩu",
+		"textRegister": "Bạn chưa có tài khoản ?",
+		"titleLoginForm": "Đăng nhập"
+	},
+	"error_code":{
+		"1": "Username not found",
+		"11": "Username exist",
+		"12": "Usernameaccess denied ",
+		"13": "Username blocked",
+		"14": "Username do not have permission",
+		"20": "Password incorrect",
+		"21": "Password older",
+		"22": "Wrong Password",
+		"30": "Email not exist ",
+		"31": "Email exist ",
+		"33": "hacker",
+		"35": "Mã Xác thực sai",
+		"61": "role exist",
+		"50": "permission exist",
+		"40": "Can not connect server ",
+		"10": "Thiếu thông tin đầu vào ",
+		"99": "Lỗi sql"
+	},
+	"user":{
+		"list_user":"Danh sách user",
+		"find":"Tìm theo tên hoặc email",
+		"account":"Tài khoản",
+		"name":"Tên",
+		"email":"email",
+		"site":"site",
+		"permission":"Quyền hạn",
+		"status":"trạng thái",
+		"action":"Thao tác",
+		"update":"Cập nhật",
+		"isactive":"Bỏ Khóa",
+		"unactive":"Tạm khóa",
+		"still_lock":"Đang bị khóa",
+		"still_action":"Đang hoạt động",
+		"none_data_to_show":"Không có dữ liệu hiển thị",
+		"confirm_block_message": "Bạn chắc chắn muốn khóa user này:",
+		"confirm_active_message": "Bạn chắc chắn muốn kích hoạt user này:",
+		"confirm_block_title": "Xác nhận khóa user ",
+		"confirm_active_title": "Xác nhận kích hoạt user",
+		"confirm":"Có",
+		"not_confirm":"Không"
+	},
+	"user_add":{
+			"add_new_user": "Thêm user mới",
+			"add_user_btn": "Thêm user",
+			"input_name": "Nhập tên đầy đủ",
+			"input_account_id": "Nhập tên đăng nhập",
+			"input_pasword": "Nhập mật khẩu*",
+			"input_confirm_pasword": "Xác nhận mật khẩu*",
+			"input_email": "Nhập địa chỉ email*",
+			"input_phone_number": "Nhập số điện thoại"
+	},
+	"user_update":{
+			"change_infor_user": "Thay đổi thông tin người dùng",
+			"add_user_btn": "Thêm user",
+			"input_name": "Nhập tên đầy đủ",
+			"input_account_id": "Nhập tên đăng nhập",
+			"input_pasword": "Nhập mật khẩu*",
+			"input_confirm_pasword": "Xác nhận mật khẩu*",
+			"input_email": "Nhập địa chỉ email*",
+			"input_address":"Nhập địa chỉ",
+			"input_phone_number": "Nhập số điện thoại"
+	}
+
+}
