@@ -41,7 +41,7 @@ class MailController {
                     calback(err, null);
                 } else {
                     let send_mail = await this.SendMail({
-                        sebdTo: email,
+                        sendTo: email,
                         subject: "Mã đăng ký tài khoản",
                         template: 'verify_code',
                     },
@@ -131,13 +131,13 @@ class MailController {
 
                 let mailOptions = {
                     from: this.mailInfo.user,
-                    to: "huy1992nd@gmail.com",
+                    to: obj.sendTo,
                     subject: obj.subject,
                     html: ejs.render(fs.readFileSync(this.pathFolder + this.getFileTemplate(obj.template), 'utf-8'), data)
                 };
                 transporter.sendMail(mailOptions, (er, info) => {
                     if (er) {
-                        console.log('----->',er);
+                        console.log('send mail ----->',er);
                         resolve(false);
                     }
                     resolve(true);

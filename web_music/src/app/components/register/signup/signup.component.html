@@ -48,9 +48,9 @@
           <div class="block-input">
              <input formControlName="confirm_password" type="password" class="form-control"  matInput placeholder="Xác nhận mật khẩu*" [type]="!showConfirmPassword ? 'password' : 'text'"
             ngDefaultControl [errorStateMatcher]="confirmPasswordValidator">
-            <div class="error" *ngFor="let validation of account_validation_messages.confirm_password">
-              <mat-error *ngFor="let validation of account_validation_messages.confirm_password">
-                <mat-error class="error-message" *ngIf="form.hasError(validation.type) && (form.get('confirm_password').dirty || form.get('confirm_password').touched)">{{validation.message}}</mat-error>
+            <div class="error" *ngIf="form.hasError('confirmPassword')">
+              <mat-error >
+                <mat-error class="error-message" *ngIf="form.hasError('confirmPassword') && (form.get('confirm_password').dirty || form.get('confirm_password').touched)">Confirm password khác password</mat-error>
               </mat-error>
             </div>
           </div>

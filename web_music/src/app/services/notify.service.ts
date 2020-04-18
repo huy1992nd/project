@@ -36,7 +36,7 @@ export class NotifyService {
   success(text: string) {
     let notice = this.notify.success({
       text: text,
-      delay: 1000,
+      delay: 2000,
       addClass: 'alert alert-success  notify-success',
       modules: {
         Buttons: {

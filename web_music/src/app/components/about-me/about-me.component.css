@@ -1,0 +1,15 @@
+#container{
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  background: white url("src\assets\theme\img\bg.jpg") center center no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+.wrapper{
+  display: inline-block;
+  margin-top: unset;
+  padding: 0px;
+  width: 100%;
+}

@@ -106,13 +106,13 @@ class SongController {
                     data: result
                 });
             } catch (error) {
-                res.status(500).json({
+                res.status(200).json({
                     result_code: ResultCode.NOT_SUCCESS
                 });
             }
 
         } else {
-            res.status(401).json({
+            res.status(200).json({
                 result_code: ResultCode.NOT_AUTHEN
             });
         }
@@ -131,13 +131,13 @@ class SongController {
                     data: list_result
                 });
             } catch (error) {
-                res.status(500).json({
+                res.status(200).json({
                     result_code: ResultCode.NOT_SUCCESS
                 });
             }
 
         } else {
-            res.status(401).json({
+            res.status(200).json({
                 result_code: ResultCode.NOT_AUTHEN
             });
         }
@@ -176,13 +176,13 @@ class SongController {
                 });
                
             } catch (error) {
-                res.status(500).json({
+                res.status(200).json({
                     result_code: ResultCode.NOT_SUCCESS
                 });
             }
 
         } else {
-            res.status(401).json({
+            res.status(200).json({
                 result_code: ResultCode.NOT_AUTHEN
             });
         }
@@ -221,7 +221,7 @@ class SongController {
             }
 
         } else {
-            res.status(401).json({
+            res.status(200).json({
                 result_code: ResultCode.NOT_AUTHEN
             });
         }
@@ -278,13 +278,13 @@ class SongController {
                     data: list_song
                 });
             } catch (error) {
-                res.status(500).json({
+                res.status(200).json({
                     result_code: ResultCode.NOT_SUCCESS
                 });
             }
 
         } else {
-            res.status(401).json({
+            res.status(200).json({
                 result_code: ResultCode.NOT_AUTHEN
             });
         }

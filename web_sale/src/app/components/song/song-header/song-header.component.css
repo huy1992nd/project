@@ -102,9 +102,3 @@ ul.dropdown-menu li{
   margin-bottom: 5px;
  }
 
- .dropdown-menu.extended.logout > li{
-  width: 50%;
- }
- .top-nav ul.top-menu > li .dropdown-menu.logout {
-  width: 200px !important;
-}

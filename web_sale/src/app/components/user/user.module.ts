@@ -15,9 +15,8 @@ import { UserItemExpansionComponent } from './user-item-expansion/user-item-expa
 import { ManagerRolePermissionComponent } from './user-item-expansion/manager-role-permission/manager-role-permission.component';
 import { UserShowInforComponent } from './user-item-expansion/user-show-infor/user-show-infor.component'; 
 import { ConvertPermissionPipe } from './../../pipes/convert-permission.pipe';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 @NgModule({
-  declarations: [ListUserComponent, UpdateUserPermissionComponent, UserComponent, CreateUserDialogComponent, UpdateUserDialogComponent, BlockUserDialogComponent, UserItemExpansionComponent, ManagerRolePermissionComponent, UserShowInforComponent, ConvertPermissionPipe, UserProfileComponent],
+  declarations: [ListUserComponent, UpdateUserPermissionComponent, UserComponent, CreateUserDialogComponent, UpdateUserDialogComponent, BlockUserDialogComponent, UserItemExpansionComponent, ManagerRolePermissionComponent, UserShowInforComponent, ConvertPermissionPipe],
   imports: [
     CommonModule,
     MatAngularModule,

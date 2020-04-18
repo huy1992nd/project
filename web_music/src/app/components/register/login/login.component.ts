@@ -51,8 +51,8 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
    // this.radicalValue = this.sanitizer.bypassSecurityTrustStyle("background: radial-gradient(circle at center center ,#e5e5be, #003973);");
     this.form = new FormGroup({
-      account_id: new FormControl('root_localhost', [Validators.required,Validators.minLength(6),Validators.pattern("[^' ']+")]),
-      password: new FormControl('123456', [Validators.required, Validators.minLength(6)]),
+      account_id: new FormControl('', [Validators.required,Validators.minLength(6),Validators.pattern("[^' ']+")]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       remember_account: new FormControl(false)
     });
 

@@ -51,6 +51,7 @@ import { SafePipe  } from './pipes/safe-url.pipe';
 import { FavoritesSongComponent } from './components/song/favorites-song/favorites-song.component';
 import { LikeSongComponent } from './components/song/common/like-song/like-song.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { AboutMeComponent } from './components/about-me/about-me.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
     FavoritesSongComponent,
     LikeSongComponent,
     NotFoundPageComponent,
+    AboutMeComponent,
   ],
   imports: [
     HttpClientModule,

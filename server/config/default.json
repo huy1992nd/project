@@ -47,7 +47,7 @@
 		},
 	"time_out_code":300000,
 	"ext_token":8640000,
-	"port":81,
+	"port":3000,
 	"redis": {
 		"server": "207.180.249.210",
 		"port": 6379,

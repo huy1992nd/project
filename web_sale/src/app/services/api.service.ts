@@ -81,10 +81,6 @@ export class ApiService {
 	return this.httpService.authPost('/user_update_profile', data).toPromise();
   }
 
-  getUserProfile(data: any): Promise<any> {
-	  return this.httpService.authGet('/user_get_profile', data).toPromise();
-  }
-
   updateUserPermission(data: any): Promise<any> {
     return this.httpService.authPost('/update_user_permission', data).toPromise();
   }
