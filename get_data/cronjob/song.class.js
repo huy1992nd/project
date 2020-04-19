@@ -660,6 +660,30 @@ class CrawlVocalData2 extends CrawlSongData{
         });
     }
 
+    // update lowcase
+    async updateLowCase(){
+        var list_data = await Song.find({type : this.type }, (error, result)=>{});
+        await this.asyncForEach(list_data, async (item, index) => {
+            if(index <1000){
+                let name_low = item.name.toLowerCase();
+                let singer_low = item.singer.toLowerCase();
+                console.log(name_low+ "___"+singer_low);
+                await Song.updateOne({ _id: item._id }, {
+                    $set: {
+                        name_low : name_low,
+                        singer_low : singer_low
+                    }
+                }, { upsert: false }, (err, result) => {
+                    if (err) {
+                        console.log('Have error when insert data', item);
+                    } else {
+                        console.log("update ", item.song_id, "ok");
+                    }
+                }); 
+            }
+        });
+    }
+
     async getContentPage(link) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -703,7 +727,7 @@ class CrawlVocalData2 extends CrawlSongData{
 // s  = new CrawlVocalData("voca.vn");
 // s.crawlData();
 s_2  = new CrawlVocalData2("2");
-s_2.updateView();
+s_2.updateLowCase();
 
 
 module.exports = CrawlVocalData;

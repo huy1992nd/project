@@ -18,15 +18,15 @@ class SongController {
         if (user) {
             try {
                 let page = parseInt(req.query.page) || 1;
-                let search = req.query.search || "";
+                let search = req.query.search.toLowerCase() || "";
                 var condition = {
                     type: "2"
                 };
                 if (search) {
                     condition = {
                         $or: [
-                            { "name": { '$regex': search }, "type": "2" },
-                            { "singer": { '$regex': search }, "type": "2" }
+                            { "name_low": { '$regex': search }, "type": "2" },
+                            { "singer_low": { '$regex': search }, "type": "2" }
                         ]
                     }
                 }
@@ -83,15 +83,15 @@ class SongController {
                 var condition = {
                     type: "2"
                 };
-                let search = req.query.search || "";
+                let search = req.query.search.toLowerCase() || "";
                 var condition = {
                     type: "2"
                 };
                 if (search) {
                     condition = {
                         $or: [
-                            { "name": { '$regex': search }, "type": "2" },
-                            { "singer": { '$regex': search }, "type": "2" }
+                            { "name_low": { '$regex': search }, "type": "2" },
+                            { "singer_low": { '$regex': search }, "type": "2" }
                         ]
                     }
                 }
