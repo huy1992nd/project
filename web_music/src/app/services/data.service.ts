@@ -35,6 +35,7 @@ export class DataService {
   topLike:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   topView:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   inforRegister:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  listPost:   BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(private translateService: TranslateService) {
     var lang = localStorage.getItem('language') || navigator.language;
     translateService.addLangs(['en', 'vi']);

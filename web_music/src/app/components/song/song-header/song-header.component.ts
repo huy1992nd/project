@@ -16,9 +16,11 @@ export class SongHeaderComponent implements OnInit {
   public sub:any;
   public subMode:any;
   public subView:any;
+  public subPost:any;
   public subFavorites:any;
   public listFavorites:any =[];
   public listViews:any =[];
+  public listPost:any =[];
   public page:any = 1;
   public search:any = "";
   form: FormGroup;
@@ -52,6 +54,7 @@ export class SongHeaderComponent implements OnInit {
 
     this.getListFavorites();
     this.getView();
+    this.getListPost();
   }
 
   initSub(){
@@ -79,6 +82,11 @@ export class SongHeaderComponent implements OnInit {
       this.listViews = data;
       this.max_view = this.listViews[0].view || 100;
     });
+    this.subPost = this.dataService.listPost.subscribe(data=>{
+      if(!data)
+          return;
+      this.listPost = data;
+    });
   }
 
   gotoLink(song_id){
@@ -102,6 +110,14 @@ export class SongHeaderComponent implements OnInit {
       this.userApiService.topView({}).then(data => {});
     }
   }
+  getListPost() {
+    let list = this.dataService.listPost.getValue();
+    if (list) {
+      this.listPost = list;
+    } else {
+      this.userApiService.listPost({}).then(data => {});
+    }
+  }
 
   getPercent(i){
     let v = i? parseInt(i): 0;
@@ -116,15 +132,15 @@ export class SongHeaderComponent implements OnInit {
     }
   }
 
-  changeMode(){
-    if(this.currentMode == 'favorites'){
-      this.currentMode = '';
+  changeMode(mode){
+    if(this.currentMode == 'favorites' || this.currentMode == 'notification' ){
+      this.currentMode = 'normal';
       this.dataService.currentMode.next(this.currentMode);
       this.router.navigate(['../'], { });
     }else{
-      this.currentMode = 'favorites';
+      this.currentMode = mode;
       this.dataService.currentMode.next(this.currentMode);
-      this.router.navigate(['/favorites'], { });
+      this.router.navigate(['/'+mode], { });
     }
 
   }
@@ -161,6 +177,7 @@ export class SongHeaderComponent implements OnInit {
     this.subMode.unsubscribe();
     this.subFavorites.unsubscribe();
     this.subView.unsubscribe();
+    this.subPost.unsubscribe();
   }
 }
 

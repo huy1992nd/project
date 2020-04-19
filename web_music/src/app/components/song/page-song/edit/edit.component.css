@@ -1,0 +1,13 @@
+::ng-deep .sub_des .mat-form-field-infix{
+  width: 280px;
+}
+::ng-deep .date_pub .mat-form-field-infix{
+  width: 163px;
+}
+::ng-deep .input-content{
+  margin: 0px;
+}
+
+.add-task-row{
+  margin-left: 15px;
+}

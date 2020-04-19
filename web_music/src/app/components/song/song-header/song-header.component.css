@@ -108,3 +108,10 @@ ul.dropdown-menu li{
  .top-nav ul.top-menu > li .dropdown-menu.logout {
   width: 200px !important;
 }
+
+.logo-img{
+  width: 130px;
+  height: 25px;
+  margin-left: 18px;
+  margin-top: -10px;
+}

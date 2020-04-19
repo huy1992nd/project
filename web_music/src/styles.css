@@ -3,3 +3,7 @@
 .alert{
   padding:0px;
 }
+
+.notify-error{
+  background-color: #f2d8b6 !important;
+}

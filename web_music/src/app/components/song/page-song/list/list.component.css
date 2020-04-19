@@ -1,0 +1,7 @@
+.disabled{
+  cursor: not-allowed;
+}
+
+.task-content-list {
+  min-height: calc(100vh - 310px);
+}

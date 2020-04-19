@@ -1,0 +1,94 @@
+
+<section id="main-content">
+  <section class="wrapper-2 wrapper">
+      <!-- page start-->
+      <div class="row">
+          <div class="col-md-12">
+            <section class="panel tasks-widget">
+              <header class="panel-heading">
+                Thêm tin tức mới
+              </header>
+              <form [formGroup]="createPost" (ngSubmit)="submit()">
+                <div class="panel-body">
+                    <div class="task-content">
+                      <div class="card">
+                        <div class="card-body">
+                            <div class="row input-content">
+                              <div class="form-group col-md-3">
+                                  <mat-form-field class="example-full-width">
+                                      <input matInput placeholder="Tiêu đề" formControlName="post_title" (keyup)="post_title_change($event)">
+                                      <mat-error *ngFor="let validation of create_post_validation_messages.post_title">
+                                          <mat-error class="error-message"
+                                            *ngIf="createPost.get('post_title').hasError(validation.type)">
+                                            {{validation.message}}
+                                          </mat-error>
+                                      </mat-error>
+                                  </mat-form-field>
+                              </div>
+                              <div class="form-group col-md-3">
+                                  <mat-form-field class="example-full-width">
+                                      <input matInput placeholder="Slug" value="" formControlName="post_slug">
+                                      <mat-error *ngFor="let validation of create_post_validation_messages.post_slug">
+                                          <mat-error class="error-message"
+                                            *ngIf="createPost.get('post_slug').hasError(validation.type)">
+                                            {{validation.message}}
+                                          </mat-error>
+                                      </mat-error>
+                                  </mat-form-field>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <mat-form-field class="example-full-width sub_des">
+                                  <input matInput placeholder="Miêu tả ngắn" value="" formControlName="post_excerpt">
+                                  <mat-error *ngFor="let validation of create_post_validation_messages.post_slug">
+                                      <mat-error class="error-message"
+                                        *ngIf="createPost.get('post_slug').hasError(validation.type)">
+                                        {{validation.message}}
+                                      </mat-error>
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="form-group col-md-3">
+                                <mat-form-field>
+                                    <mat-label>Trạng thái</mat-label>
+                                    <mat-select [(value)]="publish" formControlName="post_status">
+                                        <mat-option value="publish">Kích hoạt</mat-option>
+                                        <mat-option value="draft">Lưu nháp</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                              </div>
+                              <div class="form-group col-md-3">
+                                <label class="form-control-label"></label>
+                                <mat-form-field class="date_pub">
+                                    <input matInput [matDatepicker]="picker" placeholder="Chọn ngày xuất bản" formControlName="publish_at">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                              </div>
+                            </div>
+        
+                            <div class="form-group  col-md-12">
+                                <label class="form-control-label">Nội dung</label>
+                                <ckeditor 
+                                    [config]="config"
+                                    formControlName="post_content"
+                                >
+                                </ckeditor>
+                            </div>
+        
+                        </div>
+                      </div>
+                    </div>
+                    <div class="add-task-row">
+                        <a class="btn btn-success btn-sm pull-left" (click)="submit()">
+                          Lưu lại
+                        </a>
+                        <a style="margin-right:15px" class="btn btn-default btn-sm pull-right"  [routerLink]="['/notification']">Danh sách bài viết</a>
+                    </div>
+                </div>
+              </form>
+          </section>
+          
+          </div>
+      </div>
+    </section>
+  </section>

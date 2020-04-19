@@ -3,3 +3,7 @@
   background-color: #fff;
   height: 85vh;
 }
+
+::ng-deep .task-content{
+   min-height: calc(100vh - 281px);
+}

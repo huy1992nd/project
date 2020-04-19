@@ -6,6 +6,7 @@ import {RegisterVerifyComponent} from './components/register/register-verify/reg
 import {ForgotPasswordComponent} from './components/register/forgot-password/forgot-password.component';
 import {DashboardComponent} from './components/home/dashboard/dashboard.component';
 import {AuthGuard} from './common/auth.guard';
+import {AuthPostGuard} from './common/authPost.guard';
 import {TranslateModule, TranslateService, TranslatePipe, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 // Sale
@@ -39,6 +40,12 @@ import { FavoritesSongComponent } from './components/song/favorites-song/favorit
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { AboutMeComponent } from './components/about-me/about-me.component';
+// list page song
+import {PageSongComponent} from './components/song/page-song/page-song.component';
+import {ListPostSongComponent} from './components/song/page-song/list/list.component';
+import {CreatePostSongComponent} from './components/song/page-song/create/create.component';
+import {EditPostSongComponent} from './components/song/page-song/edit/edit.component';
+import {PageSongViewComponent} from './components/song/page-song/page-song-view/page-song-view.component';
 
 const routes: Routes = [ 
     {
@@ -61,6 +68,30 @@ const routes: Routes = [
             {
                 path: 'user-profile',
                 component: UserProfileComponent
+            },
+            {
+                path: 'notification',
+                component: PageSongComponent,
+                children: [
+                    {
+                        path: '',
+                        component: ListPostSongComponent
+                    },
+                    {
+                        path: 'view/:id',
+                        component: PageSongViewComponent
+                    },
+                    {
+                        canActivate: [AuthPostGuard],
+                        path: 'create',
+                        component: CreatePostSongComponent
+                    },
+                    {
+                        canActivate: [AuthPostGuard],
+                        path: 'edit/:id',
+                        component: EditPostSongComponent
+                    }                    
+                ]
             }
         ],
     },

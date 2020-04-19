@@ -1,0 +1,122 @@
+/*--------------Tasks Widget--------------*/
+
+::ng-deep .wrapper-2 {
+  display: inline-block;
+    margin-top: 0px;
+    padding: 0px;
+    width: 100%;
+    min-height: 665px;
+}
+
+::ng-deep .btn-xs{
+  margin-right: 5px;
+}
+::ng-deep .panel-heading {
+  border-color: #eff2f7;
+  font-size: 16px;
+  font-weight: 500;
+  color: #b28181;
+}
+
+::ng-deep .task-content {
+  margin-bottom: 30px;
+}
+
+::ng-deep .tasks-widget .task-content:after {
+clear: both;
+}
+
+::ng-deep .tasks-widget .task-footer  { 
+margin-top: 5px;
+}
+
+::ng-deep .tasks-widget .task-footer:after,
+.tasks-widget .task-footer:before  {
+content: "";
+display: table;
+line-height: 0;
+}
+
+::ng-deep .tasks-widget .task-footer:after {
+clear: both;
+}
+
+::ng-deep .tasks-widget  .task-list {
+padding:0;
+margin:0;
+}
+
+::ng-deep .tasks-widget .task-list > li {
+position:relative;
+padding:10px 5px;
+border-bottom:1px dashed #eaeaea;
+}
+
+::ng-deep .tasks-widget .task-list  li.last-line {
+border-bottom:none;
+}
+
+::ng-deep .tasks-widget .task-list  li > .task-bell  {
+margin-left:10px;
+}
+
+::ng-deep .tasks-widget .task-list  li > .task-checkbox {
+float:left;
+width:30px;
+}
+
+::ng-deep .tasks-widget .task-list  li > .task-title  {
+overflow:hidden;
+margin-right:10px;
+}
+
+::ng-deep .tasks-widget .task-list  li > .task-config {
+position:absolute;
+top:10px;
+right:10px;
+}
+
+::ng-deep .tasks-widget .task-list  li .task-title .task-title-sp  {
+margin-right:5px;
+line-height: 1.5;
+}
+
+::ng-deep .tasks-widget .task-list  li.task-done .task-title-sp  {
+text-decoration:line-through;
+color: #bbbbbb;
+}
+
+::ng-deep .tasks-widget .task-list  li.task-done  {
+background:#f6f6f6;
+}
+
+::ng-deep .tasks-widget .task-list  li.task-done:hover {
+background:#f4f4f4;
+}
+
+::ng-deep .tasks-widget .task-list  li:hover  {
+background:#f9f9f9;
+}
+
+::ng-deep .tasks-widget .task-list  li .task-config {
+display:none;
+}
+
+::ng-deep .tasks-widget .task-list  li:hover > .task-config {
+display:block;
+margin-bottom:0 !important;
+}
+
+
+@media only screen and (max-width: 320px) {
+
+::ng-deep .tasks-widget .task-config-btn {
+  float:inherit;
+  display:block;
+}
+
+::ng-deep .tasks-widget .task-list-projects li > .label {
+  margin-bottom:5px;
+}
+
+}

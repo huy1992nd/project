@@ -103,6 +103,7 @@
 		"50": "permission exist",
 		"40": "Can not connect server ",
 		"10": "Thiếu thông tin đầu vào ",
+		"98": "Bạn không có quyền cho hành động này",
 		"99": "Lỗi sql"
 	},
 	"user":{

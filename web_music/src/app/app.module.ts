@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/home/dashboard/dashboard.component';
 import {RegisterModule} from './components/register/register.module'
 import {AuthGuard} from './common/auth.guard';
+import {AuthPostGuard} from './common/authPost.guard';
 import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {UserModule} from './components/user/user.module';
@@ -37,8 +38,8 @@ import { CKEditorModule } from 'ckeditor4-angular';
 import { CmsMenuNodeComponent } from './components/cms/cms-menu-node/cms-menu-node.component';
 import { CmsMenuNodeListComponent } from './components/cms/cms-menu-node/cms-menu-node-list/cms-menu-node-list.component';
 
-import {MatAngularModule} from './common/mat-angular.module'
-import {PermissionModule} from './components/permission/permission.module'
+import {MatAngularModule} from './common/mat-angular.module';
+import {PermissionModule} from './components/permission/permission.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SaleComponent } from './components/sale/sale.component';
 import { ListViewComponent } from './components/sale/list-view/list-view.component';
@@ -52,6 +53,11 @@ import { FavoritesSongComponent } from './components/song/favorites-song/favorit
 import { LikeSongComponent } from './components/song/common/like-song/like-song.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { AboutMeComponent } from './components/about-me/about-me.component';
+import { PageSongComponent } from './components/song/page-song/page-song.component';
+import { ListPostSongComponent } from './components/song/page-song/list/list.component';
+import { EditPostSongComponent } from './components/song/page-song/edit/edit.component';
+import { CreatePostSongComponent } from './components/song/page-song/create/create.component';
+import { PageSongViewComponent } from './components/song/page-song/page-song-view/page-song-view.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +94,11 @@ import { AboutMeComponent } from './components/about-me/about-me.component';
     LikeSongComponent,
     NotFoundPageComponent,
     AboutMeComponent,
+    PageSongComponent,
+    ListPostSongComponent,
+    EditPostSongComponent,
+    CreatePostSongComponent,
+    PageSongViewComponent,
   ],
   imports: [
     HttpClientModule,
@@ -117,6 +128,7 @@ import { AboutMeComponent } from './components/about-me/about-me.component';
     
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     AuthGuard,
+    AuthPostGuard,
     LazyLoadScriptService
   ],
   bootstrap: [AppComponent],

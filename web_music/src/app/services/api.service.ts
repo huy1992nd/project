@@ -297,9 +297,14 @@ export class ApiService {
   }
 
   // Page & Post
-  listPost(data: any): Promise<any> {
-    const url = data.post_type ? '/cms/post/index/?post_type=' + data.post_type : '/cms/post/index/';
-    return this.httpService.authGet(url).toPromise();
+  listPost(input: any): Promise<any> {
+    const url = input.post_type ? '/cms/post/index/?post_type=' + input.post_type : '/cms/post/index/';
+    // return this.httpService.publicGet(url).toPromise();
+    return this.httpService.publicGet(url, input).toPromise().then((data:any)=>{
+      if (data.data != undefined) {
+        this.dataService.listPost.next(data.data);
+      }
+    })
 }
 
 createPost(data: any): Promise<any> {

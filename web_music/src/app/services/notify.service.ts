@@ -55,6 +55,7 @@ export class NotifyService {
     let notice = this.notify.error({
       text: text,
       addClass: 'notify-error',
+      delay: 2000,
       modules: {
         Buttons: {
           closer: false,

@@ -32,12 +32,13 @@
 		"30": "Email not exist ",
 		"31": "Email exist ",
 		"33": "hacker",
-		"35": "Mã Xác thực sai",
+		"35": "Wrong code",
 		"61": "role exist",
 		"50": "permission exist",
 		"40": "Can not connect server ",
-		"10": "Thiếu thông tin đầu vào ",
-		"99": "Lỗi sql"
+		"10": "Input not true",
+		"98": "Not permission",
+		"99": "sql error"
 	},
 	"list-permission": {
 		"Action": "Action",

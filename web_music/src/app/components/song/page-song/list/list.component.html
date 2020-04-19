@@ -1,0 +1,62 @@
+<section id="main-content">
+  <section class="wrapper-2 wrapper">
+      <!-- page start-->
+      <div class="row">
+          <div class="col-md-12">
+              <section class="panel tasks-widget">
+                  <header class="panel-heading">
+                      Danh sách thông báo
+                  </header>
+                  <div class="panel-body">
+
+                      <div class="task-content-list task-content">
+                          <ul class="task-list">
+                              <li *ngFor="let post of pageTable.pagedItems[pageTable.currentPage]; index as i; first as isFirst">
+                                  <div class="task-checkbox">
+                                    <i class="icon-bell-alt"></i>
+                                  </div>
+                                  <div class="task-title">
+                                      <span class="task-title-sp"><a rou>{{post.post_title}}</a></span>
+                                      <span 
+                                      [ngClass]="{
+                                           'label-inverse':post.publish.type == '1',
+                                           'label-info':post.publish.type == '2',
+                                           'label-success':post.publish.type == '3'|| post.publish.type == '4'
+                                        }"
+                                      class="badge badge-sm ">{{post.publish.text}}</span>
+                                      <div class="pull-right hidden-phone">
+                                          <button  [routerLink]="['view', post.id]"  class="btn btn-success btn-xs"><i class="icon-eye-open"></i></button>
+                                          <button *ngIf="currentUser && currentUser.permission ==9" [routerLink]="['edit', post.id]" class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
+                                          <button *ngIf="currentUser && currentUser.permission ==9" (click)="deletePost(post.id)" class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
+                                      </div>
+                                  </div>
+                              </li>
+                         
+                              
+                          </ul>
+                      </div>
+
+                      <div class=" add-task-row">
+                          <a  *ngIf="currentUser && currentUser.permission ==9" class="btn btn-success btn-sm pull-left" [routerLink]="['create']">Thêm bài viêt</a>
+                          <div id="editable-sample_wrapper" class="pull-right dataTables_wrapper form-inline" role="grid">
+                              <div class="row">
+                                  <div class="col-lg-12" style="text-align: right;">
+                                      <div style="float: unset; margin-bottom: 0px;" class="dataTables_paginate paging_bootstrap pagination">
+                                          <ul>
+                                              <li class ="prev {{pageTable && pageTable.currentPage == 0 ? 'disabled':''}}"><a (click)="pageTable.prevPage()">← Prev</a></li>
+                                              <li *ngFor="let n of pageTable.range(pageTable.pagedItems.length, pageTable.currentPage, pageTable.currentPage + pageTable.gap) "
+                                              [ngClass]="{'next': 1, 'active': n == pageTable.currentPage}" class="paginate_button page-item " ><a (click) ="pageTable.setPage(n)" >{{n +1}}</a></li>
+                                              <li [ngClass]="{'disabled': pageTable.currentPage == pageTable.pagedItems.length-1 }" ><a (click) ="pageTable.nextPage()">Next → </a></li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+          </div>
+      </div>
+      <!-- page end-->
+  </section>
+</section>
