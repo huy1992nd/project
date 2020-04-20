@@ -13,6 +13,7 @@ import { Router,ActivatedRoute  } from '@angular/router';
 export class SongHeaderComponent implements OnInit {
   @ViewChild('searchbt', {static: false}) btsearch:ElementRef ;
   @ViewChild('searchip', {static: false}) ipsearch:ElementRef ;
+  @ViewChild('notify', {static: false}) notify:ElementRef ;
   public sub:any;
   public subMode:any;
   public subView:any;
@@ -147,16 +148,19 @@ export class SongHeaderComponent implements OnInit {
   clickHeader(e){
     if (e.target && e.target.classList && e.target.classList[0] == 'header'){
       this.renderer.removeClass(this.ipsearch.nativeElement,"search-select");
+      this.renderer.removeClass(this.notify.nativeElement,"hide-notify");
     }
   }
 
   removeSearch(){
     this.renderer.removeClass(this.ipsearch.nativeElement,"search-select");
+    this.renderer.removeClass(this.notify.nativeElement,"hide-notify");
   }
 
   submit(){
     if(!this.ipsearch.nativeElement.classList.contains('search-select')){
        this.renderer.addClass(this.ipsearch.nativeElement,"search-select");
+       this.renderer.addClass(this.notify.nativeElement,"hide-notify");
        this.ipsearch.nativeElement.focus();
     }else{
       this.router.navigate(['../'], { queryParams: this.form.value });

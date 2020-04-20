@@ -110,8 +110,44 @@ ul.dropdown-menu li{
 }
 
 .logo-img{
+  display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  content: url(src\assets\theme\img\logo.png);
   width: 130px;
   height: 25px;
-  margin-left: 18px;
-  margin-top: -10px;
+  padding-left: 18px; /* Equal to width of new image */
+}
+@media only screen and (max-width: 480px) {
+  
+  .logo-img{
+    display: block;
+    box-sizing: border-box;
+    content: url(src\assets\theme\img\logo_2.png);
+    width: 25px;
+    height: 25px;
+    padding-left: 0px;
+  }
+  .top-nav .username{
+    display: none;
+  }
+
+  #top_menu .nav > li, ul.top-menu > li {
+    float: left;
+  }
+
+  .search-select {
+    width: 180px;
+  }
+  
+  .notify-row, .search, .dont-show, .inbox-head .sr-input, .inbox-head .sr-btn {
+    display: initial;
+  }
+  .notify-row {
+    margin-left: 20px;
+  }
+
+  .hide-notify{
+    display: none;
+  }
 }

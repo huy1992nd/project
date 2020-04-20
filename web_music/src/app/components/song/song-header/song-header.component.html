@@ -5,11 +5,11 @@
       <i class="icon-home"></i>
   </div>
   <!--logo start-->
-  <a [routerLink]="['/'] " class="logo" >
-    <span> <img class="logo-img" src="./assets/theme/img/logo.png" alt=""></span>
+  <a [routerLink]="['/']" class="logo" >
+    <img class="logo-img" src="" >
    </a>
   <!--logo end-->
-  <div  *ngIf="listViews && listViews.length" class="nav notify-row" id="top_menu">
+  <div  *ngIf="listViews && listViews.length" #notify class="nav notify-row" id="top_menu">
     <!--  notification start -->
     <ul class="nav top-menu">
       <!-- settings start -->

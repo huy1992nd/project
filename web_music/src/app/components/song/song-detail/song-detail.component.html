@@ -6,10 +6,14 @@
               <div class="row">
                   <div class="col-md-8">
                     <div class="tab-content tasi-tab video-show">
-                        <div class="tab-pane active" id="popular">
-                            <div class="video-show-detail">
+                        <div class="tab-pane active" id="popular" (mouseover)='over()' (mouseout)='out()'>
+                            <div class="video-show-detail" >
                                 <iframe id="video-player" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" title="YouTube video player" width="100%" height="100%" 
                                 [src] ='current_song.link_you_tube | safe'></iframe>
+                            </div>
+                            <div #control_video class="control-video hide-control">
+                                <button [routerLink]="['/detail', prev_song]"  [queryParams]="{page:page}"><i class="icon-fast-backward"></i></button>
+                                <button [routerLink]="['/detail', next_song]" [queryParams]="{page:page}"><i class="icon-fast-forward"></i></button>
                             </div>
                         </div>
                     </div>

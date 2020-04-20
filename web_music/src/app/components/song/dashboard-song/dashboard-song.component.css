@@ -62,5 +62,13 @@
   .adv-table{
     font-size: 10px;
   }
+  .view{
+    right: 0px;
+  }
+
+  .p-thumb img {
+    width: 130px;
+  }
+  
 }
 
