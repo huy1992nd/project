@@ -65,6 +65,10 @@
 
 }
 
+::ng-deep .disable-action button{
+  cursor: not-allowed;
+}
+
 .hide-control button{
   display: none;
 }

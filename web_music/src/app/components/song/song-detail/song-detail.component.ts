@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { DataService } from './../../../services/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import {historyView} from '../../../models/history_view.model';
 @Component({
   selector: 'app-song-detail',
   templateUrl: './song-detail.component.html',
@@ -10,12 +11,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class SongDetailComponent implements OnInit {
   @ViewChild('control_video', { static: false }) control_video: ElementRef;
+  history_infor = new historyView();
   public currentUser: any;
   public subSong: any;
   public first_load = true;
+  public is_load = false;
   id_song: any;
-  prev_song: any;
-  next_song: any;
   current_song: any;
   page: any;
   constructor(
@@ -30,10 +31,85 @@ export class SongDetailComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.dataService.currentUser.getValue();
-    this.id_song = this.route.snapshot.params.id;
-    this.page = this.route.snapshot.queryParams.page;
-    this.getSong();
+    // this.id_song = this.route.snapshot.params.id;
+    // this.page = this.route.snapshot.queryParams.page;
+    // this.getSong();
     this.initSub();
+  }
+  
+  initSub() {
+    this.route.params
+      .subscribe((value) => {
+        this.id_song = this.route.snapshot.params.id;
+        this.page = this.route.snapshot.queryParams.page;
+        
+        this.getSong();
+        this.updateHistoryInfor();
+      });
+    this.subSong = this.dataService.listSongDetail.subscribe(data => {
+      if (!data) {
+        this.current_song = "none";
+        return;
+      } else {
+        this.current_song = data[this.id_song] || null;
+        this.updateView();
+      }
+    });
+  }
+
+  updateHistoryInfor(){
+    let h_infor = this.dataService.listHistory.getValue();
+    if(h_infor){
+      this.history_infor = h_infor;
+      if(this.history_infor.status == "new"){
+        this.history_infor.listIdSong.push(parseInt(this.id_song));
+        this.history_infor.current_index = 0;
+      }else{
+        this.history_infor.status = 'new';
+      }
+    }else{
+      this.history_infor.listIdSong = [parseInt(this.id_song)];
+    }
+    this.dataService.listHistory.next(this.history_infor);
+  }
+
+  clickNext(){
+    if(this.is_load == false){
+      this.is_load = true;
+      this.history_infor.status = 'next';
+      var id_song = 0;
+      if(this.history_infor.current_index){
+        let start_index = this.history_infor.listIdSong.length - this.history_infor.current_index;
+        let end_index = start_index + 1;;
+        id_song = this.history_infor.listIdSong.slice(start_index, end_index)[0];
+        this.history_infor.current_index--;
+      }else{
+        id_song = this.ranDomSong();
+        this.history_infor.listIdSong.push(id_song);
+      }
+      this.dataService.listHistory.next(this.history_infor);
+      this.router.navigate(['/detail', id_song]);
+    }
+  }
+
+  clickPrev(){
+    if(this.is_load == false){
+      this.is_load = true;
+      this.history_infor.status = 'prev';
+      var id_song = 0;
+      if(this.history_infor.current_index+1 < this.history_infor.listIdSong.length ){
+        let end_index = this.history_infor.listIdSong.length - (this.history_infor.current_index+1);
+        let start_index = end_index - 1;
+        id_song = this.history_infor.listIdSong.slice(start_index, end_index)[0];
+        this.history_infor.current_index++;
+      }else{
+        this.history_infor.current_index++;
+        id_song = this.ranDomSong();
+        this.history_infor.listIdSong.unshift(id_song);
+      }
+      this.dataService.listHistory.next(this.history_infor);
+      this.router.navigate(['/detail', id_song]);
+    }
   }
 
   over() {
@@ -42,26 +118,6 @@ export class SongDetailComponent implements OnInit {
 
   out() {
     this.renderer.addClass(this.control_video.nativeElement, "hide-control");
-  }
-
-  initSub() {
-    this.route.params
-      .subscribe((value) => {
-        this.id_song = this.route.snapshot.params.id;
-        this.page = this.route.snapshot.queryParams.page;
-        this.getSong();
-      });
-    this.subSong = this.dataService.listSongDetail.subscribe(data => {
-      if (!data) {
-        this.current_song = "none";
-        return;
-      } else {
-        this.current_song = data[this.id_song] || null;
-        this.next_song = this.ranDomSong()
-        this.prev_song = this.ranDomSong()
-        this.updateView();
-      }
-    });
   }
 
   convertURL(url: String) {
@@ -92,6 +148,7 @@ export class SongDetailComponent implements OnInit {
   }
 
   updateView() {
+    this.is_load = false;
     if (this.current_song && this.first_load) {
       this.apiService.updateView({ _id: this.current_song._id }).then(data => {
         this.first_load = false;
@@ -102,13 +159,8 @@ export class SongDetailComponent implements OnInit {
   findInListPage(listSongInPage) {
     try {
       if (this.page && listSongInPage && listSongInPage[this.page] && listSongInPage[this.page].find(item => item.song_id == this.id_song)) {
-        let current_pos = listSongInPage[this.page].map(function(e) { return e.song_id; }).indexOf(this.id_song);
-          this.next_song = listSongInPage[this.page][current_pos+1]?listSongInPage[this.page][current_pos+1].song_id : this.ranDomSong();
-          this.prev_song = listSongInPage[this.page][current_pos-1]?listSongInPage[this.page][current_pos-1].song_id : this.ranDomSong();
         return listSongInPage[this.page].find(item => item.song_id == this.id_song)
       } else {
-        this.next_song = this.ranDomSong();
-        this.prev_song = this.ranDomSong();
         return null;
       }
     } catch (error) {
