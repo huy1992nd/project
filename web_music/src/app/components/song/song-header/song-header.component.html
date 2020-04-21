@@ -50,7 +50,7 @@
               <i (click)="changeMode('favorites')" [ngClass]="{'icon-star': currentMode == 'favorites', 'icon-star-empty': currentMode != 'favorites'}" ></i>
               <span class="badge bg-important">{{listFavorites.length}}</span>
           </a>
-          <ul class="dropdown-menu extended inbox">
+          <ul class="list-favorite dropdown-menu extended inbox">
               <div class="notify-arrow notify-arrow-red"></div>
               <li>
                   <p class="red">You have {{listFavorites.length}} song favorites</p>
@@ -76,7 +76,7 @@
             <i (click)="changeMode('notification')" [ngClass]="{'icon-bell-alt': currentMode == 'notification', 'icon-bell': currentMode != 'notification'}" ></i>
               <span class="badge bg-warning">5</span>
           </a>
-          <ul class="dropdown-menu extended notification">
+          <ul class="list-page dropdown-menu extended notification">
               <div class="notify-arrow notify-arrow-yellow"></div>
               <li>
                   <p class="yellow">Có  {{listPost.length}} bài viết</p>

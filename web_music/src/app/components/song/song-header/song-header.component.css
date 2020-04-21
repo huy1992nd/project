@@ -150,4 +150,11 @@ ul.dropdown-menu li{
   .hide-notify{
     display: none;
   }
+
+  .list-favorite{
+    display: none !important;
+  }
+  .list-page{
+    display: none !important;
+  }
 }
