@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { DataService } from 'src/app/services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from 'src/app/services/notify.service';
 import {TranslateService} from '@ngx-translate/core';
@@ -10,9 +11,11 @@ import { HelperService } from 'src/app/services/helper.service';
   styleUrls: ['./page-song-view.component.css']
 })
 export class PageSongViewComponent implements OnInit {
-
+  public post_id : any;
+  public currentUser : any;
   constructor(
     private postApiService: ApiService,
+    private dataService: DataService,
 		private route: ActivatedRoute,
 		public translate: TranslateService,
 		public notify: NotifyService,
@@ -30,9 +33,11 @@ export class PageSongViewComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.currentUser = this.dataService.currentUser.getValue();
 		this.route.params
     .subscribe((value) => {
-      let id = this.route.snapshot.params.id;
+			let id = this.route.snapshot.params.id;
+			this.post_id = id;
       this.getEditPost({id: id});
     });
 		let id = this.route.snapshot.params.id;

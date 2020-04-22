@@ -5,7 +5,7 @@
             <div class="col-md-12">
               <section class="panel tasks-widget">
                 <header class="panel-heading">
-                  Sửa bài viết
+                  <button  [routerLink]="['/notification/view', post_id]"  class="btn btn-success btn-xs"><i class="icon-eye-open"></i></button> Sửa bài viết
                 </header>
                 <form [formGroup]="editPost" (ngSubmit)="submit()">
                   <div class="panel-body">

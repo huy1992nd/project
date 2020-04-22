@@ -118,6 +118,19 @@ ul.dropdown-menu li{
   height: 25px;
   padding-left: 18px; /* Equal to width of new image */
 }
+.icon-bell-alt{
+  cursor: pointer;
+}
+.icon-bell{
+  cursor: pointer;
+}
+
+.icon-star-empty{
+  cursor: pointer;
+}
+.icon-star{
+  cursor: pointer;
+}
 @media only screen and (max-width: 480px) {
   
   .logo-img{

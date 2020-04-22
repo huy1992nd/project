@@ -1,8 +1,10 @@
 .icon-star{
     color: #eaea1f;
     font-size: 18px;
+    cursor: pointer;
 }
 .icon-star-empty{
     color: #dddddd;
     font-size: 18px;
+    cursor: pointer;
 }

@@ -5,7 +5,7 @@
           <div class="col-md-12">
               <section class="panel tasks-widget">
                   <header class="panel-heading" style="display: flex; padding-bottom: 0px;">
-                      <p class="task-title-sp"><a  style="font-weight: 700;" rou>{{currentPost.post_title}}</a> </p>
+                      <p class="task-title-sp"> <button *ngIf="currentUser && currentUser.permission == 9" [routerLink]="['/notification/edit', post_id]" class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button> <a  style="font-weight: 700;" rou>{{currentPost.post_title}}</a> </p>
                       <p style="margin-left: 15px;padding-top: 5px;" class="badge badge-sm label-success">{{currentPost.post_slug}}</p>
                   </header>
                   <div class="panel-body">

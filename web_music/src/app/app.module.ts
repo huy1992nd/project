@@ -18,26 +18,7 @@ import {PaymentModule} from './components/payment/payment.module';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {LazyLoadScriptService} from './common/lazyLoadScript';
 import {ServiceModule} from './services/service.module'
-import { CmsDashboardComponent } from './components/cms/cms-dashboard/cms-dashboard.component';
-import { CmsPageComponent } from './components/cms/cms-page/cms-page.component';
-import { CmsTaxonomyComponent } from './components/cms/cms-taxonomy/cms-taxonomy.component';
-import { CmsPostCreateComponent } from './components/cms/cms-post/cms-post-create/cms-post-create.component';
-import { CmsPostListComponent } from './components/cms/cms-post/cms-post-list/cms-post-list.component';
-import { CmsComponent } from './components/cms/cms.component';
-import { CmsPageCreateComponent } from './components/cms/cms-page/cms-page-create/cms-page-create.component';
-import { CmsPostComponent } from './components/cms/cms-post/cms-post.component';
-import { CmsPageListComponent } from './components/cms/cms-page/cms-page-list/cms-page-list.component';
-import { CmsPostEditComponent } from './components/cms/cms-post/cms-post-edit/cms-post-edit.component';
-import { CmsPageEditComponent } from './components/cms/cms-page/cms-page-edit/cms-page-edit.component';
-import { CmsTaxonomyListComponent } from './components/cms/cms-taxonomy/cms-taxonomy-list/cms-taxonomy-list.component';
-import { CmsTaxonomyEditComponent } from './components/cms/cms-taxonomy/cms-taxonomy-edit/cms-taxonomy-edit.component';
-import { CmsMenuComponent } from './components/cms/cms-menu/cms-menu.component';
-import { CmsMenuListComponent } from './components/cms/cms-menu/cms-menu-list/cms-menu-list.component';
-import { CmsMenuEditComponent } from './components/cms/cms-menu/cms-menu-edit/cms-menu-edit.component';
 import { CKEditorModule } from 'ckeditor4-angular';
-import { CmsMenuNodeComponent } from './components/cms/cms-menu-node/cms-menu-node.component';
-import { CmsMenuNodeListComponent } from './components/cms/cms-menu-node/cms-menu-node-list/cms-menu-node-list.component';
-
 import {MatAngularModule} from './common/mat-angular.module';
 import {PermissionModule} from './components/permission/permission.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -64,24 +45,6 @@ import { PageSongViewComponent } from './components/song/page-song/page-song-vie
     AppComponent,
     HomeComponent,
     DashboardComponent,
-    CmsDashboardComponent,
-    CmsPageComponent,
-    CmsTaxonomyComponent,
-    CmsPostCreateComponent,
-    CmsPostListComponent,
-    CmsComponent,
-    CmsPageCreateComponent,
-    CmsPostComponent,
-    CmsPageListComponent,
-    CmsPostEditComponent,
-    CmsPageEditComponent,
-    CmsTaxonomyListComponent,
-    CmsTaxonomyEditComponent,
-    CmsMenuComponent,
-    CmsMenuListComponent,
-    CmsMenuEditComponent,
-    CmsMenuNodeComponent,
-    CmsMenuNodeListComponent,
     SaleComponent,
     ListViewComponent,
     ViewDetailComponent,

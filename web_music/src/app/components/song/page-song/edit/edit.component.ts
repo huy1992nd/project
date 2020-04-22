@@ -12,6 +12,7 @@ import { HelperService } from 'src/app/services/helper.service';
 })
 export class EditPostSongComponent implements OnInit {
   public config: any;
+  public post_id: any;
   constructor(
     private postApiService: ApiService,
     private route: ActivatedRoute,
@@ -43,6 +44,7 @@ export class EditPostSongComponent implements OnInit {
 
   ngOnInit() {
     let id = this.route.snapshot.params.id;
+    this.post_id = id;
     this.getEditPost({ id: id });
     this.editPost = new FormGroup({
       post_title: new FormControl(this.currentPost.post_title, [Validators.required, Validators.minLength(3)]),
@@ -82,7 +84,7 @@ export class EditPostSongComponent implements OnInit {
       this.postApiService.postEditPost(data).then(result => {
         if (result.result_code == 0) {
           this.notify.success('Sửa bài viết thành công');
-
+          this.postApiService.listPost({}).then(data => {});
         } else {
           this.notify.error(this.translate.instant(`error_code.${result.result_code}`));
         }

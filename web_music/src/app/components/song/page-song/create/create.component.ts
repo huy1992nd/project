@@ -58,7 +58,7 @@ export class CreatePostSongComponent implements OnInit {
       this.postApiService.createPost(data).then(result => {
         if (result.result_code == 0) {
           this.notify.success('Tạo bài viết thành công');
-
+          this.postApiService.listPost({}).then(data => {});
         } else {
           this.notify.error(this.translate.instant(`error_code.${result.result_code}`));
         }
