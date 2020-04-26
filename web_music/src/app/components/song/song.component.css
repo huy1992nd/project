@@ -7,3 +7,12 @@
 ::ng-deep .task-content{
    min-height: calc(100vh - 281px);
 }
+
+#main-content .wrapper{
+  min-height: 800px;
+}
+
+.load img{
+  width: 100%;
+  height: 100vh;
+}

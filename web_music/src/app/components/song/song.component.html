@@ -182,7 +182,11 @@
                 <!--breadcrumbs end -->
             </div>
         </div>
-        <router-outlet></router-outlet>
+        <router-outlet>
+            <div  *ngIf="loading" class="load col-lg-12 no-result" >
+                <img src="assets/theme/img/load_page.gif" alt="">
+             </div>
+        </router-outlet>
     </section>
   </section>
 

@@ -4,6 +4,7 @@ import { DataService } from './../../../services/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import {historyView} from '../../../models/history_view.model';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 @Component({
   selector: 'app-song-detail',
   templateUrl: './song-detail.component.html',
@@ -19,6 +20,18 @@ export class SongDetailComponent implements OnInit {
   id_song: any;
   current_song: any;
   page: any;
+  public config: PerfectScrollbarConfigInterface = {
+    wheelSpeed : 0.5,               // Scroll speed for the mousewheel event (Default: 1)
+    swipeEasing : true,           // Use easing for the swipe scrolling (Default: true).
+    suppressScrollX : true,       // Disable X axis in all situations (Default: false).
+    suppressScrollY : false,      // Disable Y axis in all situations (Default: false).
+    wheelPropagation : true,      // Propagate wheel events at the end (Default: false).
+    useBothWheelAxes : true,      // Always use both of the wheel axes (Default: false).
+    minScrollbarLength : 50,      // Minimum size (px) for the scrollbar (Default: null).
+    maxScrollbarLength : 150,      // Maximum size (px) for the scrollbar (Default: null).
+    scrollXMarginOffset : 0,      // Offset before enabling the X scroller (Default: 0).
+    scrollYMarginOffset : 0,      // Offset before enabling the Y scroller (Default: 0).
+  };
   constructor(
     private apiService: ApiService,
     private dataService: DataService,

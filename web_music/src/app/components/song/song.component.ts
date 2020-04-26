@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { LazyLoadScriptService } from './../../common/lazyLoadScript';
-import { Router } from '@angular/router';
+import {
+  Event,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router
+} from '@angular/router';
 import { DataService } from './../../services/data.service';
 import { ApiService } from 'src/app/services/api.service';
 @Component({
@@ -9,13 +16,31 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./song.component.css']
 })
 export class SongComponent implements OnInit {
-
+  loading = false;
   constructor(
     private lazyLoadService: LazyLoadScriptService,
     private apiService: ApiService,
     private dataService: DataService,
-    public router: Router,
-  ) { }
+    private router: Router,
+  ) { 
+    this.router.events.subscribe((event: Event) => {
+      switch (true) {
+        case event instanceof NavigationStart:
+        case event instanceof NavigationStart:
+          console.log('vao start')
+          this.loading = true;
+          break;
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationError:
+          console.log('vao not start')
+          this.loading = false;
+          break;
+      
+        default:
+          break;
+      }
+});
+  }
   public currentUser:any;
   ngOnInit() {
     this.currentUser = this.dataService.currentUser.getValue();

@@ -40,6 +40,13 @@ import { EditPostSongComponent } from './components/song/page-song/edit/edit.com
 import { CreatePostSongComponent } from './components/song/page-song/create/create.component';
 import { PageSongViewComponent } from './components/song/page-song/page-song-view/page-song-view.component';
 
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,11 +92,16 @@ import { PageSongViewComponent } from './components/song/page-song/page-song-vie
       }
     }),
     PermissionModule,
-    // SocialLoginModule
+    PerfectScrollbarModule
   ],
   providers: [
     
-    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true},
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    },
+
     AuthGuard,
     AuthPostGuard,
     LazyLoadScriptService

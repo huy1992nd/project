@@ -18,74 +18,44 @@
                         </div>
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <div class="tab-content tasi-tab lyric-show">
-                        <div class="tab-pane active" id="popular">
-                            <article  class="media" >
-                                <div class="media-body" style="position: relative; font-size: 18px;">
-                                    <p >
-                                        <app-like-song [id_song]="id_song"></app-like-song>
-                                        <span>
-                                            <strong> {{current_song.name}} </strong>
-                                        </span>
-                                        <i class=" icon-ellipsis-horizontal bt"></i> 
-                                        <span>
-                                            <strong> {{current_song.singer}}</strong>
-                                        </span> 
-                                    </p>
-                                </div>
-                            </article>
-                            <article *ngFor="let content of current_song.content; index as i; first as isFirst" class="media" >
-                                <div class="media-body" style="position: relative;">
-                                    <p> <span class="e-content">{{content[0]}}</span><br><p class="v-content"><i>{{content[1]}}</i></p></p>
-                                </div>
-                            </article>
-                            <table class="table " style=" display:none; width: 60%; margin: auto; color: #0b0b0b;">
-                              <thead>
-                                <tr style="margin-bottom: 20px; border-bottom: 0px;">
-                                  <th scope="col" colspan="2" style="font-size: 20px; padding-bottom: 40px; border-bottom: 0px; ">{{current_song.name}}<br><span style="color: #9a9a9a; font-size: 15px;">{{current_song.singer}}</span></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr *ngFor="let content of current_song.content; index as i; first as isFirst; " style="font-weight: 600;">
-                                  <td style=" text-align: left; border-right: solid 2px #f1f2f7; width: 50%; "><i class="icon-music bt"></i>{{content[0]}}</td>
-                                  <td style="text-align: left; padding-left: 15px;">{{content[1]}}</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane" id="comments">
-                            <article class="media">
-                                <a class="pull-left thumb p-thumb">
-                                    <img src="./assets/theme/img/avatar-mini.jpg">
-                                </a>
-                                <div class="media-body">
-                                    <a class="cmt-head" href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                                    <p> <i class="icon-time"></i> 1 hours ago</p>
-                                </div>
-                            </article>
-                            <article class="media">
-                                <a class="pull-left thumb p-thumb">
-                                    <img src="./assets/theme/img/avatar-mini2.jpg">
-                                </a>
-                                <div class="media-body">
-                                    <a class="cmt-head" href="#">Nulla vel metus scelerisque ante sollicitudin commodo</a>
-                                    <p> <i class="icon-time"></i> 23 mins ago</p>
-                                </div>
-                            </article>
-                            <article class="media">
-                                <a class="pull-left thumb p-thumb">
-                                    <img src="./assets/theme/img/avatar-mini3.jpg">
-                                </a>
-                                <div class="media-body">
-                                    <a class="cmt-head" href="#">Donec lacinia congue felis in faucibus. </a>
-                                    <p> <i class="icon-time"></i> 15 mins ago</p>
-                                </div>
-                            </article>
-                        </div>
-                        <div class="tab-pane " id="recent">
-                            Recent Item goes here
-                        </div>
+                  <div class="col-md-4" style="padding-right: 11px;">
+                      <div class="tab-content tasi-tab ">
+                        <perfect-scrollbar class="lyric-show perfect-scrollbar" [config]="config">
+                            <div class="tab-pane active" id="popular">
+                                <article  class="media" >
+                                    <div class="media-body" style="position: relative; font-size: 18px;">
+                                        <p >
+                                            <app-like-song [id_song]="id_song"></app-like-song>
+                                            <span>
+                                                <strong> {{current_song.name}} </strong>
+                                            </span>
+                                            <i class=" icon-ellipsis-horizontal bt"></i> 
+                                            <span>
+                                                <strong> {{current_song.singer}}</strong>
+                                            </span> 
+                                        </p>
+                                    </div>
+                                </article>
+                                <article *ngFor="let content of current_song.content; index as i; first as isFirst" class="media" >
+                                    <div class="media-body" style="position: relative;">
+                                        <p> <span class="e-content">{{content[0]}}</span><br><p class="v-content"><i>{{content[1]}}</i></p></p>
+                                    </div>
+                                </article>
+                                <table class="table " style=" display:none; width: 60%; margin: auto; color: #0b0b0b;">
+                                  <thead>
+                                    <tr style="margin-bottom: 20px; border-bottom: 0px;">
+                                      <th scope="col" colspan="2" style="font-size: 20px; padding-bottom: 40px; border-bottom: 0px; ">{{current_song.name}}<br><span style="color: #9a9a9a; font-size: 15px;">{{current_song.singer}}</span></th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let content of current_song.content; index as i; first as isFirst; " style="font-weight: 600;">
+                                      <td style=" text-align: left; border-right: solid 2px #f1f2f7; width: 50%; "><i class="icon-music bt"></i>{{content[0]}}</td>
+                                      <td style="text-align: left; padding-left: 15px;">{{content[1]}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                        </perfect-scrollbar>  
                     </div>
                   </div>
               </div>
@@ -95,6 +65,6 @@
       </section>
   </div>
   <div *ngIf="current_song == 'none'" class="col-lg-12 no-result" >
-    <img src="https://mantuatownship.com/wp-content/uploads/2018/01/no-results-empty-state.jpg" alt="">
+    <img src="assets/theme/img/not_load.jpg" alt="">
  </div>
 </div>
