@@ -36,7 +36,7 @@
     "passport-google-token": "^0.1.2",
     "path": "^0.12.7",
     "querystring": "^0.2.0",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "sequelize": "^4.43.0",
     "socket.io": "^2.1.1"
   }
