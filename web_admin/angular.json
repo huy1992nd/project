@@ -26,9 +26,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [
-                
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -122,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "dashboard"
+    }
+  },
+  "defaultProject": "dashboard",
+  "cli": {
+    "analytics": "e595af2d-dae6-4692-b6fe-cf0ba4e84fb6"
+  }
 }
